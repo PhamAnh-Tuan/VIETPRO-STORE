@@ -4,7 +4,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Quản trị - Store</title>
+    <title>Quản trị - Store</title>
+    <base href="{{asset('')}}backend/">
+
 	<!-- css -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	

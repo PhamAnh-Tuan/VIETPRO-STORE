@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>VIETPRO STORE</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="{{asset('')}}fontend/">
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css">
 	<!-- Icomoon Icon Fonts-->
@@ -18,6 +19,7 @@
 
 	<!-- Flexslider  -->
 	<link rel="stylesheet" href="css/flexslider.css">
+
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/custome.css">
@@ -116,95 +118,74 @@
 		</aside>
 		<!-- End header -->
 		<!-- main -->
-
-		<div class="colorlib-shop">
+		<div id="colorlib-contact">
 			<div class="container">
-				<div class="row row-pb-md">
-					<div class="col-md-10 col-md-offset-1">
-						<div class="process-wrap">
-							<div class="process text-center active">
-								<p><span>01</span></p>
-								<h3>Giỏ hàng</h3>
-							</div>
-							<div class="process text-center active">
-								<p><span>02</span></p>
-								<h3>Thanh toán</h3>
-							</div>
-							<div class="process text-center">
-								<p><span>03</span></p>
-								<h3>Hoàn tất thanh toán</h3>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="row">
-					<div class="col-md-7">
-							<form method="post" class="colorlib-form">
-							<h2>Chi tiết thanh toán</h2>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
+					<div class="col-md-10 col-md-offset-1">
+						<h3>Thôn tin liên hệ</h3>
+						<div class="row contact-info-wrap">
+							<div class="col-md-3">
+								<p><span><i class="icon-location"></i></span> Số nhà B8A ngõ 18 đường Võ Văn Dũng -
+									Hoàng Cầu - Đống Đa - Hà
+									Nội</p>
+							</div>
+							<div class="col-md-3">
+								<p><span><i class="icon-phone3"></i></span> <a href="tel://0988 550 553">0988 550 553</a>
+								</p>
+							</div>
+							<div class="col-md-3">
+								<p><span><i class="icon-paperplane"></i></span> <a
+										href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+							</div>
+							<div class="col-md-3">
+								<p><span><i class="icon-globe"></i></span> <a href="#">http://vietpro.edu.vn</a></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-10 col-md-offset-1">
+						<div class="contact-wrap">
+							<h3>Liên hệ</h3>
+							<form action="#">
+								<div class="row form-group">
+									<div class="col-md-12 padding-bottom">
 										<label for="fname">Họ & Tên</label>
-										<input type="text" name="full" class="form-control" placeholder="Full Name">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<label for="fname">Địa chỉ</label>
-										<input type="text" name="address" class="form-control"
-											placeholder="Nhập địa chỉ của bạn">
+										<input type="text" id="fname" class="form-control" placeholder="Họ và tên">
 									</div>
 								</div>
 
-								<div class="form-group">
-									<div class="col-md-6">
-										<label for="email">Địa chỉ email</label>
-										<input type="email" name="email" class="form-control"
-											placeholder="Ex: youremail@domain.com">
-									</div>
-									<div class="col-md-6">
-										<label for="Phone">Số điện thoại</label>
-										<input type="text" name="phone" class="form-control"
-											placeholder="Ex: 0123456789">
-									</div>
-								</div>
-								<div class="form-group">
+								<div class="row form-group">
 									<div class="col-md-12">
-
+										<label for="email">Email</label>
+										<input type="text" id="email" class="form-control"
+											placeholder="Email của bạn">
 									</div>
 								</div>
-							</div>
-						
-					</div>
-					<div class="col-md-5">
-						<div class="cart-detail">
-							<h2>Tổng Giỏ hàng</h2>
-							<ul>
-								<li>
 
-									<ul>
-										<li><span>1 x Tên sản phẩm</span> <span>₫ 990.000</span></li>
-										<li><span>1 x Tên sản phẩm</span> <span>₫ 780.000</span></li>
-									</ul>
-								</li>
+								<div class="row form-group">
+									<div class="col-md-12">
+										<label for="subject">Chủ đề</label>
+										<input type="text" id="subject" class="form-control" placeholder="Nhập chủ đề">
+									</div>
+								</div>
 
-								<li><span>Tổng tiền đơn hàng</span> <span>₫ 1.370.000</span></li>
-							</ul>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12">
-								<p><button type="submit" class="btn btn-primary">Thanh toán</button></p>
-							</div>
+								<div class="row form-group">
+									<div class="col-md-12">
+										<label for="message">Lời nhắn</label>
+										<textarea name="message" id="message" cols="30" rows="10" class="form-control"
+											placeholder="Nói gì đó cho chúng tôi"></textarea>
+									</div>
+								</div>
+								<div class="form-group text-center">
+									<input type="submit" value="Gửi liên hệ" class="btn btn-primary">
+								</div>
+							</form>
 						</div>
 					</div>
-				</form>
 				</div>
 			</div>
 		</div>
-
+		<div id="map" class="colorlib-map"></div>
 		<!-- end main -->
-
 		<!-- subscribe -->
 		<div id="colorlib-subscribe">
 			<div class="overlay"></div>
