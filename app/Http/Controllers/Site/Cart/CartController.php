@@ -15,8 +15,4 @@ class CartController extends Controller
     {
         return view('Site.cart.checkout');
     }
-    function complete()
-    {
-        return view('Site.cart.complete');
-    }
 }
