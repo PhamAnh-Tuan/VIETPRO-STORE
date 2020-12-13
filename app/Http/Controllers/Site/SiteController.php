@@ -11,12 +11,10 @@ class SiteController extends Controller
     {
         return view('Site.index');
     }
-    // About
     function about()
     {
         return view('Site.about');
     }
-    // Contact
     function contact()
     {
         return view('Site.contact');

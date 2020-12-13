@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('login', 'LoginController@LoginGet')->name('login.get');
 Route::post('/login', 'LoginController@LoginPost');
 
-Route::group(['prefix' => 'quản-trị','namespace'=>'Admin'], function () {
+Route::group(['prefix' => 'trang-quản-trị','namespace'=>'Admin'], function () {
     Route::get('', 'AdminController@index')->name('admin.index');
     // Product
     Route::group(['prefix' => 'sản-phẩm', 'namespace'=>'Product'], function () {
@@ -28,7 +28,7 @@ Route::group(['prefix' => 'quản-trị','namespace'=>'Admin'], function () {
     });
     // Category
     Route::group(['prefix' => 'danh-mục', 'namespace'=>'Category'], function () {
-        Route::get('danh-sách-danh-mục', 'CategoryController@index')->name('category.index');
+        Route::get('danh-sách-danh-mục.html', 'CategoryController@index')->name('category.index');
         Route::get('chỉnh-sửa-danh-mục.html', 'CategoryController@edit')->name('category.edit');
         Route::get('xóa-danh-mục.html', 'CategoryController@delete')->name('category.delete');
 
@@ -44,12 +44,11 @@ Route::group(['prefix' => 'quản-trị','namespace'=>'Admin'], function () {
     Route::group(['prefix' => 'đơn-hàng', 'namespace'=>'Order'], function () {
         Route::get('danh-sách-đơn-hàng.html', 'OrderController@index')->name('order.index');
         Route::get('chi-tiết-đơn-hàng.html', 'OrderController@detail')->name('order.detail');
-        Route::get('hoàn-thành-đơn-hàng.html', 'OrderController@processed')->name('order.processed');
+        Route::get('đơn-hàng-đã-hoàn-thành.html', 'OrderController@processed')->name('order.processed');
     });
 });
-
 // Site
-Route::group(['prefix' => 'trang-chủ','namespace'=>'Site'], function () {
+Route::group(['namespace'=>'Site'], function () {
     Route::get('','SiteController@index')->name('site.index');
     Route::get('về-cửa-hàng','SiteController@about')->name('site.about');
     Route::get('liên-hệ','SiteController@contact')->name('site.contact');
