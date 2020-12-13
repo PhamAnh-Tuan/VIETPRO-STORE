@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>VIETPRO STORE</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="{{asset('')}}fontend/">
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css">
 	<!-- Icomoon Icon Fonts-->
@@ -119,7 +120,7 @@
 
 		<div class="colorlib-shop">
 			<div class="container">
-				<div class="row row-pb-lg">
+				<div class="row row-pb-md">
 					<div class="col-md-10 col-md-offset-1">
 						<div class="process-wrap">
 							<div class="process text-center active">
@@ -138,126 +139,71 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-10 col-md-offset-1 text-center">
-						<span class="icon"><i class="icon-shopping-cart"></i></span>
-						<h2>Cảm ơn bạn đã mua hàng, Đơn hàng của bạn đã đặt thành công</h2>
-						<p>
-							<a href="index.html" class="btn btn-primary">Trang chủ</a>
-							<a href="shop.html" class="btn btn-primary btn-outline">Tiếp tục mua sắm</a>
-						</p>
-					</div>
-				</div>
-				<div class="row mt-50">
-					<div class="col-md-4">
-						<h3 class="billing-title mt-20 pl-15">Thông tin đơn hàng</h3>
-						<table class="order-rable">
-							<tbody>
-								<tr>
-									<td>Đơn hàng số</td>
-									<td>: 60235</td>
-								</tr>
-								<tr>
-									<td>Ngày mua</td>
-									<td>: Oct 03, 2017</td>
-								</tr>
-								<tr>
-									<td>Tổng tiền</td>
-									<td>: ₫ 4.000.000</td>
-								</tr>
-								<tr>
-									<td>Phương thức thanh toán</td>
-									<td>: Nhận tiền mặt</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="col-md-4">
-						<h3 class="billing-title mt-20 pl-15">Địa chỉ thanh toán</h3>
-						<table class="order-rable">
-							<tbody>
-								<tr>
-									<td>Họ Tên</td>
-									<td>: Nguyễn Văn A</td>
-								</tr>
-								<tr>
-									<td>Số điện thoại</td>
-									<td>: 0123 456 789</td>
-								</tr>
-								<tr>
-									<td>Địa chỉ</td>
-									<td>: Số nhà B8A ngõ 18 đường Võ Văn Dũng - Hoàng Cầu - Đống Đa </td>
-								</tr>
-								<tr>
-									<td>Thành Phố</td>
-									<td>: Hà Nội</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="col-md-4">
-						<h3 class="billing-title mt-20 pl-15">Địa chỉ giao hàng</h3>
-						<table class="order-rable">
-							<tbody>
-								<tr>
-									<td>Họ Tên</td>
-									<td>: Nguyễn Văn A</td>
-								</tr>
-								<tr>
-									<td>Số điện thoại</td>
-									<td>: 0123 456 789</td>
-								</tr>
-								<tr>
-									<td>Địa chỉ</td>
-									<td>: Số nhà B8A ngõ 18 đường Võ Văn Dũng - Hoàng Cầu - Đống Đa </td>
-								</tr>
-								<tr>
-									<td>Thành Phố</td>
-									<td>: Hà Nội</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="container">
-				<div class="billing-form">
-					<div class="row">
-						<div class="col-12">
-							<div class="order-wrapper mt-50">
-								<h3 class="billing-title mb-10">Hóa đơn</h3>
-								<div class="order-list">
-									<div class="list-row d-flex justify-content-between">
-										<div class="col-md-4">SẢN PHẨM</div>
-
-										<div class="col-md-4 offset-md-4" align='right'>TỔNG CỘNG</div>
+					<div class="col-md-7">
+							<form method="post" class="colorlib-form">
+							<h2>Chi tiết thanh toán</h2>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="fname">Họ & Tên</label>
+										<input type="text" name="full" class="form-control" placeholder="Full Name">
 									</div>
-									<div class="list-row d-flex justify-content-between">
-										<div class="col-md-4">Sản phẩm 1 : color:red ,size:XL</div>
-										<div class="col-md-4" align='right'>x 02</div>
-										<div class="col-md-4" align='right'>₫ 720.000</div>
-
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="fname">Địa chỉ</label>
+										<input type="text" name="address" class="form-control"
+											placeholder="Nhập địa chỉ của bạn">
 									</div>
+								</div>
 
-									<div class="list-row d-flex justify-content-between">
-										<div class="col-md-4">Sản phẩm 1 : color:red ,size:XL</div>
-										<div class="col-md-4" align='right'>x 02</div>
-										<div class="col-md-4" align='right'>₫ 720.000</div>
-
+								<div class="form-group">
+									<div class="col-md-6">
+										<label for="email">Địa chỉ email</label>
+										<input type="email" name="email" class="form-control"
+											placeholder="Ex: youremail@domain.com">
 									</div>
+									<div class="col-md-6">
+										<label for="Phone">Số điện thoại</label>
+										<input type="text" name="phone" class="form-control"
+											placeholder="Ex: 0123456789">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12">
 
-									<div class="list-row border-bottom-0 d-flex justify-content-between">
-										<div class="col-md-4">
-											<h6>Tổng</h6>
-										</div>
-										<div class="col-md-4 offset-md-4" align='right'>₫ 1.420.000</div>
 									</div>
 								</div>
 							</div>
+						
+					</div>
+					<div class="col-md-5">
+						<div class="cart-detail">
+							<h2>Tổng Giỏ hàng</h2>
+							<ul>
+								<li>
+
+									<ul>
+										<li><span>1 x Tên sản phẩm</span> <span>₫ 990.000</span></li>
+										<li><span>1 x Tên sản phẩm</span> <span>₫ 780.000</span></li>
+									</ul>
+								</li>
+
+								<li><span>Tổng tiền đơn hàng</span> <span>₫ 1.370.000</span></li>
+							</ul>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<p><button type="submit" class="btn btn-primary">Thanh toán</button></p>
+							</div>
 						</div>
 					</div>
+				</form>
 				</div>
 			</div>
 		</div>
+
 		<!-- end main -->
 
 		<!-- subscribe -->

@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Quản trị - Store</title>
+	<base href="{{asset('')}}backend/">
 	<!-- css -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	
@@ -55,103 +56,66 @@
 				<li><a href="#"><svg class="glyph stroked home">
 							<use xlink:href="#stroked-home"></use>
 						</svg></a></li>
-				<li class="active">Danh sách thành viên</li>
+				<li class="active">Đơn hàng</li>
 			</ol>
 		</div>
 		<!--/.row-->
-
-		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">Danh sách thành viên</h1>
-			</div>
-		</div>
-		<!--/.row-->
-
 		<div class="row">
 			<div class="col-xs-12 col-md-12 col-lg-12">
 
 				<div class="panel panel-primary">
-
+					<div class="panel-heading">Danh sách đơn đặt hàng chưa xử lý</div>
 					<div class="panel-body">
 						<div class="bootstrap-table">
 							<div class="table-responsive">
-								<div class="alert bg-success" role="alert">
-									<svg class="glyph stroked checkmark">
-										<use xlink:href="#stroked-checkmark"></use>
-									</svg>Đã thêm thành công<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-								</div>
-								<a href="adduser.html" class="btn btn-primary">Thêm Thành viên</a>
-								<table class="table table-bordered" style="margin-top:20px;">
 
+								<a href="processed.html" class="btn btn-success">Đơn đã xử lý</a>
+								<table class="table table-bordered" style="margin-top:20px;">
 									<thead>
 										<tr class="bg-primary">
 											<th>ID</th>
-											<th>Email</th>
-											<th>Full</th>
-											<th>Address</th>
-                                            <th>Phone</th>
-                                            <th>Level</th>
-											<th width='18%'>Tùy chọn</th>
+											<th>Tên khách hàng</th>
+											<th>Sđt</th>
+											<th>Địa chỉ</th>
+
+											<th>Xử lý</th>
 										</tr>
 									</thead>
 									<tbody>
-									
 										<tr>
 											<td>1</td>
-											<td>Admin@gmail.com</td>
-											<td>Nguyễn thế phúc</td>
+											<td>Nguyễn Thế Phúc</td>
+											<td>0356653300</td>
 											<td>Thường tín</td>
-                                            <td>0356653300</td>
-                                            <td>1</td>
 											<td>
-												<a href="#" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
-												<a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
-											</td>
-                                        </tr>
-                                        <tr>
-											<td>1</td>
-											<td>Admin@gmail.com</td>
-											<td>Nguyễn thế phúc</td>
-											<td>Thường tín</td>
-                                            <td>0356653300</td>
-                                            <td>1</td>
-											<td>
-												<a href="#" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
-												<a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
+												<a href="detailorder.html" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>Xử lý</a>
+
 											</td>
 										</tr>
-								
+
 									</tbody>
 								</table>
-								<div align='right'>
-									<ul class="pagination">
-										<li class="page-item"><a class="page-link" href="#">Trở lại</a></li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#">tiếp theo</a></li>
-									</ul>
-								</div>
 							</div>
-							<div class="clearfix"></div>
 						</div>
-
+						<div class="clearfix"></div>
 					</div>
 				</div>
-				<!--/.row-->
-
-
 			</div>
-			<!--end main-->
+		</div>
+		<!--/.row-->
 
-			<!-- javascript -->
-			<script src="js/jquery-1.11.1.min.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/chart.min.js"></script>
-			<script src="js/chart-data.js"></script>
-			
-			
-			
+
+	</div>
+	<!--end main-->
+
+	<!-- javascript -->
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/chart.min.js"></script>
+	<script src="js/chart-data.js"></script>
+	
+	
+	
 
 </body>
 
