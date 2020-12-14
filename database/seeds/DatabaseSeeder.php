@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // DB::table('users')->insert([
+        //     ['id'=>1,'fullName'=>'huy dep trai', 'address'=>'hung yen','level'=>'1']
+
+        // ]);
     }
 }
