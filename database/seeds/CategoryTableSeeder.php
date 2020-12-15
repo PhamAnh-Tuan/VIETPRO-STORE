@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
 class CategoryTableSeeder extends Seeder
 {
     /**
@@ -13,7 +12,11 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([
-            ['id'=>1,'fullName'=>'nam', 'address'=>'nam', 'level'=>'0'],
+            [
+                'cat_name'=>'',
+                'cat_slug'=>'',
+                'cat_parent_id'=>''
+            ]
         ]);
     }
 }
