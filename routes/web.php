@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Routing\RouteGroup;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Schema;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('login', 'LoginController@LoginGet')->name('login.get');
 Route::post('/login', 'LoginController@LoginPost');
 
@@ -36,9 +36,11 @@ Route::group(['prefix' => 'trang-quản-trị','namespace'=>'Admin'], function (
     });
     // Users
     Route::group(['prefix' => 'quản-trị-viên', 'namespace'=>'User'], function () {
-        Route::get('danh-sách-quản-trị.html', 'UserController@index')->name('user.index');
+        Route::get('', 'UserController@index')->name('user.index');
         Route::get('thêm-mới-quản-trị.html', 'UserController@create')->name('user.create');
-        Route::get('chỉnh-sửa-quản-trị.html', 'UserController@edit')->name('user.edit');
+        Route::post('thêm-mới-quản-trị.html', 'UserController@createPost')->name('user.createPost');
+        Route::get('chỉnh-sửa-quản-trị/{id}', 'UserController@edit')->name('user.edit');
+        Route::post('update/{id}', 'UserController@editpost')->name('user.edit_post');
         Route::get('xóa-quản-trị', 'UserController@delete')->name('user.delete');
     });
     // Order
