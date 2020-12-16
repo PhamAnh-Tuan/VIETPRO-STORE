@@ -13,10 +13,25 @@ class CategoryTableSeeder extends Seeder
     {
         DB::table('categories')->insert([
             [
-                'cat_name'=>'',
-                'cat_slug'=>'',
-                'cat_parent_id'=>''
-            ]
+                'cat_name'=>'áo nam',
+                'cat_slug'=>'0',
+                'cat_parent_id'=>'0'
+            ],
+            [
+                'cat_name'=>'quần nam',
+                'cat_slug'=>'0',
+                'cat_parent_id'=>'0'
+            ],
+            [
+                'cat_name'=>'áo nữ',
+                'cat_slug'=>'0',
+                'cat_parent_id'=>'0'
+            ],
+            [
+                'cat_name'=>'quần nữ',
+                'cat_slug'=>'0',
+                'cat_parent_id'=>'0'
+            ],
         ]);
     }
 }
