@@ -67,6 +67,7 @@ Route::group(['namespace'=>'Site'], function () {
     });
 });
 
+// Schema-migration-seeder
 Route::group(['prefix' => 'schema'], function () {
     // create table
     Route::get('create-users', function () {
@@ -124,4 +125,112 @@ Route::group(['prefix' => 'schema'], function () {
             $table->dropForeign(['users_id']);
         });
     });
+});
+
+// Query Builder
+Route::group(['prefix' => 'query-builder'], function () {
+    // all
+    Route::get('get-all', function () {
+        $data=DB::table('users')->get();
+        echo "<pre>";
+        print_r($data);
+        echo "<pre/>";
+
+        foreach ($data as $user) {
+            // echo $user['fullname']."<br/>";
+            echo $user->user_fullname;
+        }
+    });
+
+    // select
+    Route::get('get-select', function () {
+        $data=DB::table('users')->select('user_fullname','user_phone')->get();
+        echo "<pre>";
+        print_r($data);
+        echo "<pre/>";
+    });
+
+    // where
+    Route::group(['prefix' => 'where'], function () {
+        // So sanh bang
+        Route::get('so-sanh-bang', function () {
+            $data=DB::table('users')->where('user_level','=','1')->get();
+            echo "<pre>";
+            print_r($data);
+            echo "<pre/>";
+        });
+
+        // So sanh nho hon
+        Route::get('so-sanh-nho-hon', function () {
+            $data=DB::table('users')->where('user_level','<','2')->get();
+            echo "<pre>";
+            print_r($data);
+            echo "<pre/>";
+        });
+        // So sanh khac
+        Route::get('so-sanh-khac', function () {
+            $data=DB::table('users')->where('user_level','<>','1')->get();
+            echo "<pre>";
+            print_r($data);
+            echo "<pre/>";
+        });
+
+        // Where end
+        Route::get('where-end', function () {
+            $data=DB::table('users')->where('user_level','=','1')->where('user_address','=','ha noi')->get();
+            echo "<pre>";
+            print_r($data);
+            echo "<pre/>";
+        });
+
+        // Where or
+        Route::get('where-or', function () {
+            $data=DB::table('users')->where('user_level','=','3')->orwhere('user_address','=','hung yen')->get();
+            echo "<pre>";
+            print_r($data);
+            echo "<pre/>";
+        });
+
+        // Where like
+        Route::get('where-like', function () {
+            $data=DB::table('users')->where('user_fullname','like','%huy%')->get();
+            echo "<pre>";
+            print_r($data);
+            echo "<pre/>";
+        });
+
+        // Where Between
+        Route::get('where-Between', function () {
+            $data=DB::table('products')->whereBetween('prd_price',[100,5000])->get();
+            echo "<pre>";
+            print_r($data);
+            echo "<pre/>";
+        });
+
+        //  whereNotBetween
+        Route::get('where-NotBetween', function () {
+            $data=DB::table('products')->whereNotBetween('prd_price',[100,5000])->get();
+            echo "<pre>";
+            print_r($data);
+            echo "<pre/>";
+        });
+    });
+
+    // Join
+    Route::group(['prefix' => 'join'], function () {
+        Route::get('', function () {
+            $data=DB::table('users')
+                ->join('info','users.user_id','=','info.user_id')
+                ->where('user_fullname','=','quản trị xinh tri')->get();
+            echo "<pre>";
+            print_r($data);
+            echo "<pre/>";
+        });
+
+        // left join
+
+    });
+    
+    
+
 });
