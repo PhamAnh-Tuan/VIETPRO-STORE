@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('user_address','255');
             $table->string('user_phone','11');
             $table->string('user_remenber_token','100');
-            $table->tinyInteger('user_level');
+            $table->tinyInteger('user_level')->default(1);
             $table->timestamps();
         });
     }

@@ -15,42 +15,45 @@
                     <div class="panel-heading"><i class="fas fa-user"></i> Sửa thành viên - admin@gmail.com</div>
                     <div class="panel-body">
                         <div class="row justify-content-center" style="margin-bottom:40px">
-                            <form action="{{route('user.edit_post',['id'=>$user->user_id])}}" method="post">
+                            <form action="{{ route('user.edit_post', ['id' => $user->user_id]) }}" method="post">
                                 @csrf
                                 <div class="col-md-8 col-lg-8 col-lg-offset-2">
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input type="text" name="email" class="form-control" value="{{ $user->user_email }}">
-                                            {!!showError($errors, 'user_email')!!}
-                                        </div>
-                                        <div class="form-group">
-                                            <label>password</label>
-                                            <input type="text" name="password" class="form-control" value="{{$user->user_password}}">
-                                        </div>
-                                        {!!showError($errors, 'user_password')!!}
-                                        <div class="form-group">
-                                            <label>Full name</label>
-                                            <input type="full" name="full" class="form-control" value="{{$user->user_fullname}}">
-                                        </div>
-                                        {!!showError($errors, 'user_fullname')!!}
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <input type="address" name="address" class="form-control" value="{{$user->user_address}}">
-                                        </div>
-                                        {!!showError($errors, 'user_address')!!}
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="phone" name="phone" class="form-control" value="{{$user->user_phone}}">
-                                            {!!showError($errors, 'user_phone')!!}
-                                        </div>
-                                    
-                                        <div class="form-group">
-                                            <label>Level</label>
-                                            <select name="level" class="form-control" value="">
-                                                <option value="1">admin</option>
-                                                <option selected value="2">user</option>
-                                            </select>
-                                        </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" name="user_email" class="form-control"
+                                            value="{{ $user->user_email }}">
+                                    </div>
+                                    {!!showError($errors, 'user_email')!!}
+                                    <div class="form-group">
+                                        <label>password</label>
+                                        <input type="text" name="user_password" class="form-control"
+                                            value="{{ $user->user_password }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Full name</label>
+                                        <input type="full" name="user_fullname" class="form-control"
+                                            value="{{ $user->user_fullname }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input type="address" name="user_address" class="form-control"
+                                            value="{{ $user->user_address }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="phone" name="user_phone" class="form-control"
+                                            value="{{ $user->user_phone }}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Level</label>
+                                        <select name="user_level" class="form-control" value="">
+                                            <option @if ($user->user_level == 1) selected
+                                                @endif value="1" >Admin</option>
+                                            <option @if ($user->user_level == 0) selected
+                                                @endif value="0" >Quan tri vien</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -61,11 +64,7 @@
                                     </div>
                                 </div>
                             </form>
-
-
-
                         </div>
-
                         <div class="clearfix"></div>
                     </div>
                 </div>

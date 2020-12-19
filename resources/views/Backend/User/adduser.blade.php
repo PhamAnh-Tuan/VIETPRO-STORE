@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>password</label>
-                                        <input type="text" name="user_password" class="form-control" value="{{old('user_password')}}">
+                                        <input type="password" name="user_password" class="form-control" value="{{old('user_password')}}">
                                         {!!showError($errors, 'user_password')!!}
                                     </div>
                                     <div class="form-group">
