@@ -30,6 +30,7 @@ Route::group(['prefix' => 'trang-quản-trị','namespace'=>'Admin'], function (
     // Category
     Route::group(['prefix' => 'danh-mục', 'namespace'=>'Category'], function () {
         Route::get('danh-sách-danh-mục.html', 'CategoryController@index')->name('category.index');
+        Route::post('danh-sách-danh-mục-create.html', 'CategoryController@create')->name('category.create');
         Route::get('chỉnh-sửa-danh-mục.html', 'CategoryController@edit')->name('category.edit');
         Route::get('xóa-danh-mục.html', 'CategoryController@delete')->name('category.delete');
 
@@ -41,7 +42,7 @@ Route::group(['prefix' => 'trang-quản-trị','namespace'=>'Admin'], function (
         Route::post('thêm-mới-quản-trị.html', 'UserController@createPost')->name('user.createPost');
         Route::get('chỉnh-sửa-quản-trị/{id}', 'UserController@edit')->name('user.edit');
         Route::post('update/{id}', 'UserController@editpost')->name('user.edit_post');
-        Route::get('xóa-quản-trị', 'UserController@delete')->name('user.delete');
+        Route::get('xóa-quản-trị/{id}', 'UserController@delete')->name('user.delete');
     });
     // Order
     Route::group(['prefix' => 'đơn-hàng', 'namespace'=>'Order'], function () {
@@ -233,4 +234,21 @@ Route::group(['prefix' => 'query-builder'], function () {
     
     
 
+});
+
+// ORM
+Route::group(['prefix' => 'ORM'], function () {
+    // Lay tat ca danh sach
+    Route::get('useList', 'Admin\User\UserController@useList');
+    // Tim kiem
+    Route::get('useFind/{id}', 'Admin\User\UserController@useFind');
+    // Tim kiem + dieu kien
+    Route::get('useFindWhere/{id}', 'Admin\User\UserController@useWhere');
+    // Select
+    Route::get('useSelect', 'Admin\User\UserController@useSelect');
+    // Create
+    Route::get('useCreate', 'Admin\User\UserController@useCreate');
+    Route::get('useCreate_v1', 'Admin\User\UserController@useCreate_v1');
+    //Update
+    Route::get('userUpdate/{id}', 'Admin\User\UserController@userUpdate');
 });

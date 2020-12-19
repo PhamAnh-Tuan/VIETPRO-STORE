@@ -11,27 +11,15 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([
-            [
-                'cat_name'=>'áo nam',
-                'cat_slug'=>'0',
-                'cat_parent_id'=>'0'
-            ],
-            [
-                'cat_name'=>'quần nam',
-                'cat_slug'=>'0',
-                'cat_parent_id'=>'0'
-            ],
-            [
-                'cat_name'=>'áo nữ',
-                'cat_slug'=>'0',
-                'cat_parent_id'=>'0'
-            ],
-            [
-                'cat_name'=>'quần nữ',
-                'cat_slug'=>'0',
-                'cat_parent_id'=>'0'
-            ],
-        ]);
+        DB::table('categories')->insert(
+        	[
+        		['cat_id'=>'1','cat_name' => 'Nam', 'cat_slug'=>'nam', 'cat_parent_id' => 0 ],
+        		['cat_id'=>'2','cat_name' => 'Áo Nam', 'cat_slug'=>'ao-nam', 'cat_parent_id' => 1 ],
+        		['cat_id'=>'3','cat_name' => 'Quần Nam', 'cat_slug'=>'quan-nam', 'cat_parent_id' => 1 ],
+        		['cat_id'=>'4','cat_name' => 'Nữ', 'cat_slug'=>'nu', 'cat_parent_id' => 0 ],
+        		['cat_id'=>'5','cat_name' => 'Áo Nữ', 'cat_slug'=>'ao-nu', 'cat_parent_id' => 4 ],
+        		['cat_id'=>'6','cat_name' => 'Quần Nữ', 'cat_slug'=>'quan-nu', 'cat_parent_id' => 4 ]
+	        ]
+	    );
     }
 }
