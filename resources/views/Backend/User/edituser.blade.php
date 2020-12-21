@@ -1,5 +1,14 @@
 @extends('Backend.Master.master')
-@section('title', 'Chỉnh sửa chi tiết quản trị viên')
+@section('title')
+@if (isset( $user->user_title))
+Chỉnh sửa quản trị {{ $user->user_title }}
+@else
+Chỉnh sửa quản trị {{ $user->user_fullname }}
+@endif
+@endsection
+{{-- @section('title')
+Chỉnh sửa quản trị {{ $user->user_fullname }}
+@endsection --}}
 @section('user_edit')
     <!--main-->
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">

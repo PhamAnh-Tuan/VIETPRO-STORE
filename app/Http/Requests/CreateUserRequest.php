@@ -27,8 +27,8 @@ class CreateUserRequest extends FormRequest
             'user_email'=>'required',
             'user_password'=>'required|min:8|max:30',
             'user_fullname'=>'required|max:50',
-            'user_address'=>'required',
-            'user_phone'=>'required|max:10',
+            'user_address'=>'required|unique:users,user_address',
+            'user_phone'=>'required|max:10|min:10',
             'user_level'=>'required'
         ];
     }
@@ -42,9 +42,10 @@ class CreateUserRequest extends FormRequest
             'user_fullname.required'=>'Vui lòng nhập tên quản trị',
             'user_fullname.max'=>'Tên quản trị không quá 50 ký tự',
             'user_address.required'=>'Vui lòng nhập địa chỉ quản trị',
+            'user_address.unique'=>'Địa chỉ người dùng đã được sử dụng.',
             'user_phone.required'=>'Vui lòng nhập số điện thoại quản trị',
-            // 'user_phone.min'=>'Số điện thoại quản trị tối thiểu 10 số',
             'user_phone.max'=>'Số điện thoại quản trị tối đa 10 số',
+            'user_phone.min'=>'Số điện thoại quản trị phải có ít nhất 10 ký tự.',
             'user_level.required'=>'Vui lòng nhập quyền quản trị',
         ];
     }

@@ -24,20 +24,21 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-5">
-                                <form action="{{route('category.create')}}" method="post">
+                                <form action="{{ route('category.create') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         <label for="">Danh mục cha:</label>
                                         <select class="form-control" name="cat_parent_id" id="">
                                             <option value="0">----ROOT----</option>
-                                            {!! getCategories($category, 0, "", 0 ) !!}
+
+                                            {!! getCategories($category, 0, '', 0) !!}
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Tên Danh mục</label>
                                         <input type="text" class="form-control" name="cat_name" id=""
                                             placeholder="Tên danh mục mới">
-    
+
                                         {{-- <div class="alert bg-danger" role="alert">
                                             <svg class="glyph stroked cancel">
                                                 <use xlink:href="#stroked-cancel"></use>
@@ -58,17 +59,7 @@
                                 <h3 style="margin: 0;"><strong>Phân cấp Menu</strong></h3>
                                 <div class="vertical-menu">
                                     <div class="item-menu active">Danh mục </div>
-                                    @foreach ($category as $item)
-                                        <div class="item-menu"><span>{{$item->cat_name}}</span>
-                                            <div class="category-fix">
-                                                <a class="btn-category btn-primary" href="{{route('category.edit')}}"><i
-                                                        class="fa fa-edit"></i></a>
-                                                <a class="btn-category btn-danger" href="#"><i class="fas fa-times"></i></i></a>
-
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                    
+                                    {!! listCategories($category,0,"") !!}
                                 </div>
                             </div>
                         </div>
