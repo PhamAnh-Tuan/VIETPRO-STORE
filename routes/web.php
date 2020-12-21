@@ -4,6 +4,8 @@ use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
+use App\Models\Categories;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +17,10 @@ use Illuminate\Support\Facades\Schema;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('welcome', function () {
+    $category=Categories::all();
+    return view('welcome', compact('category'));
+});
 Route::get('login', 'LoginController@LoginGet')->name('login.get');
 Route::post('/login', 'LoginController@LoginPost');
 
@@ -31,8 +37,9 @@ Route::group(['prefix' => 'trang-quản-trị','namespace'=>'Admin'], function (
     Route::group(['prefix' => 'danh-mục', 'namespace'=>'Category'], function () {
         Route::get('danh-sách-danh-mục.html', 'CategoryController@index')->name('category.index');
         Route::post('danh-sách-danh-mục-create.html', 'CategoryController@create')->name('category.create');
-        Route::get('chỉnh-sửa-danh-mục.html', 'CategoryController@edit')->name('category.edit');
-        Route::get('xóa-danh-mục.html', 'CategoryController@delete')->name('category.delete');
+        Route::get('chỉnh-sửa-danh-mục/{id}', 'CategoryController@edit')->name('category.edit');
+        Route::post('chỉnh-sửa-danh-mục-post/{id}', 'CategoryController@editPost')->name('category.editPOST');
+        Route::get('xóa-danh-mục/{id}', 'CategoryController@delete')->name('category.delete');
 
     });
     // Users
@@ -214,6 +221,11 @@ Route::group(['prefix' => 'query-builder'], function () {
             echo "<pre>";
             print_r($data);
             echo "<pre/>";
+        });
+        // Select _where
+        Route::get('selectWhere', function ($id) {
+            $data=User::select('user_email')->where('user_id','=',$id)->get();
+            print_r($data);
         });
     });
 
