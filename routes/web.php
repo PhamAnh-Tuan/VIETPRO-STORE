@@ -6,44 +6,40 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use App\Models\User;
 use App\Models\Categories;
+use App\Models\Info;
+use App\Models\Order;
+use App\Models\Products;
+use App\Models\OrderDetail;
+use Illuminate\Support\Str;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 Route::get('welcome', function () {
-    $category=Categories::all();
-    return view('welcome', compact('category'));
+    return view('welcome');
 });
+
 Route::get('login', 'LoginController@LoginGet')->name('login.get');
 Route::post('/login', 'LoginController@LoginPost');
-
-Route::group(['prefix' => 'trang-quản-trị','namespace'=>'Admin'], function () {
+Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin'], function () {
     Route::get('', 'AdminController@index')->name('admin.index');
     // Product
-    Route::group(['prefix' => 'sản-phẩm', 'namespace'=>'Product'], function () {
+    Route::group(['prefix' => 'sản-phẩm', 'namespace' => 'Product'], function () {
         Route::get('danh-sách-sản-phẩm', 'ProductController@index')->name('product.index');
         Route::get('thêm-mới-sản-phẩm.html', 'ProductController@create')->name('product.create');
-        Route::get('chỉnh-sửa-chi-tiết-sản-phẩm.html', 'ProductController@edit')->name('product.edit');
-        Route::get('xóa-sản-phẩm', 'ProductController@delete')->name('product.delete');
+        Route::post('thêm-mới-sản-phẩm', 'ProductController@createPOST')->name('product.createPOST');
+        Route::get('chỉnh-sửa-chi-tiết-sản-phẩm/{id}', 'ProductController@edit')->name('product.edit');
+        Route::post('update-san-pham/{id}', 'ProductController@editPost')->name('product.editPost');
+        Route::get('xóa-sản-phẩm/{id}', 'ProductController@delete')->name('product.delete');
     });
     // Category
-    Route::group(['prefix' => 'danh-mục', 'namespace'=>'Category'], function () {
+    Route::group(['prefix' => 'danh-mục', 'namespace' => 'Category'], function () {
         Route::get('danh-sách-danh-mục.html', 'CategoryController@index')->name('category.index');
         Route::post('danh-sách-danh-mục-create.html', 'CategoryController@create')->name('category.create');
         Route::get('chỉnh-sửa-danh-mục/{id}', 'CategoryController@edit')->name('category.edit');
         Route::post('chỉnh-sửa-danh-mục-post/{id}', 'CategoryController@editPost')->name('category.editPOST');
         Route::get('xóa-danh-mục/{id}', 'CategoryController@delete')->name('category.delete');
-
     });
     // Users
-    Route::group(['prefix' => 'quản-trị-viên', 'namespace'=>'User'], function () {
+    Route::group(['prefix' => 'quản-trị-viên', 'namespace' => 'User'], function () {
         Route::get('', 'UserController@index')->name('user.index');
         Route::get('thêm-mới-quản-trị.html', 'UserController@create')->name('user.create');
         Route::post('thêm-mới-quản-trị.html', 'UserController@createPost')->name('user.createPost');
@@ -52,24 +48,26 @@ Route::group(['prefix' => 'trang-quản-trị','namespace'=>'Admin'], function (
         Route::get('xóa-quản-trị/{id}', 'UserController@delete')->name('user.delete');
     });
     // Order
-    Route::group(['prefix' => 'đơn-hàng', 'namespace'=>'Order'], function () {
+    Route::group(['prefix' => 'đơn-hàng', 'namespace' => 'Order'], function () {
         Route::get('danh-sách-đơn-hàng.html', 'OrderController@index')->name('order.index');
         Route::get('chi-tiết-đơn-hàng.html', 'OrderController@detail')->name('order.detail');
         Route::get('đơn-hàng-đã-hoàn-thành.html', 'OrderController@processed')->name('order.processed');
     });
 });
 // Site
-Route::group(['namespace'=>'Site'], function () {
-    Route::get('','SiteController@index')->name('site.index');
-    Route::get('về-cửa-hàng','SiteController@about')->name('site.about');
-    Route::get('liên-hệ','SiteController@contact')->name('site.contact');
+Route::group(['namespace' => 'Site'], function () {
+    Route::get('', 'SiteController@index')->name('site.index');
+    // Route::get('','SiteController@product_hot')->name('site.product_hot');
+
+    Route::get('về-cửa-hàng', 'SiteController@about')->name('site.about');
+    Route::get('liên-hệ', 'SiteController@contact')->name('site.contact');
     // Product
-    Route::group(['prefix' => 'sản-phẩm','namespace'=>'Product'], function () {
+    Route::group(['prefix' => 'sản-phẩm', 'namespace' => 'Product'], function () {
         Route::get('', 'ProductController@shop')->name('site.product');
         Route::get('chi-tiết-sản-phẩm', 'ProductController@detail')->name('site.detail');
     });
     // Cart
-    Route::group(['prefix' => 'giỏ-hàng','namespace'=>'Cart'], function () {
+    Route::group(['prefix' => 'giỏ-hàng', 'namespace' => 'Cart'], function () {
         Route::get('', 'CartController@cart')->name('site.cart');
         Route::get('thanh-toán-đơn-hàng', 'CartController@checkout')->name('site.checkout');
     });
@@ -79,7 +77,7 @@ Route::group(['namespace'=>'Site'], function () {
 Route::group(['prefix' => 'schema'], function () {
     // create table
     Route::get('create-users', function () {
-        Schema::create('users',function($table){
+        Schema::create('users', function ($table) {
             $table->increments('id');
             $table->string('fullName');
             $table->string('address')->nullable();
@@ -89,7 +87,7 @@ Route::group(['prefix' => 'schema'], function () {
     });
     // rename table
     Route::get('rename', function () {
-        Schema::rename('users','user');
+        Schema::rename('users', 'user');
     });
     // Drop table
     Route::get('drop-table', function () {
@@ -97,31 +95,31 @@ Route::group(['prefix' => 'schema'], function () {
     });
     // add colum
     Route::get('create-email-col', function () {
-        Schema::table('users', function($table){
-            $table->string('email')->nullable();
+        Schema::table('orderdetail', function ($table) {
+            $table->string('name');
         });
     });
     // Edit colum table
     Route::get('rename-colum-table', function () {
-        Schema::table('users', function($table){
+        Schema::table('users', function ($table) {
             $table->renameColumn('email', 'description');
         });
     });
     // Thay đổi thuốc tính cột
-    route::get('change', function(){
-        Schema::table('users',function($table){
+    route::get('change', function () {
+        Schema::table('users', function ($table) {
             $table->string('description', 50)->change();
         });
     });
     // Drop colum
     Route::get('drop-colum', function () {
-        Schema::table('users',function($table){
+        Schema::table('users', function ($table) {
             $table->dropColumn('description');
         });
     });
     // Add Foreign
     Route::get('create-info', function () {
-        Schema::create('info', function($table){
+        Schema::create('info', function ($table) {
             $table->increments('id');
             $table->integer('users_id')->unsigned();
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
@@ -129,9 +127,13 @@ Route::group(['prefix' => 'schema'], function () {
     });
     // Drop foreign
     Route::get('drop-foreign-key', function () {
-        Schema::table('info', function($table){
+        Schema::table('info', function ($table) {
             $table->dropForeign(['users_id']);
         });
+    });
+    // Drop dataTable
+    Route::get('drop-dataTable', function () {
+        Products::truncate();
     });
 });
 
@@ -139,7 +141,7 @@ Route::group(['prefix' => 'schema'], function () {
 Route::group(['prefix' => 'query-builder'], function () {
     // all
     Route::get('get-all', function () {
-        $data=DB::table('users')->get();
+        $data = DB::table('users')->get();
         echo "<pre>";
         print_r($data);
         echo "<pre/>";
@@ -152,7 +154,7 @@ Route::group(['prefix' => 'query-builder'], function () {
 
     // select
     Route::get('get-select', function () {
-        $data=DB::table('users')->select('user_fullname','user_phone')->get();
+        $data = DB::table('users')->select('user_fullname', 'user_phone')->get();
         echo "<pre>";
         print_r($data);
         echo "<pre/>";
@@ -162,7 +164,7 @@ Route::group(['prefix' => 'query-builder'], function () {
     Route::group(['prefix' => 'where'], function () {
         // So sanh bang
         Route::get('so-sanh-bang', function () {
-            $data=DB::table('users')->where('user_level','=','1')->get();
+            $data = DB::table('users')->where('user_level', '=', '1')->get();
             echo "<pre>";
             print_r($data);
             echo "<pre/>";
@@ -170,14 +172,14 @@ Route::group(['prefix' => 'query-builder'], function () {
 
         // So sanh nho hon
         Route::get('so-sanh-nho-hon', function () {
-            $data=DB::table('users')->where('user_level','<','2')->get();
+            $data = DB::table('users')->where('user_level', '<', '2')->get();
             echo "<pre>";
             print_r($data);
             echo "<pre/>";
         });
         // So sanh khac
         Route::get('so-sanh-khac', function () {
-            $data=DB::table('users')->where('user_level','<>','1')->get();
+            $data = DB::table('users')->where('user_level', '<>', '1')->get();
             echo "<pre>";
             print_r($data);
             echo "<pre/>";
@@ -185,7 +187,7 @@ Route::group(['prefix' => 'query-builder'], function () {
 
         // Where end
         Route::get('where-end', function () {
-            $data=DB::table('users')->where('user_level','=','1')->where('user_address','=','ha noi')->get();
+            $data = DB::table('users')->where('user_level', '=', '1')->where('user_address', '=', 'ha noi')->get();
             echo "<pre>";
             print_r($data);
             echo "<pre/>";
@@ -193,7 +195,7 @@ Route::group(['prefix' => 'query-builder'], function () {
 
         // Where or
         Route::get('where-or', function () {
-            $data=DB::table('users')->where('user_level','=','3')->orwhere('user_address','=','hung yen')->get();
+            $data = DB::table('users')->where('user_level', '=', '3')->orwhere('user_address', '=', 'hung yen')->get();
             echo "<pre>";
             print_r($data);
             echo "<pre/>";
@@ -201,7 +203,7 @@ Route::group(['prefix' => 'query-builder'], function () {
 
         // Where like
         Route::get('where-like', function () {
-            $data=DB::table('users')->where('user_fullname','like','%huy%')->get();
+            $data = DB::table('users')->where('user_fullname', 'like', '%huy%')->get();
             echo "<pre>";
             print_r($data);
             echo "<pre/>";
@@ -209,7 +211,7 @@ Route::group(['prefix' => 'query-builder'], function () {
 
         // Where Between
         Route::get('where-Between', function () {
-            $data=DB::table('products')->whereBetween('prd_price',[100,5000])->get();
+            $data = DB::table('products')->whereBetween('prd_price', [100, 5000])->get();
             echo "<pre>";
             print_r($data);
             echo "<pre/>";
@@ -217,14 +219,14 @@ Route::group(['prefix' => 'query-builder'], function () {
 
         //  whereNotBetween
         Route::get('where-NotBetween', function () {
-            $data=DB::table('products')->whereNotBetween('prd_price',[100,5000])->get();
+            $data = DB::table('products')->whereNotBetween('prd_price', [100, 5000])->get();
             echo "<pre>";
             print_r($data);
             echo "<pre/>";
         });
         // Select _where
         Route::get('selectWhere', function ($id) {
-            $data=User::select('user_email')->where('user_id','=',$id)->get();
+            $data = User::select('user_email')->where('user_id', '=', $id)->get();
             print_r($data);
         });
     });
@@ -232,9 +234,9 @@ Route::group(['prefix' => 'query-builder'], function () {
     // Join
     Route::group(['prefix' => 'join'], function () {
         Route::get('', function () {
-            $data=DB::table('users')
-                ->join('info','users.user_id','=','info.user_id')
-                ->where('user_fullname','=','quản trị xinh tri')->get();
+            $data = DB::table('users')
+                ->join('info', 'users.user_id', '=', 'info.user_id')
+                ->where('user_fullname', '=', 'quản trị xinh tri')->get();
             echo "<pre>";
             print_r($data);
             echo "<pre/>";
@@ -243,9 +245,6 @@ Route::group(['prefix' => 'query-builder'], function () {
         // left join
 
     });
-    
-    
-
 });
 
 // ORM
@@ -263,4 +262,174 @@ Route::group(['prefix' => 'ORM'], function () {
     Route::get('useCreate_v1', 'Admin\User\UserController@useCreate_v1');
     //Update
     Route::get('userUpdate/{id}', 'Admin\User\UserController@userUpdate');
+});
+
+// relationship
+Route::group(['prefix' => 'relationship'], function () {
+    /** Quan hệ Relationship
+     * Liên kết bảng chính với bảng phụ -> hasOne
+     * Liên kết từ bảng phụ đến bảng chính -> belongsTo
+     * Bảng chính chứa khóa chính
+     * Bảng phụ chứa khóa ngoại
+     */
+    Route::group(['prefix' => 'one-to-one'], function () {
+        /** Liên kết chính phụ tìm kiếm lấy thông tin 2 bảng
+         * 
+         */
+        Route::get('/lien-ket-chinh-phu-tim-kiem', function () {
+            $user = User::find(1);
+            $info = $user->info;
+            echo 'Người có tên: ' . $user->user_fullname . ' có số cmt là: ' . $info->cmt;
+        });
+        /** Liên kết chính phụ: Tìm kiếm + ĐK bên bảng phụ
+         * Khi không có dữ lệu trả về, cụ thể cho id = 2(id = 2 địa chỉ là hà nội không đúng DK trong infoWhere)
+         * Error: Trying to get property 'cmt' of non-object
+         */
+        Route::get('/lien-ket-chinh-phu-dieukien', function () {
+            try {
+                $user = User::find(2);
+                $info = $user->infoWhere;
+                echo 'Người có tên: ' . $user->user_fullname . ' có số cmt là: ' . $info->cmt;
+            } catch (Throwable $e) {
+                //report($e);
+
+                return 'Không có dữ liệu trả về!';
+            }
+        });
+        /** Liên kết chính phụ lấy tất cả bản ghi bảng user + số cmt user bên bảng info
+         * 
+         */
+        Route::get('/lien-ket-chinh-phu-lay-du-lieu-2-bang', function () {
+            $user = User::all();
+            foreach ($user as $item) {
+                echo $item->user_fullname;
+                echo '</br>';
+                echo $item->info->cmt;
+                echo '</br>';
+                echo '</hr>';
+            }
+        });
+        /** Liên kết chính phụ có điều kiện
+         * 
+         */
+        Route::get('/lien-ket-chinh-phu-dieu-kien', function () {
+            $user = User::where('user_fullname', '=', 'chu van huy')->get();
+            foreach ($user as $item) {
+                echo $item->user_fullname;
+                echo '</br>';
+                echo $item->info->cmt;
+                echo '</br>';
+                echo '</hr>';
+            }
+        });
+        /** Liên kết phụ chính tìm kiếm + lấy thông tin 2 bảng
+         * 
+         */
+        Route::get('/lien-ket-phu-chinh', function () {
+            $info = Info::find(1);
+            $user = $info->user;
+            echo 'Số chứng minh thư ' . $info->cmt . ' thuộc về người có tên: ' . $user->user_fullname;
+        });
+        /** Lấy danh sách những người đc kết nối trong 2 bảng
+         * 
+         */
+        Route::get('/lkp-c', function () {
+            $users = Info::all();
+            foreach ($users as $item) {
+                echo $item->user->user_fullname;
+                echo '<br/>';
+                echo $item->cmt;
+                echo '<br/>';
+                echo '<hr/>';
+            }
+        });
+    });
+    Route::group(['prefix' => 'one-to-many'], function () {
+        /** Liên kết chính phụ: Từ đơn hàng có ID = 1, lấy chi tiết đơn hàng đó
+         * https://laravel.com/docs/8.x/eloquent-relationships#one-to-many
+         */
+        Route::get('/lkc-p', function () {
+            $Orders = Order::find(1);
+            $name = $Orders->ord_fullname;
+            echo 'Khách hàng có tên ' . $Orders->ord_fullname . ' có chi tiết đơn hàng như sau: <br/>';
+            foreach ($Orders->details as $item) {
+                echo 'ord_detail_id: ' . $item->ord_detail_id . '<br/>';
+                echo 'code: ' . $item->code . '<br/>';
+                echo 'price: ' . $item->price . '<br/>';
+                echo 'quantity: ' . $item->quantity . '<br/>';
+                echo 'image: ' . $item->image . '<br/>';
+                echo 'ord_id: ' . $item->ord_id . '<br/>';
+                echo 'name: ' . $item->name . '<br/>';
+                echo '<hr/>';
+            }
+
+            // Kiem tra su ton tai o bang phu
+            //  $details = Order::has('details')->get();
+            // print_r($details);
+            // foreach ($details as $item) {
+            //     echo $item->code . '</br>';
+            // }
+        });
+        /** Liên kết chính phụ: Từ đơn hàng có ID = 1, lấy chi tiết đơn hàng đó + ĐK giá đơn hàng  > 5000
+         * 
+         */
+        Route::get('/lkc-p-dieu-kien', function () {
+            $order = Order::find(1);
+            $details = $order->details()
+                ->where('price', '>', '5000')
+                ->get();
+            foreach ($details as $item) {
+                echo 'ord_detail_id: ' . $item->ord_detail_id . '<br/>';
+                echo 'code: ' . $item->code . '<br/>';
+                echo 'price: ' . $item->price . '<br/>';
+                echo 'quantity: ' . $item->quantity . '<br/>';
+                echo 'image: ' . $item->image . '<br/>';
+                echo 'ord_id: ' . $item->ord_id . '<br/>';
+                echo 'name: ' . $item->name . '<br/>';
+                echo '<hr/>';
+            }
+        });
+        // Liên kết chính phụ: Từ đơn hàng có ID = 1, lấy chi tiết đơn hàng đó + ĐK code = AS
+        Route::get('/lkc-p-where', function () {
+            $details = Order::find(1)->details()
+                ->where('code', 'AS')
+                ->get();
+            //dd($details);
+            echo $details;
+        });
+        /** Liên kết phụ chính: Từ chi tiết đơn hàng có ID = 1, Lấy thông tin khách hàng chủ đơn 
+         * 
+         */
+        Route::get('/lkp-c/{id}', function ($id) {
+            $ord_detail = OrderDetail::find($id);
+            $ord = $ord_detail->order;
+            echo 'Đơn hàng có ID = ' . $id . '</br>';
+            echo 'Tên chủ đơn hàng: ' . $ord->ord_fullname . '</br>';
+            echo 'Địa chỉ đơn hàng: ' . $ord->ord_address . '</br>';
+            echo 'Email chủ đơn hàng: ' . $ord->ord_email . '</br>';
+            echo 'Điện thoại chủ đơn hàng: ' . $ord->ord_phone . '</br>';
+        });
+    });
+});
+
+// Random
+Route::group(['prefix' => 'random'], function () {
+    /** https://laravel.com/docs/7.x/helpers
+     * 
+     */
+    Route::get('', function () {
+        $string = 'The event will take place between ? and ?';
+        $replaced = Str::replaceArray('?', ['a', 'huy'], $string);
+        dd($replaced);
+    });
+    // Lấy 5 ký tự ngẫu nhiên
+    Route::get('random1', function () {
+        dd(Str::random(5));
+    });
+    // Lấy ký tự theo quy định
+    Route::get('ramdom-quy-uoc', function () {
+        $pool = '0123456789';
+        // $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        dd(substr(str_shuffle(str_repeat($pool, 5)), 0, 2));
+    });
 });

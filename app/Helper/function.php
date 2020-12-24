@@ -62,9 +62,14 @@ function demo($category, $parentId, $char, $parentChild)
     }
 }
 // Chạy 3 trang List, Create, Edit
-function getCategories($categories, $parentId, $char, $isParent)
+/** $isParent
+ * -> la parent cha khi click vao 1 danh muc
+ * -> Chon gia tri isParent = 0, vì danh mục cha có parent = 0
+ * getCategories($categories, 0, '', 0);
+ */
+function getCategories($array, $parentId, $char, $isParent)
 {
-    foreach ($categories as $key => $value) {
+    foreach ($array as $key => $value) {
         if ($value['cat_parent_id'] == $parentId) {
             if ($value['cat_id'] == $isParent) {
                 echo '<option selected value="' . $value['cat_id'] . '">' . $char . $value['cat_name'] . '</option>';
@@ -72,17 +77,18 @@ function getCategories($categories, $parentId, $char, $isParent)
                 echo '<option value="' . $value['cat_id'] . '">' . $char . $value['cat_name'] . '</option>';
             }
             $new_parent = $value['cat_id'];
-            getCategories($categories, $new_parent, $char . "--|", $isParent);
+            getCategories($array, $new_parent, $char . "--|", $isParent);
         }
     }
 }
 
-
+// Edit 2:00
 function listCategories($mang, $parentId, $char)
 {
     foreach ($mang as $key => $value) {
+        $string = '';
         if ($value['cat_parent_id'] == $parentId) {
-            $string = '';
+            
             $string .= '<div class="item-menu"><span>';
             $string .= $char . $value["cat_name"];
             $string .= "</span>";
