@@ -38,22 +38,25 @@ Chỉnh sửa quản trị {{ $user->user_fullname }}
                                         <input type="text" name="user_password" class="form-control"
                                             value="{{ $user->user_password }}">
                                     </div>
+                                    {!!showError($errors, 'user_password')!!}
                                     <div class="form-group">
                                         <label>Full name</label>
                                         <input type="full" name="user_fullname" class="form-control"
                                             value="{{ $user->user_fullname }}">
                                     </div>
+                                    {!!showError($errors, 'user_fullname')!!}
                                     <div class="form-group">
                                         <label>Address</label>
                                         <input type="address" name="user_address" class="form-control"
                                             value="{{ $user->user_address }}">
                                     </div>
+                                    {!!showError($errors, 'user_address')!!}
                                     <div class="form-group">
                                         <label>Phone</label>
                                         <input type="phone" name="user_phone" class="form-control"
                                             value="{{ $user->user_phone }}">
                                     </div>
-
+                                    {!!showError($errors, 'user_phone')!!}
                                     <div class="form-group">
                                         <label>Level</label>
                                         <select name="user_level" class="form-control" value="">

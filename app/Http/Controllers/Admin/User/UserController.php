@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\EditUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
 
@@ -61,7 +62,7 @@ class UserController extends Controller
 
 
     }
-    function editpost(UpdateUserRequest $request, $id)
+    function editpost(EditUserRequest $request, $id)
     {
         $user=User::find($id);
         $user->user_fullname = $request->user_fullname;
@@ -71,7 +72,7 @@ class UserController extends Controller
         $user->user_level = $request->user_level;
         $user->user_address = $request->user_address;
         $user->user_remenber_token = $request->user_address;
-        // dd($user);
+        dd($user);
         $user->save();
         return redirect()->route('user.index')->with('thong-bao-update','success');
     }
@@ -141,4 +142,5 @@ class UserController extends Controller
         // dd($user);
         echo "createsuccess";
     }
+    
 }

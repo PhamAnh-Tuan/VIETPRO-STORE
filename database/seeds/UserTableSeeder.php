@@ -14,18 +14,18 @@ class UserTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'user_email'=>'admin@gmail.com',
+                'user_email'=>'dothuykieu@gmail.com',
                 'user_password'=>'12345678',
-                'user_fullname'=>'huy xấu tri',
+                'user_fullname'=>'Đỗ Thúy Kiều',
                 'user_address'=>'hưng yên',
                 'user_phone'=>'0374970903',
                 'user_remenber_token'=>'',
                 'user_level'=>'1'
             ],
             [
-                'user_email'=>'quantri@gmail.com',
+                'user_email'=>'quantrimang@gmail.com',
                 'user_password'=>'12345678',
-                'user_fullname'=>'quản trị xinh tri',
+                'user_fullname'=>'quản trị xinh trai',
                 'user_address'=>'Hà nội',
                 'user_phone'=>'0374970904',
                 'user_remenber_token'=>'',
