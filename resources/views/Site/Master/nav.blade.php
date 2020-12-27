@@ -3,13 +3,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-2">
-                    <div id="colorlib-logo"><a href="index.html"><img src="images/logo.png" alt="" style="width: 300px;height: 50px;"></a></div>
+                    <div id="colorlib-logo"><a href="{{route('site.index')}}"><img src="images/logo.png" alt="" style="width: 300px;height: 50px;"></a></div>
                 </div>
                 <div class="col-xs-10 text-right menu-1">
                     <ul>
-                        <li class="active"><a href="index.html">Trang chủ</a></li>
+                        <li class="active"><a href="{{route('site.index')}}">Trang chủ</a></li>
                         <li class="has-dropdown">
-                            <a href="shop.html">Cửa hàng</a>
+                            <a href="{{route('site.product')}}">Cửa hàng</a>
                             <ul class="dropdown">
                                 <li><a href="cart.html">Giỏ hàng</a></li>
                                 <li><a href="checkout.html">Thanh toán</a></li>

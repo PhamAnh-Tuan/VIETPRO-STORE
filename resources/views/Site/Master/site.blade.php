@@ -42,6 +42,7 @@
         @yield('cart')
         @yield('cart_checkout')
         @yield('product_detail')
+        @yield('shop')
         <!-- end main -->
 
         <!-- subscribe -->
