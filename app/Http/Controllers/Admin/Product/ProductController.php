@@ -26,33 +26,41 @@ class ProductController extends Controller
         // $data['catelist']=Categories::all();
         return view('Backend.Product.addproduct', compact('categories'));
     }
-    function createPOST(CreateProductRequest $request)
+    /** CreateProductRequest
+     * Nếu Yc thêm nhiều danh mục -> xóa khóa ngoại bảng products, vì sử dụng attack cần có khóa ID product ->xóa khóa ngoại bảng product để có ID new product
+     */
+    function createPOST( Request $request)
     {
         $request->validate(
             [
                 'image' => 'required|image|mimes:jfif,jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
             ]
         );
-        $product = new Products();
-        $product->cat_id = $request->cat_id;
-        $product->prd_name = $request->name;
-        $product->prd_code = $request->code;
-        $product->prd_name = $request->name;
-        $product->prd_price = $request->price;
-        $product->prd_featured = $request->featured;
-        $product->prd_state = $request->state;
-        $product->prd_info = $request->info;
-        $product->prd_describer = $request->describer;
-        $product->prd_slug = Str::slug($request->name, '-');
-        $product->prd_image = $request->file('image')->getClientOriginalName();
-        // upload file
-        $image = $request->file('image');
-        $name = $image->getClientOriginalName();
-        $destinationPath = public_path('/Backend/img/product');
+        $product                    = new Products();
+        $product->prd_name          = $request->name;
+        $product->prd_code          = $request->code;
+        $product->prd_price         = $request->price;
+        $product->prd_featured      = $request->featured;
+        $product->prd_state         = $request->state;
+        $product->prd_info          = $request->info;
+        $product->prd_describer     = $request->describer;
+        $product->prd_slug          = Str::slug($request->name, '-');
+        $product->prd_image         = $request->file('image')->getClientOriginalName();
+        $image                      = $request->file('image');
+        $name                       = $image->getClientOriginalName();
+        $destinationPath            = public_path('/Backend/img/product');
         $image->move($destinationPath, $name);
+        /** Chưa xóa khóa vì project là 1-n
+         * Vòng foreach ghi đè cat_id 
+         */ 
+        foreach ($request->cat_id as $approver) {
+            $product->cat_id = $approver;
+        }
         $product->save();
+       $product->categoryy()->attach($request->cat_id);
         return redirect()->route('product.index')->with('thong-bao', 'success');
     }
+    
     function edit($id)
     {
         /** Cách 1
@@ -107,14 +115,14 @@ class ProductController extends Controller
             if (file_exists($file_old)) {
                 $string = '0123456789';
                 $strRamdon = substr(str_shuffle(str_repeat($string, 5)), 0, 10);
-                $resultStr = Str::replaceFirst(' ','-',$name); // gai-xinh.jpg
+                $resultStr = Str::replaceFirst(' ', '-', $name); // gai-xinh.jpg
                 $resultStr_v1 = Str::replaceFirst('.', $strRamdon . '.', $resultStr); // gai-xinh5818817500.jpg
                 $image->move($destinationPath, $resultStr_v1);
                 $product->prd_image = $resultStr_v1;
             } else {
-                $strImage = Str::replaceFirst(' ','-',$name);
+                $strImage = Str::replaceFirst(' ', '-', $name);
                 $image->move($destinationPath, $strImage);
-                $product->prd_image=$strImage;
+                $product->prd_image = $strImage;
             }
             $product->save();
             return redirect()->route('product.index')->with('thong-bao', 'success');

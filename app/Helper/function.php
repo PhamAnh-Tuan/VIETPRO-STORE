@@ -88,7 +88,7 @@ function listCategories($mang, $parentId, $char)
     foreach ($mang as $key => $value) {
         $string = '';
         if ($value['cat_parent_id'] == $parentId) {
-            
+
             $string .= '<div class="item-menu"><span>';
             $string .= $char . $value["cat_name"];
             $string .= "</span>";
@@ -101,5 +101,55 @@ function listCategories($mang, $parentId, $char)
             echo $string;
             listCategories($mang, $new_parent, $char . "--|");
         }
+    }
+}
+// <div class="panel panel-default">
+//     <div class="panel-heading" role="tab" id="headingOne">
+//         <h4 class="panel-title">
+//             <a data-toggle="collapse" data-parent="#accordion" href="#menu1"
+//                 aria-expanded="true" aria-controls="collapseOne">Quần
+//                 Áo Nam
+//             </a>
+//         </h4>
+//     </div>
+//     <div id="menu1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+//         <div class="panel-body">
+//             <ul>
+//                 <li><a href="#">Áo Sơ mi nam</a></li>
+//                 <li><a href="#">Áo thun nam</a></li>
+//                 <li><a href="#">Áo Khoác nam</a></li>
+//                 <li><a href="#">Áo vest Nam</a></li>
+//             </ul>
+//         </div>
+//     </div>
+// </div>
+function listShop($mang, $parentId)
+{
+    foreach ($mang as $key => $item) {
+        $string = '';
+        
+        if ($item['cat_parent_id'] == $parentId) {
+            $string .= '<div class="panel panel-default">';
+            $string .= '<div class="panel-heading" role="tab" id="headingOne">';
+            $string .= '<h4 class="panel-title">';
+            $string .= '<a data-toggle="collapse" data-parent="#accordion" href="#menu' . $item['cat_id'] . '" aria-expanded="true" aria-controls="collapseOne">' . $item['cat_name'] . '</a>';
+            $string .= '</h4>';
+            $string .= '</div>';
+            $string .= '<div id="menu' . $item['cat_id'] . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">';
+          // if ($item['cat_parent_id'] == $new_par) {
+               
+           // }
+            $string .= '</div>';
+            $string .= '</div>';
+            $new_par = $item['cat_id'];
+            echo $string;
+            listShop($mang, $new_par);
+            $string .= '<div class="panel-body">';
+            $string .= '<ul>';
+            $string .= '<li><a href="#">' . $item['cat_name'] . '</a></li>';
+            $string .= '<ul>';
+            $string .= '</div>';
+        }
+       
     }
 }

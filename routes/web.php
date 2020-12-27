@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 
 
 Route::get('welcome', function () {
+    $item=DB::table('products')->orderBy('prd_id','desc')->first();
+    dd($item);
     return view('welcome');
 });
 
@@ -431,5 +433,77 @@ Route::group(['prefix' => 'random'], function () {
         $pool = '0123456789';
         // $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         dd(substr(str_shuffle(str_repeat($pool, 5)), 0, 2));
+    });
+});
+
+// n-n
+Route::get('lkcategory-product', function () {
+    $category = Categories::find(12);
+    $product = $category->productss;
+    dd($product);
+    // echo '<pre>';
+    // print_r($product);
+    foreach ($product as $key => $value) {
+        echo $value->prd_id . '-' . $value->prd_name;
+    }
+});
+Route::get('lkproduct-category', function () {
+    $product = Products::find(1);
+    $category = $product->categoryy;
+    dd($category);
+    foreach ($category as $key => $value) {
+        echo $value->cat_id . '-' . $value->cat_name;
+    }
+});
+Route::get('lkproduct-category1', function () {
+    $product = Products::find(1);
+    $category = $product->categoryy;
+    dd($category);
+    foreach ($category as $key => $value) {
+        echo $value->cat_id . '-' . $value->cat_name;
+    }
+});
+
+// atttach
+Route::group(['prefix' => 'atttach'], function () {
+    /** them 1 san pham voi mot danh muc
+     * 
+     */
+    Route::get('add', function () {
+        $product=Products::find(1);
+        $product->categoryy()->attach(13);
+        echo "da xu ly";
+    });
+    /** xoa 1 san pham voi mot danh muc
+     * 
+     */
+    Route::get('remove', function () {
+        $product=Products::find(1);
+        $product->categoryy()->detach(13);
+        echo "da xu ly";
+    });
+    /** them 1 san pham voi nhieu danh muc
+     * 
+     */
+    Route::get('add-arr', function () {
+        $product=Products::find(1);
+        $product->categoryy()->attach([12,13,15]);
+        echo "da xu ly";
+    });
+    /** xoa 1 san pham voi nhieu danh muc
+     * 
+     */
+    Route::get('remove-arr', function () {
+        $product=Products::find(1);
+        $product->categoryy()->detach([12,13,15]);
+        echo "da xu ly";
+    });
+    /** them cate id 12, 13, 16 con lai xoa het
+     * 
+     */
+    Route::get('add-sync', function () {
+        $product=Products::find(1);
+        $product->categoryy()->sync([12,13,16]);
+        echo "da xu ly";
     });
 });

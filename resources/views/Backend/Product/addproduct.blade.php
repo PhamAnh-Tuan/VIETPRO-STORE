@@ -20,7 +20,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label>Danh mục</label>
-                                        <select class="form-control" name="cat_id">
+                                        <select class="form-control mul-select" name="cat_id[]" multiple="true" id="news">
                                             {!! getCategories($categories, 0, '', 0) !!}
                                         </select>
                                     </div>
@@ -105,8 +105,15 @@
     <script src="js/chart.min.js"></script>
     <script src="js/chart-data.js"></script>
 
-
-
+    <script>
+        $(document).ready(function(){
+            $(".mul-select").select2({
+                    placeholder: "Chon danh muc", //placeholder
+                    tags: true,
+                    tokenSeparators: ['/',',',';'," "] 
+                });
+            })
+    </script>
     <script>
         function changeImg(input) {
             //Nếu như tồn thuộc tính file, đồng nghĩa người dùng đã chọn file mới
@@ -127,5 +134,8 @@
         });
 
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
 @endsection

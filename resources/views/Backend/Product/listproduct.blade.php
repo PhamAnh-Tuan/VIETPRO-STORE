@@ -59,7 +59,7 @@
 													</div>
 												</div>
 											</td>
-											<td>{{$item->prd_price}} VND</td>
+											<td>{{number_format($item->prd_price,0,"",".")}} VND</td>
 											<td>
 												<a class="btn btn-success" href="#" role="button">@if($item->prd_state==1) Con hang @else Het hang @endif</a>
 											</td>
