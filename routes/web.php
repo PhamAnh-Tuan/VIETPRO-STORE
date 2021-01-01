@@ -10,6 +10,7 @@ use App\Models\Info;
 use App\Models\Order;
 use App\Models\Products;
 use App\Models\OrderDetail;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Str;
 
 
@@ -19,9 +20,12 @@ Route::get('welcome', function () {
     return view('welcome');
 });
 
-Route::get('login', 'LoginController@LoginGet')->name('login.get');
-Route::post('/login', 'LoginController@LoginPost');
-Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin'], function () {
+Route::get('login', 'LoginController@LoginGet')->name('login')->middleware('CheckLogout');
+Route::post('login-post', 'LoginController@LoginPost')->name('login.post');
+Route::get('logout', 'LoginController@LogOut')->name('logout');
+
+
+Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin','middleware'=>'Login'], function () {
     Route::get('', 'AdminController@index')->name('admin.index');
     // Product
     Route::group(['prefix' => 'sản-phẩm', 'namespace' => 'Product'], function () {
@@ -104,7 +108,7 @@ Route::group(['prefix' => 'schema'], function () {
     // Edit colum table
     Route::get('rename-colum-table', function () {
         Schema::table('users', function ($table) {
-            $table->renameColumn('email', 'description');
+            $table->renameColumn('remenber_token', 'remember_token');
         });
     });
     // Thay đổi thuốc tính cột
@@ -507,3 +511,4 @@ Route::group(['prefix' => 'atttach'], function () {
         echo "da xu ly";
     });
 });
+
