@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -19,6 +20,7 @@ class ProductController extends Controller
     {
         $product = Products::all();
         return view('Backend.Product.listproduct', compact('product'));
+       
     }
     function create()
     {
