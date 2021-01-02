@@ -24,8 +24,13 @@ Route::get('login', 'LoginController@LoginGet')->name('login')->middleware('Chec
 Route::post('login-post', 'LoginController@LoginPost')->name('login.post');
 Route::get('logout', 'LoginController@LogOut')->name('logout');
 
+// Login FB
+// Route::get('/auth/facebook', 'Auth\LoginController@redirectToProvider')->name('login.fb');
+// Route::get('/auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.fb');
+Route::get('/login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin','middleware'=>'Login'], function () {
+Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middleware'=>'Login'], function () {
     Route::get('', 'AdminController@index')->name('admin.index');
     // Product
     Route::group(['prefix' => 'sản-phẩm', 'namespace' => 'Product'], function () {

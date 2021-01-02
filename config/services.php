@@ -29,5 +29,15 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    // 'facebook' => [
+    //     'client_id' => '716757455934115',
+    //     'client_secret' => '30bfcf751fe9d79863bc55b7b4640fe7',
+    //     'redirect' => 'http://localhost:8000/VIETPRO-STORE/public/trang-quản-trị',
+    // ],
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => 'http://localhost:8000/VIETPRO-STORE/public/login/facebook/callback',
+    ],
 
 ];
