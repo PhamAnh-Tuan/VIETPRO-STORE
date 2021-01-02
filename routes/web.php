@@ -56,7 +56,8 @@ Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin','middlewa
     // Order
     Route::group(['prefix' => 'đơn-hàng', 'namespace' => 'Order'], function () {
         Route::get('danh-sách-đơn-hàng.html', 'OrderController@index')->name('order.index');
-        Route::get('chi-tiết-đơn-hàng.html', 'OrderController@detail')->name('order.detail');
+        Route::get('chi-tiết-đơn-hàng/{id}', 'OrderController@detail')->name('order.detail');
+        Route::get('processed/{id}', 'OrderController@Detail_processed')->name('Detail_processed');
         Route::get('đơn-hàng-đã-hoàn-thành.html', 'OrderController@processed')->name('order.processed');
     });
 });
@@ -101,8 +102,8 @@ Route::group(['prefix' => 'schema'], function () {
     });
     // add colum
     Route::get('create-email-col', function () {
-        Schema::table('orderdetail', function ($table) {
-            $table->string('name');
+        Schema::table('orders', function ($table) {
+            $table->integer('ord_state');
         });
     });
     // Edit colum table
@@ -119,8 +120,8 @@ Route::group(['prefix' => 'schema'], function () {
     });
     // Drop colum
     Route::get('drop-colum', function () {
-        Schema::table('users', function ($table) {
-            $table->dropColumn('description');
+        Schema::table('orders', function ($table) {
+            $table->dropColumn('ord_state');
         });
     });
     // Add Foreign

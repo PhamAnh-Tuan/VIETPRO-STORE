@@ -1,5 +1,5 @@
 @extends('Backend.Master.master')
-@section('title','Chi tiết đơn hàng')
+@section('title', 'Chi tiết đơn hàng')
 @section('order_detail')
     <!--main-->
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -26,13 +26,16 @@
                                             <div class="panel panel-blue">
                                                 <div class="panel-heading dark-overlay">Thông tin khách hàng</div>
                                                 <div class="panel-body">
-                                                    <strong><span class="glyphicon glyphicon-user"
-                                                            aria-hidden="true"></span> : Nguyễn thế phúc</strong> <br>
-                                                    <strong><span class="glyphicon glyphicon-phone"
-                                                            aria-hidden="true"></span> : Số điện thoại: 0356653300</strong>
-                                                    <br>
-                                                    <strong><span class="glyphicon glyphicon-send"
-                                                            aria-hidden="true"></span> : Thường tín</strong>
+                                                        <strong><span class="glyphicon glyphicon-user"
+                                                                aria-hidden="true"></span> :
+                                                            {{ $order->ord_fullname }}</strong> <br>
+                                                        <strong><span class="glyphicon glyphicon-phone"
+                                                                aria-hidden="true"></span> : Số điện thoại:
+                                                            {{ $order->ord_phone }}</strong>
+                                                        <br>
+                                                        <strong><span class="glyphicon glyphicon-send"
+                                                                aria-hidden="true"></span> :
+                                                            {{ $order->ord_address }}</strong>
                                                 </div>
                                             </div>
                                         </div>
@@ -51,42 +54,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <img width="100px" src="img/ao-khoac.jpg" class="thumbnail">
+                                        @foreach ($details as $key => $item)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <img width="100px" src="img/product/{{ $item->image }}"
+                                                                class="thumbnail">
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p><b>Mã sản phẩm</b>: {{ $item->code }}</p>
+                                                            <p><b>Tên Sản phẩm</b>: {{ $item->name }}</p>
+                                                            <p><b>Số lương</b> : {{ $item->quantity }}</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-8">
-                                                        <p><b>Mã sản phẩm</b>: SP01</p>
-                                                        <p><b>Tên Sản phẩm</b>: Áo Khoác Bomber Nỉ Xanh Lá Cây AK179</p>
-                                                        <p><b>Số lương</b> : 2</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>500.000 VNĐ</td>
-                                            <td>1.000.000 VNĐ</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <img width="100px" src="img/ao-khoac.jpg" class="thumbnail">
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <p><b>Mã sản phẩm</b>: SP02</p>
-                                                        <p><b>Tên Sản phẩm</b>: Áo Khoác Bomber Nỉ Xanh Lá Cây AK179</p>
-                                                        <p><b>Số lương</b> : 1</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>500.000 VNĐ</td>
-                                            <td>500.000 VNĐ</td>
-
-                                        </tr>
+                                                </td>
+                                                <td>{{ number_format($item->price, 0, '', '.') }} VNĐ</td>
+                                                <td>{{ number_format($total = $item->price * $item->quantity, 0, '', '.') }}
+                                                    VNĐ</td>
+                                            </tr>
+                                            <div id="myDIV" style="display: none;">{{$sum+=$total}}</div>
+                                        @endforeach
 
                                     </tbody>
 
@@ -98,7 +87,7 @@
                                                 <h4 align='right'>Tổng Tiền :</h4>
                                             </th>
                                             <th>
-                                                <h4 align='right' style="color: brown;">1.500.000 VNĐ</h4>
+                                                <h4 align='right' style="color: brown;"> {{$sum+=$total}} VNĐ</h4>
                                             </th>
 
                                         </tr>
@@ -107,7 +96,8 @@
                                     </tbody>
                                 </table>
                                 <div class="alert alert-primary" role="alert" align='right'>
-                                    <a name="" id="" class="btn btn-success" href="{{route('order.index')}}" role="button">Đã xử lý</a>
+                                    <a name="" id="" class="btn btn-success" href="{{ route('Detail_processed',['id'=>$order->ord_id]) }}"
+                                        role="button">Đã xử lý</a>
                                 </div>
                             </div>
                         </div>
@@ -121,6 +111,7 @@
 
     </div>
     <!--end main-->
+
 @section('script')
     <!-- javascript -->
     <script src="js/jquery-1.11.1.min.js"></script>

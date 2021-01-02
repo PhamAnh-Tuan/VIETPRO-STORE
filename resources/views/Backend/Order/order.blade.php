@@ -29,23 +29,22 @@
                                             <th>Tên khách hàng</th>
                                             <th>Sđt</th>
                                             <th>Địa chỉ</th>
-
                                             <th>Xử lý</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($order as $key=> $item)
                                         <tr>
-                                            <td>1</td>
-                                            <td>Nguyễn Thế Phúc</td>
-                                            <td>0356653300</td>
-                                            <td>Thường tín</td>
+                                            <td>{{$key + 1}}</td>
+                                            <td>{{$item->ord_fullname}}</td>
+                                            <td>{{$item->ord_phone}}</td>
+                                            <td>{{$item->ord_address}}</td>
                                             <td>
-                                                <a href="{{route('order.detail')}}" class="btn btn-warning"><i class="fa fa-pencil"
+                                                <a href="{{route('order.detail',['id'=>$item->ord_id])}}" class="btn btn-warning"><i class="fa fa-pencil"
                                                         aria-hidden="true"></i>Xử lý</a>
-
                                             </td>
                                         </tr>
-
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

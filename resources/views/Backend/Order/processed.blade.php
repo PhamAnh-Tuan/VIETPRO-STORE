@@ -34,22 +34,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Nguyễn văn An</td>
-                                            <td>Lu@gmail.com</td>
-                                            <td>015232412</td>
-                                            <td>Bắc ninh</td>
-                                            <td>2018-12-06 12:17:17</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Nguyễn thế phúc</td>
-                                            <td>admin@gmail.com</td>
-                                            <td>0906013526</td>
-                                            <td>Thường tín , hà nội</td>
-                                            <td>2018-12-06 02:05:30</td>
-                                        </tr>
+                                        @foreach ($order_processed as $key => $item)
+                                            <tr>
+                                                <td>{{$key + 1}}</td>
+                                                <td>{{$item->ord_fullname}}</td>
+                                                <td>{{$item->ord_email}}</td>
+                                                <td>{{$item->ord_phone}}</td>
+                                                <td>{{$item->ord_address}}</td>
+                                                <td>{{$item->updated_at}}</td>
+                                            </tr>
+                                        @endforeach
+                                        
                                     </tbody>
                                 </table>
                             </div>
