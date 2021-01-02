@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+// class User extends Model 
+class User extends Authenticatable 
 {
     protected $table='users';
 
@@ -20,7 +22,10 @@ class User extends Model
         'user_address',
         'user_level',
         'user_phone',
-        'user_remenber_token'
+        'user_remenber_token',
+        'provider',
+        'provider_id',
+
     ];
     // public function info()
     // {
