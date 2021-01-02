@@ -16,6 +16,7 @@ class CreateOrderDetailTable extends Migration
         Schema::create('orderDetail', function (Blueprint $table) {
             $table->increments('ord_detail_id');
             $table->string('code','45');
+            $table->string('name','200');
             $table->decimal('price','18');
             $table->integer('quantity');
             $table->string('image','255');

@@ -8,6 +8,13 @@ class OrderDetail extends Model
 {
     protected $table='orderdetail';
     protected $primaryKey='ord_detail_id';
+    protected $fillable =[
+        'code',
+        'name',
+        'price',
+        'quantity',
+        'image'
+    ];
     /** belongsTo
      * tham số thứ 1 class được tham chiếu
      * tham số thú 2 là khóa ngoại của bảng OrderDetail
