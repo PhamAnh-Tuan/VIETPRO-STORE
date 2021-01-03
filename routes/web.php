@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 
 Route::get('welcome', function () {
-    $item=DB::table('products')->orderBy('prd_id','desc')->first();
+    $item = DB::table('products')->orderBy('prd_id', 'desc')->first();
     dd($item);
     return view('welcome');
 });
@@ -25,12 +25,10 @@ Route::post('login-post', 'LoginController@LoginPost')->name('login.post');
 Route::get('logout', 'LoginController@LogOut')->name('logout');
 
 // Login FB
-// Route::get('/auth/facebook', 'Auth\LoginController@redirectToProvider')->name('login.fb');
-// Route::get('/auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('/login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.fb');
 Route::get('/login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middleware'=>'Login'], function () {
+Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middleware' => 'Login'], function () {
     Route::get('', 'AdminController@index')->name('admin.index');
     // Product
     Route::group(['prefix' => 'sản-phẩm', 'namespace' => 'Product'], function () {
@@ -57,6 +55,7 @@ Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middlew
         Route::get('chỉnh-sửa-quản-trị/{id}', 'UserController@edit')->name('user.edit');
         Route::post('update/{id}', 'UserController@editpost')->name('user.edit_post');
         Route::get('xóa-quản-trị/{id}', 'UserController@delete')->name('user.delete');
+        Route::get('users/export/', 'UserController@export_fromview')->name('user.excel');
     });
     // Order
     Route::group(['prefix' => 'đơn-hàng', 'namespace' => 'Order'], function () {
@@ -298,15 +297,9 @@ Route::group(['prefix' => 'relationship'], function () {
          * Error: Trying to get property 'cmt' of non-object
          */
         Route::get('/lien-ket-chinh-phu-dieukien', function () {
-            try {
-                $user = User::find(2);
-                $info = $user->infoWhere;
-                echo 'Người có tên: ' . $user->user_fullname . ' có số cmt là: ' . $info->cmt;
-            } catch (Throwable $e) {
-                //report($e);
-
-                return 'Không có dữ liệu trả về!';
-            }
+            $user = User::find(2);
+            $info = $user->infoWhere;
+            echo 'Người có tên: ' . $user->user_fullname . ' có số cmt là: ' . $info->cmt;
         });
         /** Liên kết chính phụ lấy tất cả bản ghi bảng user + số cmt user bên bảng info
          * 
@@ -480,7 +473,7 @@ Route::group(['prefix' => 'atttach'], function () {
      * 
      */
     Route::get('add', function () {
-        $product=Products::find(1);
+        $product = Products::find(1);
         $product->categoryy()->attach(13);
         echo "da xu ly";
     });
@@ -488,7 +481,7 @@ Route::group(['prefix' => 'atttach'], function () {
      * 
      */
     Route::get('remove', function () {
-        $product=Products::find(1);
+        $product = Products::find(1);
         $product->categoryy()->detach(13);
         echo "da xu ly";
     });
@@ -496,25 +489,24 @@ Route::group(['prefix' => 'atttach'], function () {
      * 
      */
     Route::get('add-arr', function () {
-        $product=Products::find(1);
-        $product->categoryy()->attach([12,13,15]);
+        $product = Products::find(1);
+        $product->categoryy()->attach([12, 13, 15]);
         echo "da xu ly";
     });
     /** xoa 1 san pham voi nhieu danh muc
      * 
      */
     Route::get('remove-arr', function () {
-        $product=Products::find(1);
-        $product->categoryy()->detach([12,13,15]);
+        $product = Products::find(1);
+        $product->categoryy()->detach([12, 13, 15]);
         echo "da xu ly";
     });
     /** them cate id 12, 13, 16 con lai xoa het
      * 
      */
     Route::get('add-sync', function () {
-        $product=Products::find(1);
-        $product->categoryy()->sync([12,13,16]);
+        $product = Products::find(1);
+        $product->categoryy()->sync([12, 13, 16]);
         echo "da xu ly";
     });
 });
-

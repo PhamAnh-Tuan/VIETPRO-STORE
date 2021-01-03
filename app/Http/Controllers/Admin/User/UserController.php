@@ -10,6 +10,10 @@ use App\Models\User;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\EditUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Exports\UsersExport;
+use App\Exports\UsersExport_V1;
+use App\Exports\UsersExport_FromView;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class UserController extends Controller
@@ -141,6 +145,27 @@ class UserController extends Controller
         $user->save();
         // dd($user);
         echo "createsuccess";
+    }
+    public function export() 
+    {
+        #CSV
+        //return Excel::download(new UsersExport,'invoices.csv', \Maatwebsite\Excel\Excel::CSV);
+        #XLSX
+        //return Excel::download(new UsersExport, 'invoices.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        #TSV
+        //return Excel::download(new UsersExport, 'invoices.tsv', \Maatwebsite\Excel\Excel::TSV);
+        #ODS
+        //return Excel::download(new UsersExport, 'invoices.ods', \Maatwebsite\Excel\Excel::ODS);
+        #XLS
+        return Excel::download(new UsersExport, 'invoices.xls', \Maatwebsite\Excel\Excel::XLS);
+    }
+    public function export_v1() 
+    {
+        return (new UsersExport_V1)->download('i.xlsx', 'F:\\');
+    }
+    public function export_fromview() 
+    {
+       // return Excel::download(new UsersExport_FromView,'invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
     
 }
