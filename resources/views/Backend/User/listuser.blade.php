@@ -18,6 +18,11 @@
                 <h1 class="page-header">Danh sách thành viên</h1>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <a href="{{route('user.excel')}}">Xuất danh sách</a>
+            </div>
+        </div>
         <!--/.row-->
 
         <div class="row">
