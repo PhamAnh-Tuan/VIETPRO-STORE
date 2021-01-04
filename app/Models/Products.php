@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 use Notifiable,CrudTrait;
 class Products extends Model
 {
- 
+    use Searchable;
     protected $table = 'products';
     protected $primaryKey = 'prd_id';
     protected $fillable =
@@ -49,4 +50,30 @@ class Products extends Model
      {
          return $this->attributes['cat_id'] = json_decode($value);
      }
+
+     /** Laravel Scout
+      * 
+      */
+     public function searchableAs()
+     {
+         return 'products_index';
+     }
+     /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Customize array...
+
+        return $array;
+    }
+    public function getScoutKey()
+    {
+        return $this->prd_id;
+    }
+
 }

@@ -11,13 +11,11 @@ use App\Models\Order;
 use App\Models\Products;
 use App\Models\OrderDetail;
 use GuzzleHttp\Middleware;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-
-Route::get('welcome', function () {
-    $item = DB::table('products')->orderBy('prd_id', 'desc')->first();
-    dd($item);
-    return view('welcome');
+Route::get('agolia', function () {
+    return view('algolia');
 });
 
 Route::get('login', 'LoginController@LoginGet')->name('login')->middleware('CheckLogout');
@@ -28,16 +26,20 @@ Route::get('logout', 'LoginController@LogOut')->name('logout');
 Route::get('/login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.fb');
 Route::get('/login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
+
+
 Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middleware' => 'Login'], function () {
     Route::get('', 'AdminController@index')->name('admin.index');
     // Product
     Route::group(['prefix' => 'sản-phẩm', 'namespace' => 'Product'], function () {
         Route::get('danh-sách-sản-phẩm', 'ProductController@index')->name('product.index');
+        Route::get('danh-sách-sản-phẩm/{id}', 'ProductController@search')->name('product.serch');
         Route::get('thêm-mới-sản-phẩm.html', 'ProductController@create')->name('product.create');
         Route::post('thêm-mới-sản-phẩm', 'ProductController@createPOST')->name('product.createPOST');
         Route::get('chỉnh-sửa-chi-tiết-sản-phẩm/{id}', 'ProductController@edit')->name('product.edit');
         Route::post('update-san-pham/{id}', 'ProductController@editPost')->name('product.editPost');
         Route::get('xóa-sản-phẩm/{id}', 'ProductController@delete')->name('product.delete');
+       
     });
     // Category
     Route::group(['prefix' => 'danh-mục', 'namespace' => 'Category'], function () {
