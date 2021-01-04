@@ -12,7 +12,6 @@ class User extends Authenticatable
 
     // Nếu không đặt primaryKey, mặc định khóa chính là id, và khi chạy sẽ báo lỗi: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'users.id' in 'where clause' (SQL: select * from `users` where `users`.`id` = 1 limit 1)
     protected $primaryKey='user_id';
-    // protected $guarded=[];
     protected $fillable=
     [
         'user_id',

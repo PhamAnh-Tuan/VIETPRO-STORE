@@ -14,9 +14,8 @@ use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-Route::get('agolia', function () {
-    return view('algolia');
-});
+Route::get('agolia/{id}','Admin\User\UserController@export_id');
+Route::get('export/user/{user}', 'Admin\User\UserController@export_id');
 
 Route::get('login', 'LoginController@LoginGet')->name('login')->middleware('CheckLogout');
 Route::post('login-post', 'LoginController@LoginPost')->name('login.post');
