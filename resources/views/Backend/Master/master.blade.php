@@ -39,6 +39,14 @@
     @yield('user_add')
     @yield('user_edit')
     @yield('user_list')
+
+    @section('script')
+        <!-- javascript -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/chart.min.js"></script>
+        {{-- <script src="js/chart-data.js"></script> --}}
+    @show
 </body>
 
 </html>
