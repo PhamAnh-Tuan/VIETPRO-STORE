@@ -12,6 +12,7 @@ use App\Http\Requests\EditUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Exports\UsersExport;
 use App\Exports\UsersExport_V1;
+use App\Exports\UserFindIDExport;
 use App\Exports\UsersExport_FromView;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -146,6 +147,14 @@ class UserController extends Controller
         // dd($user);
         echo "createsuccess";
     }
+
+    /** Laravel Excel
+     * function export(): test xuất file
+     * function export_id: test xuất file theo ID
+     * 
+     * Tôi muốn tải xuống tệp excel thông qua Hộp kiểm ID duy nhất trong laravel, tôi đang sử dụng Maatwebsite \ Excel Tại đây
+     * https://stackoverflow.com/questions/64203069/i-want-to-download-a-excel-file-through-checkbox-unique-id-in-laravel-i-am-usin
+     */
     public function export() 
     {
         #CSV
@@ -157,15 +166,13 @@ class UserController extends Controller
         #ODS
         //return Excel::download(new UsersExport, 'invoices.ods', \Maatwebsite\Excel\Excel::ODS);
         #XLS
-        return Excel::download(new UsersExport, 'invoices.xls', \Maatwebsite\Excel\Excel::XLS);
+        //return Excel::download(new UsersExport, 'invoices.xls', \Maatwebsite\Excel\Excel::XLS);
     }
-    public function export_v1() 
+    public function export_id($id)
     {
-        return (new UsersExport_V1)->download('i.xlsx', 'F:\\');
+        $user=User::find($id)->first();
+        $name=$user->user_fullname;
+        return Excel::download(new UserFindIDExport($id), $name.'.xlsx');
     }
-    public function export_fromview() 
-    {
-       // return Excel::download(new UsersExport_FromView,'invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
-    }
-    
+
 }
