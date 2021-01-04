@@ -20,7 +20,6 @@ class ProductController extends Controller
     {
         $product = Products::all();
         return view('Backend.Product.listproduct', compact('product'));
-       
     }
     function create()
     {
@@ -31,7 +30,7 @@ class ProductController extends Controller
     /** CreateProductRequest
      * Nếu Yc thêm nhiều danh mục -> xóa khóa ngoại bảng products, vì sử dụng attack cần có khóa ID product ->xóa khóa ngoại bảng product để có ID new product
      */
-    function createPOST( Request $request)
+    function createPOST(Request $request)
     {
         $request->validate(
             [
@@ -54,15 +53,15 @@ class ProductController extends Controller
         $image->move($destinationPath, $name);
         /** Chưa xóa khóa vì project là 1-n
          * Vòng foreach ghi đè cat_id 
-         */ 
+         */
         foreach ($request->cat_id as $approver) {
             $product->cat_id = $approver;
         }
         $product->save();
-       $product->categoryy()->attach($request->cat_id);
+        $product->categoryy()->attach($request->cat_id);
         return redirect()->route('product.index')->with('thong-bao', 'success');
     }
-    
+
     function edit($id)
     {
         /** Cách 1
@@ -84,6 +83,7 @@ class ProductController extends Controller
     function editPost(Request $request, $id)
     {
         $product = Products::find($id);
+
         $product->cat_id = $request->cat_id;
         $product->prd_name = $request->name;
         $product->prd_code = $request->code;
@@ -129,11 +129,18 @@ class ProductController extends Controller
             $product->save();
             return redirect()->route('product.index')->with('thong-bao', 'success');
         }
+        $product->save();
+        return redirect()->route('product.index')->with('thong-bao', 'success');
     }
     function delete($id)
     {
         $product = Products::find($id);
         $product->delete($id);
         return redirect()->route('product.index')->with('thong-bao', 'success');
+    }
+    public function search(Request $request, $id)
+    {
+        $product = Products::where('prd_id', $id)->get();
+        return view('Backend.Product.search_product',compact('product'));
     }
 }
