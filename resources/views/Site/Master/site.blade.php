@@ -23,7 +23,7 @@
     <!-- Theme style  -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/custome.css">
-
+    <script src="https://js.stripe.com/v3/"></script>
 
 
 </head>
@@ -43,6 +43,8 @@
         @yield('cart_checkout')
         @yield('product_detail')
         @yield('shop')
+        @yield('plans')
+        @yield('payment')
         <!-- end main -->
 
         <!-- subscribe -->
