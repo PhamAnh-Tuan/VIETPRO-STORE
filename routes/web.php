@@ -24,12 +24,7 @@ Route::get('logout', 'LoginController@LogOut')->name('logout');
 // Login FB
 Route::get('/login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.fb');
 Route::get('/login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
-// Laravel Billing
-Route::group(['namespace' => 'Subscriptions'], function() {
-    Route::get('plans', 'SubscriptionController@index')->name('plans');
-    Route::get('/payments', 'PaymentController@index')->name('payments');
-    Route::post('/payments', 'PaymentController@store')->name('payments.store');
-});
+
 
 
 Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middleware' => 'Login'], function () {
