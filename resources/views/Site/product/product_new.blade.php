@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach ($product_new as $item)
+            @foreach ($new_product as $item)
             <div class="col-md-3 text-center">
                 <div class="product-entry">
                     <div class="product-img" style="background-image: url(images/{{$item->prd_image}});">
@@ -16,13 +16,13 @@
                         <div class="cart">
                             <p>
                                 <span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span>
-                                <span><a href="detail.html"><i class="icon-eye"></i></a></span>
+                                <span><a href="{{route('site.detail',['slug'=>$item->prd_slug])}}"><i class="icon-eye"></i></a></span>
                             </p>
                         </div>
                     </div>
                     <div class="desc">
-                        <h3><a href="detail.html">{{$item->prd_name}}</a></h3>
-                        <p class="price"><span>{{$item->prd_price}} đ</span></p>
+                        <h3><a href="{{route('site.detail',['slug'=>$item->prd_slug])}}">{{$item->prd_name}}</a></h3>
+                        <p class="price"><span>{{number_format($item->prd_price,0,'','.')}} đ</span></p>
                     </div>
                 </div>
             </div>

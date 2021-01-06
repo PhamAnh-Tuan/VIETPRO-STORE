@@ -76,13 +76,17 @@ Route::group(['namespace' => 'Site'], function () {
     // Product
     Route::group(['prefix' => 'sản-phẩm', 'namespace' => 'Product'], function () {
         Route::get('', 'ProductController@shop')->name('site.product');
-        Route::get('chi-tiết-sản-phẩm', 'ProductController@detail')->name('site.detail');
+        Route::get('{slug}.html', 'ProductController@detail')->name('site.detail');
+        Route::post('/finter', 'ProductController@finter')->name('site.finter');
     });
     // Cart
     Route::group(['prefix' => 'giỏ-hàng', 'namespace' => 'Cart'], function () {
         Route::get('', 'CartController@cart')->name('site.cart');
         Route::get('thanh-toán-đơn-hàng', 'CartController@checkout')->name('site.checkout');
     });
+
+    // Tim kiem theo danh muc
+    Route::get('{slug}.html', 'SiteController@findByCategory')->name('site.category');
 });
 
 // Schema-migration-seeder

@@ -11,14 +11,14 @@
                         <li class="has-dropdown">
                             <a href="{{route('site.product')}}">Cửa hàng</a>
                             <ul class="dropdown">
-                                <li><a href="cart.html">Giỏ hàng</a></li>
+                                <li><a href="{{route('site.cart')}}">Giỏ hàng</a></li>
                                 <li><a href="checkout.html">Thanh toán</a></li>
 
                             </ul>
                         </li>
                         <li><a href="about.html">Giới thiệu</a></li>
                         <li><a href="contact.html">Liên hệ</a></li>
-                        <li><a href="cart.html"><i class="icon-shopping-cart"></i> Giỏ hàng [0]</a></li>
+                        <li><a href="{{route('site.cart')}}"><i class="icon-shopping-cart"></i> Giỏ hàng [0]</a></li>
                     </ul>
                 </div>
             </div>
