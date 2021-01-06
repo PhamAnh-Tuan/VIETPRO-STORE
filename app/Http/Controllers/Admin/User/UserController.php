@@ -41,11 +41,13 @@ class UserController extends Controller
         $user = new User;
         $user->user_fullname = $request->user_fullname;
         $user->user_email = $request->user_email;
-        $user->user_password =Hash::make($request->user_password);
+        $user->password =Hash::make($request->user_password);
         $user->user_phone = $request->user_phone;
         $user->user_level = $request->user_level;
         $user->user_address = $request->user_address;
-        $user->user_remenber_token = $request->user_address;
+        $user->remember_token = $request->user_address;
+        $user->provider='';
+        $user->provider_id='';
         
         $user->save();
      return redirect()->route('user.index')->with('thong-bao','success');
@@ -72,12 +74,13 @@ class UserController extends Controller
         $user=User::find($id);
         $user->user_fullname = $request->user_fullname;
         $user->user_email = $request->user_email;
-        $user->user_password =$request->user_password;
+        $user->password =$request->user_password;
         $user->user_phone = $request->user_phone;
         $user->user_level = $request->user_level;
         $user->user_address = $request->user_address;
-        $user->user_remenber_token = $request->user_address;
-        dd($user);
+        $user->remember_token = $request->user_address;
+        $user->provider='';
+        $user->provider_id='';
         $user->save();
         return redirect()->route('user.index')->with('thong-bao-update','success');
     }
@@ -115,11 +118,13 @@ class UserController extends Controller
         $user=new User();
         $user->user_fullname='chu van huy';
         $user->user_email='chuvanhuy@gmail.com';
-        $user->user_password='chuvanhuy';
+        $user->password='chuvanhuy';
         $user->user_address='Hung Yen';
         $user->user_level='1';
         $user->user_phone='0374970903';
-        $user->user_remenber_token='0374970903';
+        $user->remember_token='0374970903';
+        $user->provider='';
+        $user->provider_id='';
         $user->save();
 
         dd($user);
@@ -130,11 +135,12 @@ class UserController extends Controller
         [
             'user_fullname'=>'chu van huy',
             'user_email'=>'chuvanhuy@gmail.com',
-            'user_password'=>'chuvanhuy',
+            'password'=>'chuvanhuy',
             'user_address'=>'Hung Yen',
             'user_level'=>'1',
             'user_phone'=>'0374970903',
-            'user_remenber_token'=>'0374970903'
+            'remember_token'=>'0374970903'
+            
         ];
         User::create($data);
         echo "createsuccess";

@@ -25,4 +25,12 @@ class Categories extends Model
     {
         return $this->belongsToMany(Products::class,'category_product','category_id','product_id');
     }
+    public function Productsss()
+    {
+        /**
+         * 
+         */
+        return $this->hasMany(Products::class, 'cat_id','cat_id');
+    }
+
 }
