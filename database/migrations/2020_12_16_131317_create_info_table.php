@@ -17,7 +17,6 @@ class CreateInfoTable extends Migration
             $table->increments('id');
             $table->string('cmt');
             $table->string('address');
-            
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->timestamps();

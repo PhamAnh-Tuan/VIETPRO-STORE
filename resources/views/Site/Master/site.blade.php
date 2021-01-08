@@ -41,6 +41,7 @@
         @yield('contact')
         @yield('cart')
         @yield('cart_checkout')
+        @yield('cart_complete')
         @yield('product_detail')
         @yield('shop')
         <!-- end main -->

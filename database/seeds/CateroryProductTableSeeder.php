@@ -14,8 +14,8 @@ class CateroryProductTableSeeder extends Seeder
     {
         DB::table('category_product')->insert(
         	[
-        		['category_id'=>'12','product_id' => '1'],
-        		['category_id'=>'12','product_id' => '5'],
+        		['category_id'=>'1','product_id' => '1'],
+        		['category_id'=>'1','product_id' => '1'],
 	        ]
 	    );
     }

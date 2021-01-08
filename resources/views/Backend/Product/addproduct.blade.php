@@ -26,22 +26,22 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Mã sản phẩm</label>
-                                        <input type="text" name="code" class="form-control" value="{{old('code')}}">
+                                        <input type="text" name="code" class="form-control" value="{{ old('code') }}">
                                     </div>
                                     {!! showError($errors, 'code') !!}
                                     <div class="form-group">
                                         <label>Tên sản phẩm</label>
-                                        <input type="text" name="name" class="form-control" value="{{old('name')}}">
+                                        <input type="text" name="name" class="form-control" value="{{ old('name') }}">
                                     </div>
                                     {!! showError($errors, 'name') !!}
                                     <div class="form-group">
                                         <label>Giá sản phẩm (Giá chung)</label>
-                                        <input type="text" name="price" class="form-control" value="{{old('price')}}">
+                                        <input type="text" name="price" class="form-control" value="{{ old('price') }}">
                                     </div>
                                     {!! showError($errors, 'price') !!}
                                     <div class="form-group">
                                         <label>Sản phẩm có nổi bật</label>
-                                        <select name="featured" class="form-control" value="{{old('featured')}}">
+                                        <select name="featured" class="form-control" value="{{ old('featured') }}">
                                             <option value="0">Không</option>
                                             <option value="1">Có</option>
                                         </select>
@@ -49,7 +49,7 @@
 
                                     <div class="form-group">
                                         <label>Trạng thái</label>
-                                        <select name="state" class="form-control" value="{{old('state')}}">
+                                        <select name="state" class="form-control" value="{{ old('state') }}">
                                             <option value="1">Còn hàng</option>
                                             <option value="0">Hết hàng</option>
                                         </select>
@@ -59,7 +59,7 @@
                                     <div class="form-group">
                                         <label>Ảnh sản phẩm</label>
                                         <input id="img" type="file" name="image" class="form-control hidden"
-                                            onchange="changeImg(this)" value="{{old('image')}}">
+                                            onchange="changeImg(this)" value="{{ old('image') }}">
                                         <img id="avatar" name="" class="thumbnail" width="100%" height="350px"
                                             src="img/product/import-img.png">
                                     </div>
@@ -69,7 +69,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Thông tin</label>
-                                        <textarea name="info" style="width: 100%;height: 100px;">{{old('info')}}</textarea>
+                                        <textarea name="info"
+                                            style="width: 100%;height: 100px;">{{ old('info') }}</textarea>
                                     </div>
                                     {!! showError($errors, 'info') !!}
                                 </div>
@@ -80,7 +81,7 @@
                                     <div class="form-group">
                                         <label>Miêu tả</label>
                                         <textarea id="editor" name="describer"
-                                            style="width: 100%;height: 100px;">{{old('describer')}}</textarea>
+                                            style="width: 100%;height: 100px;">{{ old('describer') }}</textarea>
                                     </div>
                                     {!! showError($errors, 'describer') !!}
                                     <button class="btn btn-success" name="add-product" type="submit">Thêm sản phẩm</button>
@@ -100,19 +101,21 @@
     </div>
 
     <!--end main-->
+@section('script')
+    @parent
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/chart.min.js"></script>
     <script src="js/chart-data.js"></script>
-
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $(".mul-select").select2({
-                    placeholder: "Chon danh muc", //placeholder
-                    tags: true,
-                    tokenSeparators: ['/',',',';'," "] 
-                });
-            })
+                placeholder: "Chon danh muc", //placeholder
+                tags: true,
+                tokenSeparators: ['/', ',', ';', " "]
+            });
+        })
+
     </script>
     <script>
         function changeImg(input) {
@@ -137,5 +140,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+@endsection
+
+
+
 
 @endsection

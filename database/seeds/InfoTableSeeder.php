@@ -15,8 +15,7 @@ class InfoTableSeeder extends Seeder
         DB::table('info')->insert([
             'cmt'=>'145818594',
             'address'=>'da nang',
-            'user_id'=>'23',
-            'level'=>'1'
+            'user_id'=>'2',
         ]);
     }
 }
