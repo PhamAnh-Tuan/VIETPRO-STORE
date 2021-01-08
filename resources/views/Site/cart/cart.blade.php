@@ -1,5 +1,5 @@
 @extends('Site.Master.site')
-@section('title','Giỏ hàng')
+@section('title', 'Giỏ hàng')
 @section('cart')
     <!-- main -->
     <div class="colorlib-shop">
@@ -41,69 +41,42 @@
                             <span>Xóa</span>
                         </div>
                     </div>
-                    <div class="product-cart">
-                        <div class="one-forth">
-                            <div class="product-img">
-                                <img class="img-thumbnail cart-img" src="images/ao-so-mi-hoa-tiet-den-asm1223-10191.jpg">
+                    @foreach ($cart as $item)
+                        <div class="product-cart">
+                            <div class="one-forth">
+                                <div class="product-img">
+                                    <img class="img-thumbnail cart-img"
+                                        src="/VIETPRO-STORE/public/backend/img/product/{{ $item->options->image }}">
+                                </div>
+                                <div class="detail-buy">
+                                    <h4>Mã : {{ $item->options->code }}</h4>
+                                    <h5>{{ $item->name }} {{ $item->rowId }}</h5>
+                                </div>
                             </div>
-                            <div class="detail-buy">
-                                <h4>Mã : SP01</h4>
-                                <h5>Áo Khoác Nam Đẹp</h5>
+                            <div class="one-eight text-center">
+                                <div class="display-tc">
+                                    <span class="price">{{ number_format($item->price, 0, '', ',') }} đ</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="one-eight text-center">
-                            <div class="display-tc">
-                                <span class="price">680.000 đ</span>
+                            <div class="one-eight text-center">
+                                <div class="display-tc">
+                                    <input onchange="return update_cart('{{ $item->rowId }}',this.value)"  type="number"
+                                        id="quantity" name="quantity" class="form-control input-number text-center"
+                                        value="{{ $item->qty }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="one-eight text-center">
-                            <div class="display-tc">
-                                <input type="number" id="quantity" name="quantity" class="form-control input-number text-center" value="1">
+                            <div class="one-eight text-center">
+                                <div class="display-tc">
+                                    <span class="price">{{ number_format($item->price*$item->qty, 0, '', ',') }} đ</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="one-eight text-center">
-                            <div class="display-tc">
-                                <span class="price">1.200.000 đ</span>
-                            </div>
-                        </div>
-                        <div class="one-eight text-center">
-                            <div class="display-tc">
-                                <a href="#" class="closed"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-cart">
-                        <div class="one-forth">
-                            <div class="product-img">
-                                <img class="img-thumbnail cart-img" src="images/ao-so-mi-trang-kem-asm836-8193.jpg">
-                            </div>
-                            <div class="detail-buy">
-                                <h4>Mã : SP01</h4>
-                                <h5>Áo Khoác Nam Đẹp</h5>
+                            <div class="one-eight text-center">
+                                <div class="display-tc">
+                                    <a href="{{route('site.cart-delete',['rowId'=>$item->rowId])}}" class="closed"></a>
+                                </div>
                             </div>
                         </div>
-                        <div class="one-eight text-center">
-                            <div class="display-tc">
-                                <span class="price">680.000 đ</span>
-                            </div>
-                        </div>
-                        <div class="one-eight text-center">
-                            <div class="display-tc">
-                                <input type="number" id="quantity" name="quantity" class="form-control input-number text-center" value="1">
-                            </div>
-                        </div>
-                        <div class="one-eight text-center">
-                            <div class="display-tc">
-                                <span class="price">1.200.000 đ</span>
-                            </div>
-                        </div>
-                        <div class="one-eight text-center">
-                            <div class="display-tc">
-                                <a href="#" class="closed"></a>
-                            </div>
-                        </div>
-                    </div>
-
+                    @endforeach
 
                 </div>
             </div>
@@ -117,11 +90,11 @@
                             <div class="col-md-3 col-md-push-1 text-center">
                                 <div class="total">
                                     <div class="sub">
-                                        <p><span>Tổng:</span> <span>4.000.000 đ</span></p>
+                                        <p><span>Tổng:</span> <span>{{$total}} đ</span></p>
                                     </div>
                                     <div class="grand-total">
-                                        <p><span><strong>Tổng cộng:</strong></span> <span>3.550.000 đ</span></p>
-                                        <a href="{{route('site.checkout')}}" class="btn btn-primary">Thanh toán <i
+                                        <p><span><strong>Tổng cộng:</strong></span> <span>{{$total}} đ</span></p>
+                                        <a href="{{ route('site.checkout') }}" class="btn btn-primary">Thanh toán <i
                                                 class="icon-arrow-right-circle"></i></a>
                                     </div>
                                 </div>
@@ -134,8 +107,9 @@
     </div>
 
     <!-- end main -->
+
     @section('fontend_script')
-        <!-- jQuery -->
+    <!-- jQuery -->
     <script src="js/jquery.min.js"></script>
 
     <!-- Bootstrap -->
@@ -147,11 +121,9 @@
 
     <!-- Magnific Popup -->
     <script src="js/jquery.magnific-popup.min.js"></script>
-
-
-
     <!-- Main -->
     <script src="js/main.js"></script>
+
     <script>
         $(document).ready(function() {
 
@@ -184,8 +156,21 @@
             });
 
         });
+
     </script>
-    @endsection
-    
+    <script>
+         function update_cart(row_Id, qty) {
+            // alert($row_Id+ '-'+$qty);
+            $.get('/VIETPRO-STORE/public/cart/update/' + row_Id + '/' + qty,
+                function(data) {
+                    if (data == 200) {
+                        window.location.reload();
+                    } else {
+                        alert('false');
+                    }
+            });
+        }
+
+    </script>
 @endsection
-        
+@endsection

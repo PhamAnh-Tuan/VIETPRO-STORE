@@ -18,9 +18,9 @@ class CreateProductsTable extends Migration
             $table->string('prd_name','255');
             $table->string('prd_code','45');
             $table->string('prd_slug','255');
-            $table->decimal('prd_price','18');
-            $table->tinyInteger('prd_featured');
-            $table->tinyInteger('prd_state');
+            $table->integer('prd_price');
+            $table->integer('prd_featured');
+            $table->integer('prd_state');
             $table->text('prd_info');
             $table->text('prd_describer');
             $table->string('prd_image','255');

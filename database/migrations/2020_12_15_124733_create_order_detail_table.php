@@ -17,7 +17,7 @@ class CreateOrderDetailTable extends Migration
             $table->increments('ord_detail_id');
             $table->string('code','45');
             $table->string('name','200');
-            $table->decimal('price','18');
+            $table->integer('price');
             $table->integer('quantity');
             $table->string('image','255');
             $table->integer('ord_id')->unsigned();

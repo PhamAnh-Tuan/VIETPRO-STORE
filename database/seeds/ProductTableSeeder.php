@@ -23,7 +23,7 @@ class ProductTableSeeder extends Seeder
                 'prd_info'=>'áo nam mùa đông lạnh run Chym thoan mat',
                 'prd_describer'=>'áo nam mùa hè thoan mat ca mua dong',
                 'prd_image'=>'jpg.jpg',
-                'cat_id'=>'12'
+                'cat_id'=>'1'
             ],
             [
                 'prd_name'=>'áo nam mùa hạ 1',
@@ -35,7 +35,7 @@ class ProductTableSeeder extends Seeder
                 'prd_info'=>'áo nam mùa đông lạnh run Chym thoan mat',
                 'prd_describer'=>'áo nam mùa hè thoan mat ca mua dong',
                 'prd_image'=>'jpg.jpg',
-                'cat_id'=>'12'
+                'cat_id'=>'1'
             ],
             [
                 'prd_name'=>'áo nam mùa xuân 12',
@@ -47,7 +47,7 @@ class ProductTableSeeder extends Seeder
                 'prd_info'=>'áo nam mùa đông lạnh run Chym thoan mat',
                 'prd_describer'=>'áo nam mùa hè thoan mat ca mua dong',
                 'prd_image'=>'jpg.jpg',
-                'cat_id'=>'12'
+                'cat_id'=>'1'
             ],
             [
                 'prd_name'=>'áo nam mùa hạ 12',
@@ -59,7 +59,7 @@ class ProductTableSeeder extends Seeder
                 'prd_info'=>'áo nam mùa đông lạnh run Chym thoan mat',
                 'prd_describer'=>'áo nam mùa hè thoan mat ca mua dong',
                 'prd_image'=>'jpg.jpg',
-                'cat_id'=>'12'
+                'cat_id'=>'1'
             ],
         ]);
     }

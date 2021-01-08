@@ -25,8 +25,6 @@ Route::get('logout', 'LoginController@LogOut')->name('logout');
 Route::get('/login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.fb');
 Route::get('/login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
-
-
 Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middleware' => 'Login'], function () {
     Route::get('', 'AdminController@index')->name('admin.index');
     // Product
@@ -80,9 +78,20 @@ Route::group(['namespace' => 'Site'], function () {
         Route::post('/finter', 'ProductController@finter')->name('site.finter');
     });
     // Cart
-    Route::group(['prefix' => 'giỏ-hàng', 'namespace' => 'Cart'], function () {
-        Route::get('', 'CartController@cart')->name('site.cart');
+    Route::group(['prefix' => '', 'namespace' => 'Cart'], function () {
+        // them san pham vao gio hang
+        Route::post('add', 'CartController@AddToCart')->name('site.cart-add');
+        // cap nhat gio hang
+        Route::get('cart/update/{rowId}/{qty}', 'CartController@CartUpdate')->name('site.cart-update');
+        // Xoa gio hang
+        Route::get('xoa/{rowId}', 'CartController@DeleteCart')->name('site.cart-delete');
+        // View Gio hang
+        Route::get('gio-hang', 'CartController@cart')->name('site.cart');
+        // Thanh toan
         Route::get('thanh-toán-đơn-hàng', 'CartController@checkout')->name('site.checkout');
+        Route::post('/thanh-toan', 'CartController@CheckOutPost')->name('site.checkout-post');
+        // Hoan tat thanh toan
+        Route::get('/hoan tat thanh toan', 'CartController@checkoutsuccess')->name('checkoutsuccess');
     });
 
     // Tim kiem theo danh muc

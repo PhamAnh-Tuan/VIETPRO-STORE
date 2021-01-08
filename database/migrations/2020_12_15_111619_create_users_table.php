@@ -20,8 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('user_fullname','255');
             $table->string('user_address','255');
             $table->string('user_phone','11');
-            $table->string('remenber_token','100');
-            $table->tinyInteger('user_level')->default(1);
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->rememberToken();
+            $table->tinyInteger('user_level')->default(0);
             $table->timestamps();
         });
     }

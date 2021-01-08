@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
 {
@@ -15,20 +16,20 @@ class UserTableSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'user_email'=>'dothuykieu@gmail.com',
-                'user_password'=>'12345678',
+                'password'=>Hash::make('12345678'),
                 'user_fullname'=>'Đỗ Thúy Kiều',
                 'user_address'=>'hưng yên',
                 'user_phone'=>'0374970903',
-                'user_remenber_token'=>'',
+                'remember_token'=>'',
                 'user_level'=>'1'
             ],
             [
                 'user_email'=>'quantrimang@gmail.com',
-                'user_password'=>'12345678',
+                'password'=>Hash::make('12345678'),
                 'user_fullname'=>'quản trị xinh trai',
                 'user_address'=>'Hà nội',
                 'user_phone'=>'0374970904',
-                'user_remenber_token'=>'',
+                'uremember_token'=>'',
                 'user_level'=>'2'
             ]
         ]);

@@ -11,26 +11,22 @@
                             <div class="col-md-5">
                                 <div class="product-entry">
                                     <div class="product-img"
-                                        style="background-image: url(images/{{$product->prd_image}});">
-
+                                        style="background-image: url(images/{{ $product->prd_image }});">
                                     </div>
-
                                 </div>
                             </div>
                             <div class="col-md-7">
-                                <form action="product/AddCart" method="post">
-
+                                <form action="{{ route('site.cart-add') }}" method="post">
+                                    @csrf
                                     <div class="desc">
-                                        <h3>{{$product->prd_name}}</h3>
+                                        <h3>{{ $product->prd_name }}</h3>
                                         <p class="price">
-                                            <span>{{number_format($product->prd_price,0,'','.')}} đ</span>
+                                            <span>{{ number_format($product->prd_price, 0, '', '.') }} đ</span>
                                         </p>
                                         <p>Thông tin</p>
                                         <p style="text-align: justify;">
-                                            {{$product->prd_info}}
+                                            {{ $product->prd_info }}
                                         </p>
-
-
                                         <div class="row row-pb-sm">
                                             <div class="col-md-4">
                                                 <div class="input-group">
@@ -51,9 +47,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="hidden" name="id_product" value="1">
-                                        <p><button class="btn btn-primary btn-addtocart" type="submit"> Thêm vào giỏ
-                                                hàng</button></p>
+                                        <input type="hidden" name="id_product" value="{{ $product->prd_id }}">
+                                        <p><button class="btn btn-primary btn-addtocart" type="submit"> Thêm vào giỏ hàng</button></p>
                                     </div>
                                 </form>
                             </div>
@@ -70,7 +65,7 @@
                             </ul>
                             <div class="tab-content">
                                 <div id="description" class="tab-pane fade in active">
-                                    {{$product->prd_describer}}
+                                    {{ $product->prd_describer }}
                                 </div>
                             </div>
                         </div>
@@ -79,7 +74,6 @@
             </div>
         </div>
     </div>
-
     <div class="colorlib-shop">
         <div class="container">
             <div class="row">
@@ -89,27 +83,25 @@
             </div>
             <div class="row">
                 @foreach ($new_product as $item)
-                <div class="col-md-3 text-center">
-                    <div class="product-entry">
-                        <div class="product-img" style="background-image: url(images/{{$item->prd_image}});">
-                            <div class="cart">
-                                <p>
-                                    <span class="addtocart"><a href="cart.html"><i
-                                                class="icon-shopping-cart"></i></a></span>
-                                    <span><a href="detail.html"><i class="icon-eye"></i></a></span>
-
-
-                                </p>
+                    <div class="col-md-3 text-center">
+                        <div class="product-entry">
+                            <div class="product-img" style="background-image: url(images/{{ $item->prd_image }});">
+                                <div class="cart">
+                                    <p>
+                                        <span class="addtocart"><a href="cart.html"><i
+                                                    class="icon-shopping-cart"></i></a></span>
+                                        <span><a href="detail.html"><i class="icon-eye"></i></a></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="desc">
+                                <h3><a href="detail.html">{{ $item->prd_name }}</a></h3>
+                                <p class="price"><span>{{ number_format($item->prd_price, 0, '', '.') }} đ</span></p>
                             </div>
                         </div>
-                        <div class="desc">
-                            <h3><a href="detail.html">{{$item->prd_name}}</a></h3>
-                            <p class="price"><span>{{number_format($item->prd_price,0,'','.')}} đ</span></p>
-                        </div>
                     </div>
-                </div>
                 @endforeach
-               
+
             </div>
         </div>
     </div>

@@ -13,9 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('users')->insert([
-        //     ['id'=>1,'fullName'=>'huy dep trai', 'address'=>'hung yen','level'=>'1']
-
-        // ]);
+        $this->call([
+            UserTableSeeder::class,
+            CategoryTableSeeder::class,
+            OrderTableSeeder::class,
+            OrderDetailTableSeeder::class,
+            ProductTableSeeder::class,
+            InfoTableSeeder::class,
+            CateroryProductTableSeeder::class,
+        ]);
     }
 }
