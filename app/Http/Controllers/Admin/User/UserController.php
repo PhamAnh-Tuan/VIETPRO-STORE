@@ -15,6 +15,8 @@ use App\Exports\UsersExport_V1;
 use App\Exports\UserFindIDExport;
 use App\Exports\UsersExport_FromView;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 
 class UserController extends Controller
@@ -179,6 +181,36 @@ class UserController extends Controller
         $user=User::find($id)->first();
         $name=$user->user_fullname;
         return Excel::download(new UserFindIDExport($id), $name.'.xlsx');
+    }
+
+    public function info($id){
+        $user = User::find($id);
+        return view('backend.user.infouser',compact('user'));
+    }
+    public function avatar(Request $request, $id){
+        $user = User::find($id);
+        $slug = Str::slug($user -> user_fullname,'-');
+        $user ->  user_fullname = $user ->  user_fullname;
+        $user ->  user_email = $user ->  user_email;
+        $user -> password = $user -> password;
+        $user ->  user_phone = $user ->  user_phone;
+        $user ->  user_address = $user ->  user_address;
+        $user ->  user_level = $user ->  user_level;
+        if($request -> hasFile('image')){
+            $file = $request -> file('image');
+            //tạo tên của file cần lưu
+            $fileName =  $slug.'_'.Carbon::now()-> second.'.'.$file->getClientOriginalExtension();
+            //đường dẫn lưu file
+            $path = public_path().'/uploads/avatar';
+            //di chuyển file đến nơi lưu trên server
+            $file -> move($path,$fileName);
+            // chuẩn bị tên file lưu vào database
+            $user -> avatar = $fileName;
+        }
+        // dd($user);
+        $user -> save();
+        return redirect()->route('user.info',['id'=> $user-> user_id]);
+        
     }
 
 }

@@ -35,10 +35,10 @@ Chỉnh sửa quản trị {{ $user->user_fullname }}
                                     {!!showError($errors, 'user_email')!!}
                                     <div class="form-group">
                                         <label>password</label>
-                                        <input type="text" name="user_password" class="form-control"
-                                            value="{{ $user->user_password }}">
+                                        <input type="text" name="password" class="form-control"
+                                            value="{{ $user->password }}">
                                     </div>
-                                    {!!showError($errors, 'user_password')!!}
+                                    {!!showError($errors, 'password')!!}
                                     <div class="form-group">
                                         <label>Full name</label>
                                         <input type="full" name="user_fullname" class="form-control"

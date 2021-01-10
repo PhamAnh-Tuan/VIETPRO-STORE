@@ -59,7 +59,7 @@ class ProductController extends Controller
         }
         $product->save();
         $product->categoryy()->attach($request->cat_id);
-        return redirect()->route('product.index')->with('thong-bao', 'success');
+        return redirect()->route('product.index')->with('success', 'Thêm thành công');
     }
 
     function edit($id)
@@ -127,16 +127,16 @@ class ProductController extends Controller
                 $product->prd_image = $strImage;
             }
             $product->save();
-            return redirect()->route('product.index')->with('thong-bao', 'success');
+            return redirect()->route('product.index')->with('success', 'Sửa thành công');
         }
         $product->save();
-        return redirect()->route('product.index')->with('thong-bao', 'success');
+        return redirect()->route('product.index')->with('success', 'Sửa thành công');
     }
     function delete($id)
     {
         $product = Products::find($id);
         $product->delete($id);
-        return redirect()->route('product.index')->with('thong-bao', 'success');
+        return redirect()->route('product.index')->with('success', 'Xoá thành công');
     }
     public function search(Request $request, $id)
     {
