@@ -29,12 +29,13 @@
                     <div class="panel-body">
                         <div class="bootstrap-table">
                             <div class="table-responsive">
-                                <div class="alert bg-success" role="alert">
-                                    <svg class="glyph stroked checkmark">
-                                        <use xlink:href="#stroked-checkmark"></use>
-                                    </svg>Đã thêm thành công<a href="#" class="pull-right"><span
-                                            class="glyphicon glyphicon-remove"></span></a>
-                                </div>
+								@if (session('success'))									
+									<div class="alert bg-success" role="alert">
+										<svg class="glyph stroked checkmark">
+											<use xlink:href="#stroked-checkmark"></use>
+										</svg>{{ session('success') }}<a href="#" class="pull-right"></a>
+									</div>
+								@endif
                                 <a href="{{ route('product.create') }}" class="btn btn-primary">Thêm sản phẩm</a>
                                 <!-- Laravel scout + agolia -->
                                 <div style="float: right" class="aa-input-container" id="aa-input-container">

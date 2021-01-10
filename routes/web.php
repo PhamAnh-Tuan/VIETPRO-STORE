@@ -49,6 +49,11 @@ Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middlew
     // Users
     Route::group(['prefix' => 'quản-trị-viên', 'namespace' => 'User'], function () {
         Route::get('', 'UserController@index')->name('user.index');
+        //chuyển đến trang thông tin thành viên từ navibar
+        route::get('/thông-tin-thành-viên/{id}','UserController@info')->name('user.info');
+        //update avatar
+        route::post('/avatar/{id}','UserController@avatar')->name('user.avatar');
+        
         Route::get('thêm-mới-quản-trị.html', 'UserController@create')->name('user.create');
         Route::post('thêm-mới-quản-trị.html', 'UserController@createPost')->name('user.createPost');
         Route::get('chỉnh-sửa-quản-trị/{id}', 'UserController@edit')->name('user.edit');
@@ -62,6 +67,13 @@ Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middlew
         Route::get('chi-tiết-đơn-hàng/{id}', 'OrderController@detail')->name('order.detail');
         Route::get('processed/{id}', 'OrderController@Detail_processed')->name('Detail_processed');
         Route::get('đơn-hàng-đã-hoàn-thành.html', 'OrderController@processed')->name('order.processed');
+    });
+});
+
+//thêm cột avatar vào bảng user
+Route::get('create-avatar-col',function(){
+    Schema::table('users',function($table){
+        $table -> string('avatar') -> nullable();
     });
 });
 // Site

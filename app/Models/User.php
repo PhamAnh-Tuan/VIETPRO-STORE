@@ -24,6 +24,7 @@ class User extends Authenticatable
         'user_remenber_token',
         'provider',
         'provider_id',
+        'avatar',
 
     ];
     // public function info()
