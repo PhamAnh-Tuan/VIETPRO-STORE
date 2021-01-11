@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Categories;
 use Illuminate\Support\Str;
 
@@ -14,15 +16,15 @@ class CategoryController extends Controller
         $category = Categories::all();
         return view('Backend.Category.category', compact('category'));
     }
-    function create(Request $request)
+    function create(CreateCategoryRequest $request)
     {
         $category = new Categories();
-        $category->cat_name = $request->cat_name;
-        $category->cat_slug = Str::slug($request->cat_name, '-');
-        $category->cat_parent_id = $request->cat_parent_id;
+        $category-> cat_name = $request-> cat_name;
+        $category-> cat_slug = Str::slug($request-> cat_name, '-');
+        $category-> cat_parent_id = $request-> cat_parent_id;
         // dd($category);
         $category->save();
-        return redirect()->route('category.index')->with('thong-bao', 'success');
+        return redirect()->route('category.index')->with('success', 'Thêm danh mục thành công');
     }
     function edit($id)
     {
@@ -30,7 +32,7 @@ class CategoryController extends Controller
         $data['categories'] = Categories::all();
         return view('Backend.Category.editcategory', $data);
     }
-    function editPost(Request $request, $id)
+    function editPost(UpdateCategoryRequest $request, $id)
     {
         $category = Categories::find($id);
         $category->cat_name = $request->cat_name;
@@ -38,7 +40,7 @@ class CategoryController extends Controller
         $category->cat_slug = Str::slug($request->cat_name, '-');
         //    dd($category); 
         $category->save();
-        return redirect()->route('category.index')->with('thong-bao-cate-update', 'success');
+        return redirect()->route('category.index')->with('success', 'Sửa danh mục thành công');
     }
     function delete(Request $request, $id)
     {
@@ -50,6 +52,6 @@ class CategoryController extends Controller
         } else {
             $category->delete();
         }
-        return redirect()->route('category.index')->with('thong-bao-cate-update', 'success');
+        return redirect()->route('category.index')->with('success', 'Xoá danh mục thành công');
     }
 }

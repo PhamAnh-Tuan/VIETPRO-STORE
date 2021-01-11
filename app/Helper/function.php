@@ -81,7 +81,24 @@ function getCategories($array, $parentId, $char, $isParent)
         }
     }
 }
-
+function showCategory($categories,$parent_id,$char,$parent_child) 
+{
+    foreach($categories as $key => $value) 
+    {
+        if($value['cat_parent_id'] ==  $parent_id) 
+        {
+            if($value['cat_id'] == $parent_child) 
+            {
+                echo '<option value='.$value['cat_id'].' selected>'.$char.$value['cat_name'].'</option>';
+            }
+            else
+            {
+                echo '<option value='.$value['cat_id'].'>'.$char.$value['cat_name'].'</option>';
+            }
+            showCategory($categories,$value['cat_id'],$char.'|--',$parent_child);
+        }	
+    }
+}
 // Edit 2:00
 function listCategories($mang, $parentId, $char)
 {

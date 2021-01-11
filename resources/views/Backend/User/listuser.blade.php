@@ -108,7 +108,7 @@
                                     </tbody>
                                 </table>
                                 <div align='right'>
-                                    {{-- <!-- {{ $users->links() }} --> --}}
+                                    {{ $users->links() }} 
                                 </div>
                             </div>
                             <div class="clearfix"></div>

@@ -22,7 +22,8 @@
                                     <div class="form-group">
                                         <label>Danh mục</label>
                                         <select class="form-control" name="cat_id">
-                                            {!! getCategories($categoriesData, 0, '', $product['cat_id']) !!}
+                                            {{-- {!! getCategories($categoriesData, 0, '', $product['cat_id']) !!} --}}
+                                            {!! showCategory($categories,0,'',0) !!}
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -64,10 +65,10 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Ảnh sản phẩm</label>
-                                        <input id="img" type="file"  name="img" class="form-control hidden"
+                                        <input id="img" type="file"  name="image" class="form-control hidden"
                                             onchange="changeImg(this)">
                                         <img id="avatar" class="thumbnail" width="100%" height="350px"
-                                            src="img/product/{{ $product->prd_image }}">
+                                            src="../uploads/products/{{ $product->prd_image }}">
                                     </div>
                                 </div>
                                 <div class="col-md-12">

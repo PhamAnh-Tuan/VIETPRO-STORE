@@ -1,10 +1,10 @@
 @extends('Backend.Master.master')
 @section('title')
-@if (isset( $user->user_title))
-Chỉnh sửa quản trị {{ $user->user_title }}
-@else
-Chỉnh sửa quản trị {{ $user->user_fullname }}
-@endif
+    @if (isset( $user->user_title))
+    Chỉnh sửa quản trị {{ $user->user_title }}
+    @else
+    Chỉnh sửa quản trị {{ $user->user_fullname }}
+    @endif
 @endsection
 {{-- @section('title')
 Chỉnh sửa quản trị {{ $user->user_fullname }}
@@ -33,9 +33,9 @@ Chỉnh sửa quản trị {{ $user->user_fullname }}
                                             value="{{ $user->user_email }}">
                                     </div>
                                     {!!showError($errors, 'user_email')!!}
-                                    <div class="form-group">
+                                    <div class="form-group" >
                                         <label>password</label>
-                                        <input type="text" name="password" class="form-control"
+                                        <input type="password" name="password" class="form-control"
                                             value="{{ $user->password }}">
                                     </div>
                                     {!!showError($errors, 'password')!!}
@@ -86,11 +86,4 @@ Chỉnh sửa quản trị {{ $user->user_fullname }}
 
         <!--/.row-->
     </div>
-@section('script')
-    <!--end main-->
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/chart.min.js"></script>
-    <script src="js/chart-user.js"></script>
-@endsection
 @endsection

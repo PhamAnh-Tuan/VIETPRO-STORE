@@ -27,8 +27,8 @@ class UserController extends Controller
         // $users=DB::table('users')->get();
         
         // ORM
-        $users=User::all();
-        // $users = User::paginate(12); 
+        // $users=User::all();
+        $users = User::paginate(4); 
         return view('Backend.User.listuser', compact('users'));
     }
     function create()

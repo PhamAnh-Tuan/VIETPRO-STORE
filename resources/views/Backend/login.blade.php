@@ -33,7 +33,7 @@
 							</div>
 							{!!showError($errors, 'email')!!}
 							<div class="form-group">
-								<input class="form-control" placeholder="Password" name="password" type="text" value="">
+								<input class="form-control" placeholder="Password" name="password" type="password" value="">
 							</div>
 							<div class="form-group">
 								<a href="{{route('login.fb')}}" >Login with Facebook</a>

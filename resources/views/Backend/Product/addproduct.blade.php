@@ -20,8 +20,10 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label>Danh mục</label>
-                                        <select class="form-control mul-select" name="cat_id[]" multiple="true" id="news">
-                                            {!! getCategories($categories, 0, '', 0) !!}
+                                        {{-- <select class="form-control mul-select" name="cat_id" multiple="true" id="news"> --}}
+                                        <select class="form-control mul-select" name="cat_id" id="news">
+                                            {{-- {!! getCategories($categories, 0, '', 0) !!} --}}
+                                            {!! showCategory($categories,0,'',0) !!}
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -59,9 +61,9 @@
                                     <div class="form-group">
                                         <label>Ảnh sản phẩm</label>
                                         <input id="img" type="file" name="image" class="form-control hidden"
-                                            onchange="changeImg(this)" value="{{ old('image') }}">
+                                            onchange="changeImg(this)">
                                         <img id="avatar" name="" class="thumbnail" width="100%" height="350px"
-                                            src="img/product/import-img.png">
+                                            src="../uploads/products/import-img.png">
                                     </div>
                                     {!! showError($errors, 'image') !!}
                                 </div>

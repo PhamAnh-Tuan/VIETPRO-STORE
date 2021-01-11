@@ -65,7 +65,7 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
                                                     <div class="row">
-                                                        <div class="col-md-3"><img src="img/product/{{ $item->prd_image }}"
+                                                        <div class="col-md-3"><img src="../uploads/products/{{ $item->prd_image }}"
                                                                 alt="Áo đẹp" width="100px" class="thumbnail"></div>
                                                         <div class="col-md-9">
                                                             <p><strong>Mã sản phẩm : {{ $item->prd_id }}</strong></p>
@@ -76,8 +76,7 @@
                                                 <td>{{ number_format($item->prd_price, 0, '', '.') }} VND</td>
                                                 <td>
                                                     <a class="btn btn-success" href="#" role="button">
-                                                        @if ($item->prd_state == 1) Con
-                                                        hang @else Het hang @endif
+                                                        @if ($item->prd_state == 1) Còn hàng @else Hết hàng @endif
                                                     </a>
                                                 </td>
                                                 <td>{{ $item->Categories->cat_name }}</td>
@@ -99,11 +98,7 @@
                                 </table>
                                 <div align='right'>
                                     <ul class="pagination">
-                                        <li class="page-item"><a class="page-link" href="#">Trở lại</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">tiếp theo</a></li>
+                                        {!! $product -> links() !!}
                                     </ul>
                                 </div>
                             </div>
