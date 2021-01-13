@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Scout\Searchable;
 
 // class User extends Model 
 class User extends Authenticatable 
 {
-    protected $table='users';
+    use Searchable;
 
-    // Nếu không đặt primaryKey, mặc định khóa chính là id, và khi chạy sẽ báo lỗi: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'users.id' in 'where clause' (SQL: select * from `users` where `users`.`id` = 1 limit 1)
+    protected $table='users';
     protected $primaryKey='user_id';
     protected $fillable=
     [
@@ -46,5 +47,24 @@ class User extends Authenticatable
     public function infoWhere()
     {
         return $this->hasOne(Info::class,'user_id','user_id')->where('address','=','hung yen');
+    }
+    public function searchableAs()
+    {
+        return 'users_index';
+    }
+    public function getScoutKey()
+    {
+        return $this->user_id;
+    }
+    public function getScoutKeyName()
+    {
+        return 'user_id';
+    }
+    /**
+     * https://laravel.com/docs/7.x/scout#conditionally-searchable-model-instances
+     */
+    public function shouldBeSearchable()
+    {
+        return $this->isPublished();
     }
 }

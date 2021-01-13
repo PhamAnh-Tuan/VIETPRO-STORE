@@ -16,7 +16,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Tìm kiếm sản phẩm</h1>
+                <h4 class="page-header">Tìm kiếm sản phẩm {{$prdName}} với {{$prdCount}} sản phẩm được tìm thấy</h4>
             </div>
         </div>
         <!--/.row-->
@@ -54,14 +54,14 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>VND</td>
+                                                <td>{{ $item->prd_price }}VND</td>
                                                 <td>
                                                     <a class="btn btn-success" href="#" role="button">
                                                         @if ($item->prd_state == 1) Con
                                                         hang @else Het hang @endif
                                                     </a>
                                                 </td>
-                                                <td></td>
+                                                <td>{{ $item->Categories->cat_name }}</td>
                                                 <td>
                                                     <a href="" class="btn btn-warning"><i class="fa fa-pencil"
                                                             aria-hidden="true"></i> Sửa</a>
@@ -72,15 +72,11 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div align='right'>
-                                    <ul class="pagination">
-                                        <li class="page-item"><a class="page-link" href="#">Trở lại</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">tiếp theo</a></li>
-                                    </ul>
-                                </div>
+                                    @if (isset($string))
+                                    <div align='right'>
+                                        {{ $product->links() }}
+                                    </div>
+                                    @endif
                             </div>
                             <div class="clearfix"></div>
                         </div>

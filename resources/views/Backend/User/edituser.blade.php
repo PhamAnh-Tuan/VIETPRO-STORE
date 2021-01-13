@@ -36,7 +36,7 @@ Chỉnh sửa quản trị {{ $user->user_fullname }}
                                     <div class="form-group">
                                         <label>password</label>
                                         <input type="text" name="user_password" class="form-control"
-                                            value="{{ $user->user_password }}">
+                                            value="{{ $user->password }}">
                                     </div>
                                     {!!showError($errors, 'user_password')!!}
                                     <div class="form-group">

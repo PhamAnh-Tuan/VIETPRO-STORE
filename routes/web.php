@@ -14,6 +14,25 @@ use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+Route::get('update', function(Request $request, $id) {
+    /**
+     *
+     * https://laracasts.com/discuss/channels/laravel/scoue-how-to-get-raw-results-and-eloquent-models-together
+     */
+    // $results = collect(Order::search($id)->raw()['hits'])->first();
+     
+    // $results = collect(Order::search($id)->raw()['hits']);
+    // $models = Order::find($results->pluck('objectID'));
+    // $models->each(function ($model) use ($results) {
+    //    $data = $results->Where('objectID', $model->ord_id);
+    //    foreach ($data as $key => $value) {
+    //        echo $value->ord_fullname;
+    //    }
+    // });
+
+    
+});
+
 Route::get('agolia/{id}','Admin\User\UserController@export_id');
 Route::get('export/user/{user}', 'Admin\User\UserController@export_id');
 
@@ -30,12 +49,14 @@ Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middlew
     // Product
     Route::group(['prefix' => 'sản-phẩm', 'namespace' => 'Product'], function () {
         Route::get('danh-sách-sản-phẩm', 'ProductController@index')->name('product.index');
-        Route::get('danh-sách-sản-phẩm/{id}', 'ProductController@search')->name('product.serch');
         Route::get('thêm-mới-sản-phẩm.html', 'ProductController@create')->name('product.create');
         Route::post('thêm-mới-sản-phẩm', 'ProductController@createPOST')->name('product.createPOST');
         Route::get('chỉnh-sửa-chi-tiết-sản-phẩm/{id}', 'ProductController@edit')->name('product.edit');
         Route::post('update-san-pham/{id}', 'ProductController@editPost')->name('product.editPost');
         Route::get('xóa-sản-phẩm/{id}', 'ProductController@delete')->name('product.delete');
+
+        Route::get('search/{id}', 'ProductController@SearchById')->name('product.serch');
+        Route::get('', 'ProductController@SearchBySubmit')->name('product.searchSubmit');
        
     });
     // Category
@@ -55,6 +76,8 @@ Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middlew
         Route::post('update/{id}', 'UserController@editpost')->name('user.edit_post');
         Route::get('xóa-quản-trị/{id}', 'UserController@delete')->name('user.delete');
         Route::get('users/export/', 'UserController@export_fromview')->name('user.excel');
+        // search
+        Route::get('search/{id}', 'UserController@userSearch')->name('user.search');
     });
     // Order
     Route::group(['prefix' => 'đơn-hàng', 'namespace' => 'Order'], function () {
@@ -62,6 +85,9 @@ Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middlew
         Route::get('chi-tiết-đơn-hàng/{id}', 'OrderController@detail')->name('order.detail');
         Route::get('processed/{id}', 'OrderController@Detail_processed')->name('Detail_processed');
         Route::get('đơn-hàng-đã-hoàn-thành.html', 'OrderController@processed')->name('order.processed');
+        // serch ID
+        Route::get('','OrderController@SearchByIdSubmit')->name('order.searchSubmit');
+        Route::get('search/{id}','OrderController@SearchById');
     });
 });
 // Site
@@ -367,8 +393,8 @@ Route::group(['prefix' => 'relationship'], function () {
         /** Liên kết chính phụ: Từ đơn hàng có ID = 1, lấy chi tiết đơn hàng đó
          * https://laravel.com/docs/8.x/eloquent-relationships#one-to-many
          */
-        Route::get('/lkc-p', function () {
-            $Orders = Order::find(1);
+        Route::get('lkc-p/{id}', function ($id) {
+            $Orders = Order::find($id);
             $name = $Orders->ord_fullname;
             echo 'Khách hàng có tên ' . $Orders->ord_fullname . ' có chi tiết đơn hàng như sau: <br/>';
             foreach ($Orders->details as $item) {

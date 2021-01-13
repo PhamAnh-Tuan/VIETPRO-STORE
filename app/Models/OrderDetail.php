@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class OrderDetail extends Model
 {
+    use Searchable;
+    
     protected $table='orderdetail';
     protected $primaryKey='ord_detail_id';
     protected $fillable =[
@@ -30,5 +33,17 @@ class OrderDetail extends Model
     public function user()
     {
         return $this->belongsTo('App\User', 'foreign_key', 'other_key');
+    }
+    public function searchableAs()
+    {
+        return 'OrderDetails_index';
+    }
+    public function getScoutKey()
+    {
+        return $this->ord_detail_id;
+    }
+    public function getScoutKeyName()
+    {
+        return 'ord_detail_id';
     }
 }

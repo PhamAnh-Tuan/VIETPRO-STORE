@@ -73,7 +73,11 @@ class Products extends Model
     }
     public function getScoutKey()
     {
-        return $this->prd_id;
+        return $this->prd_name;
+    }
+      public function getScoutKeyName()
+    {
+        return 'prd_name';
     }
 
 }

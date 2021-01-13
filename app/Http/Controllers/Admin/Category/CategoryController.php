@@ -38,7 +38,7 @@ class CategoryController extends Controller
         $category->cat_slug = Str::slug($request->cat_name, '-');
         //    dd($category); 
         $category->save();
-        return redirect()->route('category.index')->with('thong-bao-cate-update', 'success');
+        return redirect()->route('category.index')->with('thong-bao-update', 'success');
     }
     function delete(Request $request, $id)
     {

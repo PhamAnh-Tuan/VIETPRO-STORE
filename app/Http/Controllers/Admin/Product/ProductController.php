@@ -13,18 +13,19 @@ use Illuminate\Http\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Redirect;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $product = Products::all();
+        $product = Products::paginate(5);
         return view('Backend.Product.listproduct', compact('product'));
+
     }
     function create()
     {
         $categories = Categories::all();
-        // $data['catelist']=Categories::all();
         return view('Backend.Product.addproduct', compact('categories'));
     }
     /** CreateProductRequest
@@ -138,9 +139,22 @@ class ProductController extends Controller
         $product->delete($id);
         return redirect()->route('product.index')->with('thong-bao', 'success');
     }
-    public function search(Request $request, $id)
+    public function SearchById($id)
     {
-        $product = Products::where('prd_id', $id)->get();
-        return view('Backend.Product.search_product',compact('product'));
+        $data = Products::where('prd_id', $id);
+        $prdCount=$data->count();
+        $prdName=$data->first()->prd_name;
+        
+        $product=Products::search($id)->where('prd_id', $id)->get();
+        return view('Backend.Product.search_product',compact('product','prdCount','prdName'));
+    }
+    public function SearchBySubmit(Request $request)
+    {
+        $data=Products::search($request->search);
+        $prdName=$request->search;
+        $prdCount = $data->get()->count();
+        $product = $data->paginate(5);
+        $string='';
+        return view('Backend.Product.search_product',compact('product','prdName','prdCount','string'));
     }
 }

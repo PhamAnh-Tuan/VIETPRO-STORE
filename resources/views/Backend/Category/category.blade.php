@@ -50,12 +50,15 @@
                                 </form>
                             </div>
                             <div class="col-md-7">
-                                <div class="alert bg-success" role="alert">
-                                    <svg class="glyph stroked checkmark">
-                                        <use xlink:href="#stroked-checkmark"></use>
-                                    </svg> Đã thêm danh mục thành công! <a href="#" class="pull-right"><span
-                                            class="glyphicon glyphicon-remove"></span></a>
-                                </div>
+                                @if(session()->has('thong-bao'))
+                                    <div class="alert bg-success" role="alert">
+                                        <svg class="glyph stroked checkmark">
+                                            <use xlink:href="#stroked-checkmark"></use>
+                                        </svg> Đã thêm danh mục thành công! <a href="{{route('category.index')}}" class="pull-right"><span
+                                                class="glyphicon glyphicon-remove"></span></a>
+                                    </div>
+                                @endif
+                                
                                 <h3 style="margin: 0;"><strong>Phân cấp Menu</strong></h3>
                                 <div class="vertical-menu">
                                     <div class="item-menu active">Danh mục </div>

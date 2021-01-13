@@ -180,5 +180,10 @@ class UserController extends Controller
         $name=$user->user_fullname;
         return Excel::download(new UserFindIDExport($id), $name.'.xlsx');
     }
+    // serch algolia
+    public function userSearch(Request $request, $id){
+        $userID = User::where('user_id', $id)->paginate(5);
+        return view('Backend.User.searchuser',compact('userID'));
+    }
 
 }
