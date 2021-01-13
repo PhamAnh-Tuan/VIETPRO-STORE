@@ -6,13 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Products;
-use App\Notifications\newOrder;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    
     // Them san pham vao gio hang
     public function AddToCart(Request $request){
         $request->quantity;
@@ -76,18 +74,6 @@ class CartController extends Controller
             $order_detail->ord_id = $order->ord_id;
             $order_detail->save();
         }
-        $data['name']=$request->name;
-        $data['address']=$request->address;
-        $data['email']=$request->email;
-        $data['phone']=$request->phone;
-        $data['total']=round(Cart::total(),0);
-        //facade notification::route('channel','link')
-        //gửi thông báo đến channel don-hang
-        $order->setSlackChannel('don-hang');
-        $order->notify(new newOrder($data));
-        // gửi thông báo đến channel nhan-vien
-        $order->setSlackChannel('nhan-vien');
-        $order->notify(new newOrder($data));
         return redirect()->route('checkoutsuccess');
     }
     // Hoan tat thanh toan
