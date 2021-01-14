@@ -65,7 +65,7 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
                                                     <div class="row">
-                                                        <div class="col-md-3"><img src="img/product/{{ $item->prd_image }}"
+                                                        <div class="col-md-3"><img src="{{asset('/uploads')}}/{{ $item->prd_image }}"
                                                                 alt="Áo đẹp" width="100px" class="thumbnail"></div>
                                                         <div class="col-md-9">
                                                             <p><strong>Mã sản phẩm : {{ $item->prd_id }}</strong></p>
@@ -81,10 +81,6 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $item->Categories->cat_name }}</td>
-                                                {{-- <td>
-                                                    {{ $item->Categories()->first()->cat_name }}
-                                                </td>
-                                                --}}
                                                 <td>
                                                     <a href="{{ route('product.edit', ['id' => $item->prd_id]) }}"
                                                         class="btn btn-warning"><i class="fa fa-pencil"
@@ -98,13 +94,7 @@
                                     </tbody>
                                 </table>
                                 <div align='right'>
-                                    <ul class="pagination">
-                                        <li class="page-item"><a class="page-link" href="#">Trở lại</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">tiếp theo</a></li>
-                                    </ul>
+                                    {{ $product->links() }}
                                 </div>
                             </div>
                             <div class="clearfix"></div>

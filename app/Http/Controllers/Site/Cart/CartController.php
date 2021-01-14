@@ -76,6 +76,10 @@ class CartController extends Controller
             $order_detail->ord_id = $order->ord_id;
             $order_detail->save();
         }
+
+        /**
+         * Lỗi khi lưu đơn hàng
+         */
         $data['name']=$request->name;
         $data['address']=$request->address;
         $data['email']=$request->email;

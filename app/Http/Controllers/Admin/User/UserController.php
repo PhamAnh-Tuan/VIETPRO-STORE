@@ -33,13 +33,10 @@ class UserController extends Controller
     }
     function create()
     {
-        // $data=DB::table('users')->get();
-        // return view('Backend.User.adduser',compact('data'));
         return view('Backend.User.adduser');
     }
     function createPost(CreateUserRequest $request)
     {
-        // dd($request->all());
         $user = new User;
         $user->user_fullname = $request->user_fullname;
         $user->user_email = $request->user_email;
@@ -50,7 +47,6 @@ class UserController extends Controller
         $user->remember_token = $request->user_address;
         $user->provider='';
         $user->provider_id='';
-        
         $user->save();
      return redirect()->route('user.index')->with('thong-bao','success');
     }
