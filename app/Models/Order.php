@@ -9,8 +9,8 @@ class Order extends Model
 {
     use Notifiable;
     protected $slackChannels= [
-        'don-hang' => 'https://hooks.slack.com/services/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',
-        'nhan-vien' => 'https://hooks.slack.com/services/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',
+        'don-hang' => 'https://hooks.slack.com/services/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',
+        'nhan-vien' => 'https://hooks.slack.com/services/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',
     ];    
     protected $slack_url = null;
     /////
