@@ -5,6 +5,17 @@ function showError($errors, $name)
         echo '<div class="alert alert-danger">' . $errors->first($name) . '</div>';
     }
 }
+function showErrorEditCategory($errors, $name)
+{
+    if ($errors->has($name)) {
+        echo '<div class="alert bg-danger" role="alert">
+                                                    <svg class="glyph stroked cancel">
+                                                        <use xlink:href="#stroked-cancel"></use>
+                                                    </svg>' . $errors->first($name) . '<a href="\VIETPRO-STORE/public/trang-quản-trị/danh-mục/danh-sách-danh-mục.html" class="pull-right"><span
+                                                            class="glyphicon glyphicon-remove"></span></a>
+                                                </div>';
+    }
+}
 /** Lấy danh mục bằng phương pháp đệ quy p-30                           Ctrl+D
  * B1: Chọn lấy tất cả cat_parent_id = 0 -> Đây là danh mục cha.
  * 
@@ -127,7 +138,7 @@ function listShop($mang, $parentId)
 {
     foreach ($mang as $key => $item) {
         $string = '';
-        
+
         if ($item['cat_parent_id'] == $parentId) {
             $string .= '<div class="panel panel-default">';
             $string .= '<div class="panel-heading" role="tab" id="headingOne">';
@@ -136,9 +147,9 @@ function listShop($mang, $parentId)
             $string .= '</h4>';
             $string .= '</div>';
             $string .= '<div id="menu' . $item['cat_id'] . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">';
-          // if ($item['cat_parent_id'] == $new_par) {
-               
-           // }
+            // if ($item['cat_parent_id'] == $new_par) {
+
+            // }
             $string .= '</div>';
             $string .= '</div>';
             $new_par = $item['cat_id'];
@@ -150,6 +161,5 @@ function listShop($mang, $parentId)
             $string .= '<ul>';
             $string .= '</div>';
         }
-       
     }
 }

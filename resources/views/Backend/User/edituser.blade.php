@@ -35,7 +35,11 @@ Chỉnh sửa quản trị {{ $user->user_fullname }}
                                     {!!showError($errors, 'user_email')!!}
                                     <div class="form-group">
                                         <label>password</label>
+<<<<<<< HEAD
+                                        <input type="text" name="user_password" class="form-control"
+=======
                                         <input type="text" name="password" class="form-control"
+>>>>>>> main
                                             value="{{ $user->password }}">
                                     </div>
                                     {!!showError($errors, 'password')!!}

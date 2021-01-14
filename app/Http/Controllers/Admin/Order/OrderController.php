@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     function index()
     {
-        $order=Order::where('ord_state', '=', '1')->get();
+        $order=Order::where('ord_state', '=', '0')->get();
         return view('Backend.Order.order',compact('order'));
     }
     function detail($id)
@@ -28,7 +28,7 @@ class OrderController extends Controller
     function Detail_processed($id)
     {
         $order = Order::find($id);
-        $order->ord_state=0;
+        $order->ord_state=1;
         $order->save();
         return redirect()->route('order.processed')->with('thong-bao','Don hang da duoc cap nhat');
     }
@@ -36,5 +36,19 @@ class OrderController extends Controller
     {
         $order_processed=Order::where('ord_state', '=', '0')->get();
         return view('Backend.Order.processed',compact('order_processed'));
+    }
+    public function SearchById(Request $request, $id)
+    {
+        // ->get thay vi first phuc vu cho tim kiem theo ten(co nhieu ten, nen su dung get)
+        // $data= Order::search($id)->where('ord_state', '1')->get();
+        $data= Order::search($id)->where('ord_id', $id)->get();
+        $data_= Order::search($id)->where('ord_id', $id)->first();
+        $name=$data_->ord_fullname;
+        return view('Backend.Order.OrderSearch',compact('data','name'));
+    }
+    public function SearchByIdSubmit(Request $request)
+    {
+        $data = Order::search($request->search)->get();
+        return view('Backend.Order.OrderSearch',compact('data'));
     }
 }

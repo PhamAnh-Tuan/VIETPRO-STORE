@@ -18,7 +18,7 @@ class OrderDetailTableSeeder extends Seeder
                 'code'=>'AS',
                 'price'=>'5000',
                 'quantity'=>'5',
-                'image'=>'ao.jpg',
+                'image'=>'ao-so-mi-trang-kem-asm836-81935533903301.jpg',
                 'ord_id'=>'1'
             ],
             [
@@ -26,7 +26,7 @@ class OrderDetailTableSeeder extends Seeder
                 'code'=>'AM',
                 'price'=>'6000',
                 'quantity'=>'2',
-                'image'=>'aomi.jpg',
+                'image'=>'ao-so-mi-hoa-tiet-den-asm1223-101916415600787.jpg',
                 'ord_id'=>'1'
             ],
             [
@@ -34,7 +34,7 @@ class OrderDetailTableSeeder extends Seeder
                 'code'=>'QA',
                 'price'=>'6000',
                 'quantity'=>'1',
-                'image'=>'quanau.jpg',
+                'image'=>'ao-so-mi-ca-ro-xam-xanh-asm1228-101994139939106.jpg',
                 'ord_id'=>'1'
             ],
             [
@@ -42,7 +42,7 @@ class OrderDetailTableSeeder extends Seeder
                 'code'=>'QA',
                 'price'=>'7000',
                 'quantity'=>'9',
-                'image'=>'aoquan.jpg',
+                'image'=>'ao-khoac.jpg',
                 'ord_id'=>'1'
             ],
             [

@@ -13,6 +13,9 @@
     <!--Icons-->
     <script src="js/lumino.glyphs.js"></script>
     <link rel="stylesheet" href="Awesome/css/all.css">
+    <!-- agolia -->
+    <link rel="stylesheet" href="{{ asset('Backend/css/agolia.css') }}">    
+
 </head>
 
 <body>
@@ -39,6 +42,8 @@
     @yield('user_add')
     @yield('user_edit')
     @yield('user_list')
+    @yield('user_search')
+
 
     @section('script')
         <!-- javascript -->

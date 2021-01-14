@@ -27,7 +27,7 @@
             }
         }
     }).on('autocomplete:selected', function(event, suggestion, dataset) {
-        window.location.href = window.location.origin + '/VIETPRO-STORE/public/trang-quản-trị/sản-phẩm/danh-sách-sản-phẩm/' + suggestion.prd_id;
+        window.location.href = window.location.origin + '/VIETPRO-STORE/public/trang-quản-trị/sản-phẩm/search/' + suggestion.prd_id;
         enterPressed = true;
     });
 })();

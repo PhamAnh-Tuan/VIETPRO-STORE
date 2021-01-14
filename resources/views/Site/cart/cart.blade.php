@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="detail-buy">
                                     <h4>Mã : {{ $item->options->code }}</h4>
-                                    <h5>{{ $item->name }} {{ $item->rowId }}</h5>
+                                    <h5>{{ $item->name }}</h5>
                                 </div>
                             </div>
                             <div class="one-eight text-center">

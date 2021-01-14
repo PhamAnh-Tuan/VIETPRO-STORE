@@ -13,18 +13,23 @@ use Illuminate\Http\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Redirect;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $product = Products::all();
+<<<<<<< HEAD
+        $product = Products::paginate(5);
+=======
+        $product = Products::paginate(10);
+>>>>>>> main
         return view('Backend.Product.listproduct', compact('product'));
+
     }
     function create()
     {
         $categories = Categories::all();
-        // $data['catelist']=Categories::all();
         return view('Backend.Product.addproduct', compact('categories'));
     }
     /** CreateProductRequest
@@ -49,7 +54,7 @@ class ProductController extends Controller
         $product->prd_image         = $request->file('image')->getClientOriginalName();
         $image                      = $request->file('image');
         $name                       = $image->getClientOriginalName();
-        $destinationPath            = public_path('/Backend/img/product');
+        $destinationPath            = public_path('/uploads/');
         $image->move($destinationPath, $name);
         /** Chưa xóa khóa vì project là 1-n
          * Vòng foreach ghi đè cat_id 
@@ -96,7 +101,7 @@ class ProductController extends Controller
         $product->prd_slug = Str::slug($request->name, '-');
         if ($request->img != '') {
             if ($product->prd_image != null) {
-                $file_old = public_path('Backend\img\product\\') . $product->prd_image;
+                $file_old = public_path('uploads\\') . $product->prd_image;
                 if (file_exists($file_old) != null) {
                     unlink($file_old);
                 }
@@ -104,7 +109,7 @@ class ProductController extends Controller
             // Upload file image
             $image = $request->file('img');
             $name = $image->getClientOriginalName();
-            $destinationPath = public_path('Backend\img\product');
+            $destinationPath = public_path('uploads');
             /** Nếu thư mục gốc đã tồn tại ảnh(của 1 sản phẩm khác cùng ảnh)
              * Lấy ramdom -> gán vào tên của ảnh được update
              * Str::replaceFirst trong đó: https://laravel.com/docs/7.x/helpers
@@ -113,7 +118,7 @@ class ProductController extends Controller
              * tham số thứ ba là tên img chờ được ramdom
              * 
              */
-            $file_old = public_path('Backend\img\product\\') . $name;
+            $file_old = public_path('uploads\\') . $name;
             if (file_exists($file_old)) {
                 $string = '0123456789';
                 $strRamdon = substr(str_shuffle(str_repeat($string, 5)), 0, 10);
@@ -138,9 +143,22 @@ class ProductController extends Controller
         $product->delete($id);
         return redirect()->route('product.index')->with('success', 'Xoá thành công');
     }
-    public function search(Request $request, $id)
+    public function SearchById($id)
     {
-        $product = Products::where('prd_id', $id)->get();
-        return view('Backend.Product.search_product',compact('product'));
+        $data = Products::where('prd_id', $id);
+        $prdCount=$data->count();
+        $prdName=$data->first()->prd_name;
+        
+        $product=Products::search($id)->where('prd_id', $id)->get();
+        return view('Backend.Product.search_product',compact('product','prdCount','prdName'));
+    }
+    public function SearchBySubmit(Request $request)
+    {
+        $data=Products::search($request->search);
+        $prdName=$request->search;
+        $prdCount = $data->get()->count();
+        $product = $data->paginate(5);
+        $string='';
+        return view('Backend.Product.search_product',compact('product','prdName','prdCount','string'));
     }
 }
