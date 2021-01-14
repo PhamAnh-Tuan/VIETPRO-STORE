@@ -3,12 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 use Laravel\Scout\Searchable;
 
 class Order extends Model
 {
     use Searchable;
 
+=======
+use Illuminate\Notifications\Notifiable;
+
+class Order extends Model
+{
+    use Notifiable;
+    protected $slackChannels= [
+        'don-hang' => 'https://hooks.slack.com/services/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',
+        'nhan-vien' => 'https://hooks.slack.com/services/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',
+    ];    
+    protected $slack_url = null;
+    /////
+>>>>>>> main
     protected $table='orders';
     protected $primaryKey='ord_id';
     protected $fillable =[
@@ -23,6 +37,7 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class,'ord_id');
     }
+<<<<<<< HEAD
 
     public function searchableAs()
     {
@@ -63,4 +78,25 @@ class Order extends Model
     //         'details',
     //     ],
     // ];
+=======
+    //// slack
+    
+    public function setSlackUrl($url){
+        $this->slack_url = $url;
+        return $this;
+    }
+    public function setSlackChannel($name){
+        if(isset($this->slackChannels[$name])){
+            $this->setSlackUrl($this->slackChannels[$name]);
+        }
+        return $this;
+    }
+    public function routeNotificationForSlack($notification){
+        if($this->slack_url === null){
+            return $this->slackChannels['don-hang'];
+        }else{
+            return $this->slack_url;
+        }
+    }
+>>>>>>> main
 }

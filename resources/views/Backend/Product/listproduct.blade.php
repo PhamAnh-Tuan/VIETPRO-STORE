@@ -28,6 +28,7 @@
                     <div class="panel-body">
                         <div class="bootstrap-table">
                             <div class="table-responsive">
+<<<<<<< HEAD
                                 @if(session()->has('thong-bao'))
                                     <div class="alert bg-success" role="alert">
                                         <svg class="glyph stroked checkmark">
@@ -36,6 +37,15 @@
                                                 class="glyphicon glyphicon-remove"></span></a>
                                     </div>
                                 @endif
+=======
+								@if (session('success'))									
+									<div class="alert bg-success" role="alert">
+										<svg class="glyph stroked checkmark">
+											<use xlink:href="#stroked-checkmark"></use>
+										</svg>{{ session('success') }}<a href="#" class="pull-right"></a>
+									</div>
+								@endif
+>>>>>>> main
                                 <a href="{{ route('product.create') }}" class="btn btn-primary">Thêm sản phẩm</a>
                                 <!-- Laravel scout + agolia -->
                                 <div style="float: right" class="aa-input-container" id="aa-input-container">
@@ -69,7 +79,7 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
                                                     <div class="row">
-                                                        <div class="col-md-3"><img src="img/product/{{ $item->prd_image }}"
+                                                        <div class="col-md-3"><img src="{{asset('/uploads')}}/{{ $item->prd_image }}"
                                                                 alt="Áo đẹp" width="100px" class="thumbnail"></div>
                                                         <div class="col-md-9">
                                                             <p><strong>Mã sản phẩm : {{ $item->prd_id }}</strong></p>
@@ -85,10 +95,6 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $item->Categories->cat_name }}</td>
-                                                {{-- <td>
-                                                    {{ $item->Categories()->first()->cat_name }}
-                                                </td>
-                                                --}}
                                                 <td>
                                                     <a href="{{ route('product.edit', ['id' => $item->prd_id]) }}"
                                                         class="btn btn-warning"><i class="fa fa-pencil"

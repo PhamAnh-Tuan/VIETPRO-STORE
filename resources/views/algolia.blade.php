@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <img src="{{asset('')}}Backend/img/product/ao-nu-so-mi-co-co-duc.jpg" alt="">
-</body>
-</html>
+Nội dung cập nhật:
+1. Category
+- Trang list+add: Bọc lại thông báo thêm thành công danh mục, đã tồn tại danh mục
+- Trang Edit: Bọc lại thông báo cập nhật, đã tồn tại danh mục
+2. Product
+- Trang danh sách sản phẩm: 
+Cấu hình lại đường dẫn ảnh
+Phân trang
+Bọc lại thông báo thẻm mới
+- Trang sửa sản phẩm

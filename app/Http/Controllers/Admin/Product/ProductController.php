@@ -19,7 +19,11 @@ class ProductController extends Controller
 {
     public function index()
     {
+<<<<<<< HEAD
         $product = Products::paginate(5);
+=======
+        $product = Products::paginate(10);
+>>>>>>> main
         return view('Backend.Product.listproduct', compact('product'));
 
     }
@@ -50,7 +54,7 @@ class ProductController extends Controller
         $product->prd_image         = $request->file('image')->getClientOriginalName();
         $image                      = $request->file('image');
         $name                       = $image->getClientOriginalName();
-        $destinationPath            = public_path('/Backend/img/product');
+        $destinationPath            = public_path('/uploads/');
         $image->move($destinationPath, $name);
         /** Chưa xóa khóa vì project là 1-n
          * Vòng foreach ghi đè cat_id 
@@ -60,7 +64,7 @@ class ProductController extends Controller
         }
         $product->save();
         $product->categoryy()->attach($request->cat_id);
-        return redirect()->route('product.index')->with('thong-bao', 'success');
+        return redirect()->route('product.index')->with('success', 'Thêm thành công');
     }
 
     function edit($id)
@@ -97,7 +101,7 @@ class ProductController extends Controller
         $product->prd_slug = Str::slug($request->name, '-');
         if ($request->img != '') {
             if ($product->prd_image != null) {
-                $file_old = public_path('Backend\img\product\\') . $product->prd_image;
+                $file_old = public_path('uploads\\') . $product->prd_image;
                 if (file_exists($file_old) != null) {
                     unlink($file_old);
                 }
@@ -105,7 +109,7 @@ class ProductController extends Controller
             // Upload file image
             $image = $request->file('img');
             $name = $image->getClientOriginalName();
-            $destinationPath = public_path('Backend\img\product');
+            $destinationPath = public_path('uploads');
             /** Nếu thư mục gốc đã tồn tại ảnh(của 1 sản phẩm khác cùng ảnh)
              * Lấy ramdom -> gán vào tên của ảnh được update
              * Str::replaceFirst trong đó: https://laravel.com/docs/7.x/helpers
@@ -114,7 +118,7 @@ class ProductController extends Controller
              * tham số thứ ba là tên img chờ được ramdom
              * 
              */
-            $file_old = public_path('Backend\img\product\\') . $name;
+            $file_old = public_path('uploads\\') . $name;
             if (file_exists($file_old)) {
                 $string = '0123456789';
                 $strRamdon = substr(str_shuffle(str_repeat($string, 5)), 0, 10);
@@ -128,16 +132,16 @@ class ProductController extends Controller
                 $product->prd_image = $strImage;
             }
             $product->save();
-            return redirect()->route('product.index')->with('thong-bao', 'success');
+            return redirect()->route('product.index')->with('success', 'Sửa thành công');
         }
         $product->save();
-        return redirect()->route('product.index')->with('thong-bao', 'success');
+        return redirect()->route('product.index')->with('success', 'Sửa thành công');
     }
     function delete($id)
     {
         $product = Products::find($id);
         $product->delete($id);
-        return redirect()->route('product.index')->with('thong-bao', 'success');
+        return redirect()->route('product.index')->with('success', 'Xoá thành công');
     }
     public function SearchById($id)
     {

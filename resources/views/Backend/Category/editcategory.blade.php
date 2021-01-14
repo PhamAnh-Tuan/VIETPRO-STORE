@@ -39,6 +39,7 @@
                                         <label for="">Tên Danh mục</label>
                                         <input type="text" class="form-control" name="cat_name" placeholder="Tên danh mục mới"
                                             value="{{ $category->cat_name }}">
+<<<<<<< HEAD
                                             @if(session()->has('thong-bao'))
                                                 <div class="alert bg-danger" role="alert">
                                                     <svg class="glyph stroked cancel">
@@ -47,11 +48,15 @@
                                                             class="glyphicon glyphicon-remove"></span></a>
                                                 </div>
                                              @endif
+=======
+                                            {!!showErrorEditCategory($errors, 'cat_name')!!}
+>>>>>>> main
                                     </div>
                                     <button type="submit" class="btn btn-primary">Sửa danh mục</button>
                                 </form>
                             </div>
                             <div class="col-md-7">
+<<<<<<< HEAD
                                 @if(session()->has('thong-bao-update'))
                                     <div class="alert bg-success" role="alert">
                                         <svg class="glyph stroked checkmark">
@@ -61,6 +66,16 @@
                                     </div>
                                 @endif
 
+=======
+                                @if(session()->has('thong-bao-categoty-update'))
+                                <div class="alert bg-success" role="alert">
+                                    <svg class="glyph stroked checkmark">
+                                        <use xlink:href="#stroked-checkmark"></use>
+                                    </svg> Đã sửa danh mục thành công! <a href="#" class="pull-right"><span
+                                            class="glyphicon glyphicon-remove"></span></a>
+                                </div>
+                                @endif
+>>>>>>> main
                                 
                                 <h3 style="margin: 0;"><strong>Phân cấp Menu</strong></h3>
                                 <div class="vertical-menu">

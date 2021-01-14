@@ -167,6 +167,9 @@ return [
 
         // Laravel Excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
+
+        //avatar User
+        Laravolt\Avatar\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -235,6 +238,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         // Laravel Excel
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        //avatar User
+        'Avatar'    => Laravolt\Avatar\Facade::class,
     ],
 
 ];

@@ -74,6 +74,7 @@
                                     <thead>
                                         <tr class="bg-primary">
                                             <th>ID</th>
+                                            <th>Avatar</th>
                                             <th>Email</th>
                                             <th>Full</th>
                                             <th>Address</th>
@@ -85,7 +86,21 @@
                                     <tbody>
                                         @foreach ($users as $key => $item)
                                             <tr>
+<<<<<<< HEAD
                                                 <td>{{ $key + 1 }}</td>
+=======
+                                                <td>{{ $key+1 }}</td>
+                                                <td>
+                                                    {{-- hiển thị avatar --}}
+                                                    @if($item -> avatar == null)
+                                                    {{-- nếu cột avatar rỗng thì tạo avatar theo tên --}}
+                                                        <img src="{{ Avatar::create($item -> user_fullname)->setDimension(40, 40)->setFontSize(20)->setShape('square')->toBase64() }}">
+                                                    @else
+                                                    {{-- nếu có thì hiển thị avatar của user --}}
+                                                        <img width="40px" height="40px" src="../uploads/avatar/{{ $item -> avatar }}">
+                                                    @endif
+                                                </td>
+>>>>>>> main
                                                 <td>{{ $item->user_email }}</td>
                                                 <td>{{ $item->user_fullname }}</td>
                                                 <td>{{ $item->user_address }}</td>
