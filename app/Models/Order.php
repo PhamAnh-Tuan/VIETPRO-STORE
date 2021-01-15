@@ -9,7 +9,7 @@ class Order extends Model
 {
     use Notifiable;
     protected $slackChannels= [
-        'don-hang' => 'https://hooks.slack.com/services/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',
+        'don-hang' => 'https://hooks.slack.com/services/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',
         'nhan-vien' => 'https://hooks.slack.com/services/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',
     ];    
     protected $slack_url = null;
