@@ -3,9 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Order extends Model
 {
+    use Notifiable;
+    protected $slackChannels= [
+        'don-hang' => 'https://hooks.slack.com/services/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',
+        'nhan-vien' => 'https://hooks.slack.com/services/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',
+    ];    
+    protected $slack_url = null;
+    /////
     protected $table='orders';
     protected $primaryKey='ord_id';
     protected $fillable =[
@@ -23,5 +31,24 @@ class Order extends Model
     public function details()
     {
         return $this->hasMany(OrderDetail::class,'ord_id');
+    }
+    //// slack
+    
+    public function setSlackUrl($url){
+        $this->slack_url = $url;
+        return $this;
+    }
+    public function setSlackChannel($name){
+        if(isset($this->slackChannels[$name])){
+            $this->setSlackUrl($this->slackChannels[$name]);
+        }
+        return $this;
+    }
+    public function routeNotificationForSlack($notification){
+        if($this->slack_url === null){
+            return $this->slackChannels['don-hang'];
+        }else{
+            return $this->slack_url;
+        }
     }
 }
