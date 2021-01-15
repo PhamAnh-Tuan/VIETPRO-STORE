@@ -8,9 +8,10 @@ use Illuminate\Notifications\Notifiable;
 class Order extends Model
 {
     use Notifiable;
+    //khi chạy thì xoá đoạn /XOA đi
     protected $slackChannels= [
-        'don-hang' => 'https://hooks.slack.com/services/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',
-        'nhan-vien' => 'https://hooks.slack.com/services/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',
+        'don-hang' => 'https://hooks.slack.com/services/XOA/T01HZ3FJSKH/B01JEC8FMQT/OxIGfe3FUksZ3r15fpUrWK6J',
+        'nhan-vien' => 'https://hooks.slack.com/services/XOA/T01HZ3FJSKH/B01JELUDTSP/nnYI1CcQbBHtXWC5vG1ggCq6',
     ];    
     protected $slack_url = null;
     /////
