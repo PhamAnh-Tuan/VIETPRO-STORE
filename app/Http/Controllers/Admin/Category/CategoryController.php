@@ -24,7 +24,7 @@ class CategoryController extends Controller
         $category->cat_slug = Str::slug($request->cat_name, '-');
         $category->cat_parent_id = $request->cat_parent_id;
         $category->save();
-        return redirect()->route('category.index')->with('thong-bao-them-moi-thanh-cong', 'succe');
+        return redirect()->route('category.index')->with('thong-bao-them-moi-thanh-cong', 'success');
     }
     function edit($id)
     {

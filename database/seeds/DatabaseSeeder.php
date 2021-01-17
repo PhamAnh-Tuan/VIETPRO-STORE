@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ProductTableSeeder::class,
             InfoTableSeeder::class,
             CateroryProductTableSeeder::class,
+            RolePermissionSeeder::class,
         ]);
     }
 }

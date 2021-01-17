@@ -1,4 +1,9 @@
 <?php
+
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
 function showError($errors, $name)
 {
     if ($errors->has($name)) {
@@ -9,11 +14,11 @@ function showErrorEditCategory($errors, $name)
 {
     if ($errors->has($name)) {
         echo '<div class="alert bg-danger" role="alert">
-                                                    <svg class="glyph stroked cancel">
-                                                        <use xlink:href="#stroked-cancel"></use>
-                                                    </svg>' . $errors->first($name) . '<a href="\VIETPRO-STORE/public/trang-quản-trị/danh-mục/danh-sách-danh-mục.html" class="pull-right"><span
-                                                            class="glyphicon glyphicon-remove"></span></a>
-                                                </div>';
+        <svg class="glyph stroked cancel">
+        <use xlink:href="#stroked-cancel"></use>
+        </svg>' . $errors->first($name) . '<a href="\VIETPRO-STORE/public/trang-quản-trị/danh-mục/danh-sách-danh-mục.html" class="pull-right"><span
+        class="glyphicon glyphicon-remove"></span></a>
+        </div>';
     }
 }
 /** Lấy danh mục bằng phương pháp đệ quy p-30                           Ctrl+D
@@ -96,6 +101,7 @@ function getCategories($array, $parentId, $char, $isParent)
 // Edit 2:00
 function listCategories($mang, $parentId, $char)
 {
+    $user = Auth::user();
     foreach ($mang as $key => $value) {
         $string = '';
         if ($value['cat_parent_id'] == $parentId) {
@@ -104,8 +110,12 @@ function listCategories($mang, $parentId, $char)
             $string .= $char . $value["cat_name"];
             $string .= "</span>";
             $string .= "<div class='category-fix'>";
+            if ($user->hasPermissionTo('edit') || $user->hasRole('super-admin')) {
             $string .= "<a class='btn-category btn-primary' href='" . route('category.edit', ['id' => $value['cat_id']]) . "'><i class='fa fa-edit'></i></a>";
+            }
+            if ($user->hasPermissionTo('delete') || $user->hasRole('super-admin')) {
             $string .= "<a class='btn-category btn-danger' href='" . route('category.delete', ['id' => $value['cat_id']]) . "'><i class='fas fa-times'></i></a>";
+            }
             $string .= "</div>";
             $string .= "</div>";
             $new_parent = $value['cat_id'];

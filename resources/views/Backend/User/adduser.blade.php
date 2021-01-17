@@ -48,8 +48,9 @@
                                     <div class="form-group">
                                         <label>Level</label>
                                             <select name="user_level" class="form-control" value="{{old('user_level')}}">
-                                                <option value="1">admin</option>
-                                                <option value="0">Quản trị viên</option>
+                                                <option value="0">User</option>
+                                                <option value="1">Admin</option>
+                                                <option value="2">Supper Admin</option>
                                             </select>
                                         {!!showError($errors, 'user_level')!!}
                                     </div>
@@ -58,7 +59,7 @@
                                     <div class="col-md-8 col-lg-8 col-lg-offset-2 text-right">
     
                                         <button class="btn btn-success" type="submit">Thêm thành viên</button>
-                                        <button class="btn btn-danger" type="reset">Huỷ bỏ</button>
+                                        <a href="{{route('user.index')}}" class="btn btn-danger" type="reset">Huỷ bỏ</a>
                                     </div>
                                 </div>
                             </form>

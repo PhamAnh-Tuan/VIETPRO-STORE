@@ -5,10 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Scout\Searchable;
+use Spatie\Permission\Traits\HasRoles;
 
 // class User extends Model 
 class User extends Authenticatable 
 {
+    //Tạo liên kết user_id tới role_id
+    use HasRoles;
+    protected $guard_name = 'web';
+    
     use Searchable;
 
     protected $table='users';

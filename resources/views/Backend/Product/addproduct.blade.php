@@ -85,7 +85,7 @@
                                     </div>
                                     {!! showError($errors, 'describer') !!}
                                     <button class="btn btn-success" name="add-product" type="submit">Thêm sản phẩm</button>
-                                    <button class="btn btn-danger" type="reset">Huỷ bỏ</button>
+                                    <a href="{{route('product.index')}}" class="btn btn-danger" type="reset">Huỷ bỏ</a>
                                 </div>
                             </div>
 
@@ -103,10 +103,10 @@
     <!--end main-->
 @section('script')
     @parent
-    <script src="js/jquery-1.11.1.min.js"></script>
+    {{-- <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/chart.min.js"></script>
-    <script src="js/chart-data.js"></script>
+    <script src="js/chart-data.js"></script> --}}
     <script>
         $(document).ready(function() {
             $(".mul-select").select2({

@@ -27,8 +27,12 @@
                             <span class="glyphicon glyphicon-signal icon-50" aria-hidden="true"></span>
                         </div>
                         <div class="col-sm-9 col-lg-8 widget-right">
+                            @hasrole('super-admin')
                             <div class="large"> đ</div>
                             <div class="text-muted">Doanh thu tháng {{$month}}</div>
+                            @else 
+                            <h4 style="color: red;">LOCK!</h4>
+                            @endhasrole
                         </div>
                     </div>
                 </div>
