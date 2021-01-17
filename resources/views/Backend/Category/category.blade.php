@@ -24,7 +24,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-5">
-                                <form action="{{ route('category.create') }}" method="post">
+                                <form action="{{route('category.create')}}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         <label for="">Danh mục cha:</label>
@@ -40,7 +40,9 @@
                                             placeholder="Tên danh mục mới">
                                             {!!showErrorEditCategory($errors, 'cat_name')!!}
                                     </div>
+                                    @can('add')
                                     <button type="submit" class="btn btn-primary">Thêm danh mục</button>
+                                    @endcan
                                 </form>
                             </div>
                             <div class="col-md-7">

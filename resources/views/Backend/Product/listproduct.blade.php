@@ -34,8 +34,10 @@
 											<use xlink:href="#stroked-checkmark"></use>
 										</svg>{{ session('success') }}<a href="#" class="pull-right"></a>
 									</div>
-								@endif
+                                @endif
+                                @can('add')
                                 <a href="{{ route('product.create') }}" class="btn btn-primary">Thêm sản phẩm</a>
+                                @endcan
                                 <!-- Laravel scout + agolia -->
                                 <div style="float: right" class="aa-input-container" id="aa-input-container">
                                     <form action="{{ route('product.searchSubmit') }}" method="get">
@@ -59,7 +61,9 @@
                                             <th>Giá sản phẩm</th>
                                             <th>Tình trạng</th>
                                             <th>Danh mục</th>
+                                            @canany(['edit','delete'])
                                             <th width='18%'>Tùy chọn</th>
+                                            @endcanany
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -78,20 +82,29 @@
                                                 </td>
                                                 <td>{{ number_format($item->prd_price, 0, '', '.') }} VND</td>
                                                 <td>
-                                                    <a class="btn btn-success" href="#" role="button">
-                                                        @if ($item->prd_state == 1) Con
-                                                        hang @else Het hang @endif
+                                                    {{-- <a class="btn btn-success" href="#" role="button"> --}}
+                                                        {!!$item->prd_state == 1 ?
+                                                    '<p class="btn btn-success">Còn hàng</p>'
+                                                    :
+                                                    '<p class="btn btn-danger">Hết hàng</p>'
+                                                    !!}
                                                     </a>
                                                 </td>
                                                 <td>{{ $item->Categories->cat_name }}</td>
+                                                @canany(['edit','delete'])
                                                 <td>
+                                                    @can('edit')
                                                     <a href="{{ route('product.edit', ['id' => $item->prd_id]) }}"
                                                         class="btn btn-warning"><i class="fa fa-pencil"
                                                             aria-hidden="true"></i> Sửa</a>
+                                                    @endcan
+                                                    @can('delete')
                                                     <a href="{{ route('product.delete', ['id' => $item->prd_id]) }}"
-                                                        class="btn btn-danger"><i class="fa fa-trash"
+                                                       onclick="return confirm('Xác nhận xóa sản phẩm: {{$item->prd_name}}');" class="btn btn-danger"><i class="fa fa-trash"
                                                             aria-hidden="true"></i> Xóa</a>
+                                                    @endcan
                                                 </td>
+                                                @endcanany
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -158,8 +171,8 @@
             </script>
             {{-- <script src="{{ asset('Backend/js/algolia.js') }}"></script> --}}
             <!-- /Laravel scout + agolia -->
-            <script src="js/jquery-1.11.1.min.js"></script>
+            {{-- <script src="js/jquery-1.11.1.min.js"></script>
             <script src="js/bootstrap.min.js"></script>
             <script src="js/chart.min.js"></script>
-            <script src="js/chart-data.js"></script>
+            <script src="js/chart-data.js"></script> --}}
         @endsection

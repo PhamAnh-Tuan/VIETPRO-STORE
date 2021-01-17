@@ -17,7 +17,9 @@ use App\Exports\UsersExport_FromView;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use \Illuminate\Support\Collection;
 
 class UserController extends Controller
 {
@@ -29,8 +31,9 @@ class UserController extends Controller
         // ORM
         $users = User::all();
         // $users = User::paginate(12); 
-        return view('Backend.User.listuser', compact('users'));
+        return view('Backend.User.listMasterUser',compact('users'));
     }
+
     function create()
     {
         return view('Backend.User.adduser');
@@ -67,7 +70,7 @@ class UserController extends Controller
         // $data['user']=User::find($id);
         // return view('Backend.User.edituser',$data);
     }
-    function editpost(EditUserRequest $request, $id)
+    function editpost(Request $request, $id)
     {
         $user = User::find($id);
         $user->user_fullname = $request->user_fullname;
@@ -84,8 +87,12 @@ class UserController extends Controller
     function delete($id)
     {
         $user = User::find($id);
-        $user->delete();
-        // dd($user);
+        //Super-admin không được tự xóa mình hoặc 1 thành viên cùng quyền
+        if ($user->hasRole('super-admin') || $user->user_level == 2) {
+            return redirect()->route('user.index')->with('err', 'Không được phép xóa');
+        } else {
+            $user->delete();
+        }
         return redirect()->route('user.index')->with('thong-bao-delete', 'succsess');
     }
 
@@ -213,5 +220,35 @@ class UserController extends Controller
         // dd($user);
         $user->save();
         return redirect()->route('user.info', ['id' => $user->user_id]);
+    }
+
+    //Gán quyền 
+    public function assign_permission(Request $request, $id)
+    {
+        //Tìm user theo id
+        $user = User::find($id); 
+        //Xóa tất cả các quyền đã tồn tại của user theo id đó
+        $user->revokePermissionTo(['edit', 'add', 'delete']); 
+        //Kiểm tra user đó có bất kỳ Role nào không
+        if ($user->hasAnyRole(['user', 'admin'])) {
+            //Gọi tên Role của user đó
+            $roles = $user->getRoleNames();
+            foreach ($roles as $key => $value) {
+                //Xóa role của user đó
+                $user->removeRole($value);
+            }
+        }
+        //Tiến hành thêm quyền khi tích vào ô checkbox
+        if ($request->add) {
+            $user->givePermissionTo('add'); //Gán quyền add
+        }
+        if ($request->edit) {
+            $user->givePermissionTo('edit'); //Gán quyền edit
+        }
+        if ($request->delete) {
+            $user->givePermissionTo('delete'); //Gán quyền delete
+        }
+
+        return redirect()->back(); //trả về trang hiện tại
     }
 }
