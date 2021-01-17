@@ -64,8 +64,4 @@ class User extends Authenticatable
     /**
      * https://laravel.com/docs/7.x/scout#conditionally-searchable-model-instances
      */
-    public function shouldBeSearchable()
-    {
-        return $this->isPublished();
-    }
 }

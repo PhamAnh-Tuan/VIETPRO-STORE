@@ -44,17 +44,6 @@
                                 </form>
                             </div>
                             <div class="col-md-7">
-<<<<<<< HEAD
-                                @if(session()->has('thong-bao'))
-                                    <div class="alert bg-success" role="alert">
-                                        <svg class="glyph stroked checkmark">
-                                            <use xlink:href="#stroked-checkmark"></use>
-                                        </svg> Đã thêm danh mục thành công! <a href="{{route('category.index')}}" class="pull-right"><span
-                                                class="glyphicon glyphicon-remove"></span></a>
-                                    </div>
-                                @endif
-                                
-=======
                                 @if(session()->has('thong-bao-them-moi-thanh-cong'))
                                 <div class="alert bg-success" role="alert">
                                     <svg class="glyph stroked checkmark">
@@ -71,7 +60,6 @@
                                             class="glyphicon glyphicon-remove"></span></a>
                                 </div>
                                 @endif
->>>>>>> main
                                 <h3 style="margin: 0;"><strong>Phân cấp Menu</strong></h3>
                                 <div class="vertical-menu">
                                     <div class="item-menu active">Danh mục </div>

@@ -47,6 +47,8 @@ class UserController extends Controller
         $user->remember_token = $request->user_address;
         $user->provider='';
         $user->provider_id='';
+        $user->avatar='';
+        
         $user->save();
      return redirect()->route('user.index')->with('thong-bao','success');
     }
@@ -64,15 +66,12 @@ class UserController extends Controller
         // Cách 3
         // $data['user']=User::find($id);
         // return view('Backend.User.edituser',$data);
-
-
     }
     function editpost(EditUserRequest $request, $id)
     {
         $user=User::find($id);
         $user->user_fullname = $request->user_fullname;
         $user->user_email = $request->user_email;
-        $user->password =$request->user_password;
         $user->user_phone = $request->user_phone;
         $user->user_level = $request->user_level;
         $user->user_address = $request->user_address;

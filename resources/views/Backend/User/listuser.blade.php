@@ -86,9 +86,6 @@
                                     <tbody>
                                         @foreach ($users as $key => $item)
                                             <tr>
-<<<<<<< HEAD
-                                                <td>{{ $key + 1 }}</td>
-=======
                                                 <td>{{ $key+1 }}</td>
                                                 <td>
                                                     {{-- hiển thị avatar --}}
@@ -100,7 +97,6 @@
                                                         <img width="40px" height="40px" src="../uploads/avatar/{{ $item -> avatar }}">
                                                     @endif
                                                 </td>
->>>>>>> main
                                                 <td>{{ $item->user_email }}</td>
                                                 <td>{{ $item->user_fullname }}</td>
                                                 <td>{{ $item->user_address }}</td>

@@ -19,11 +19,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-<<<<<<< HEAD
-        $product = Products::paginate(5);
-=======
         $product = Products::paginate(10);
->>>>>>> main
         return view('Backend.Product.listproduct', compact('product'));
 
     }

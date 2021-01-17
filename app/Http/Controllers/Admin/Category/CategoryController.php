@@ -24,7 +24,7 @@ class CategoryController extends Controller
         $category->cat_slug = Str::slug($request->cat_name, '-');
         $category->cat_parent_id = $request->cat_parent_id;
         $category->save();
-        return redirect()->route('category.index')->with('thong-bao-them-moi-thanh-cong', 'success');
+        return redirect()->route('category.index')->with('thong-bao-them-moi-thanh-cong', 'succe');
     }
     function edit($id)
     {
@@ -39,12 +39,7 @@ class CategoryController extends Controller
         $category->cat_parent_id = $request->cat_parent_id;
         $category->cat_slug = Str::slug($request->cat_name, '-');
         $category->save();
-<<<<<<< HEAD
-        return redirect()->route('category.index')->with('thong-bao-update', 'success');
-=======
         return redirect()->route('category.index')->with('thong-bao-categoty-update', 'success');
-        
->>>>>>> main
     }
     function delete(Request $request, $id)
     {

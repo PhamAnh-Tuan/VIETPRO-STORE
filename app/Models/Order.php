@@ -3,27 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-<<<<<<< HEAD
 use Laravel\Scout\Searchable;
-
-class Order extends Model
-{
-    use Searchable;
-
-=======
 use Illuminate\Notifications\Notifiable;
 
 class Order extends Model
 {
-    use Notifiable;
+    use Notifiable, Searchable;
     //khi chạy thì xoá đoạn /XOA đi
     protected $slackChannels= [
         'don-hang' => 'https://hooks.slack.com/services/XOA/T01HZ3FJSKH/B01JEC8FMQT/OxIGfe3FUksZ3r15fpUrWK6J',
         'nhan-vien' => 'https://hooks.slack.com/services/XOA/T01HZ3FJSKH/B01JELUDTSP/nnYI1CcQbBHtXWC5vG1ggCq6',
     ];    
     protected $slack_url = null;
-    /////
->>>>>>> main
     protected $table='orders';
     protected $primaryKey='ord_id';
     protected $fillable =[
@@ -38,7 +29,6 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class,'ord_id');
     }
-<<<<<<< HEAD
 
     public function searchableAs()
     {
@@ -79,7 +69,6 @@ class Order extends Model
     //         'details',
     //     ],
     // ];
-=======
     //// slack
     
     public function setSlackUrl($url){
@@ -99,5 +88,4 @@ class Order extends Model
             return $this->slack_url;
         }
     }
->>>>>>> main
 }
