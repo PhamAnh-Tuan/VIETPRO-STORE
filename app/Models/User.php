@@ -49,6 +49,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Info::class,'user_id','user_id')->where('address','=','hung yen');
     }
+
+    /**
+     * Laravel Scout
+     */
     public function searchableAs()
     {
         return 'users_index';

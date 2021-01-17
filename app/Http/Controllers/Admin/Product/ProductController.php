@@ -65,11 +65,6 @@ class ProductController extends Controller
 
     function edit($id)
     {
-        /** Cách 1
-         *  $product = Products::where('prd_id', '=', $id)->firstOrFail();
-         */
-        // $data['category'] = Categories::find($id);
-        // $data['categories'] = Categories::all();
         $product = Products::find($id);
         $categoriesData = Categories::all();
         return view('Backend.Product.editproduct', compact('product', 'categoriesData'));
@@ -139,13 +134,16 @@ class ProductController extends Controller
         $product->delete($id);
         return redirect()->route('product.index')->with('success', 'Xoá thành công');
     }
-    public function SearchById($id)
+
+    /**
+     * Laravel Scout
+     */
+    public function SearchById(Request $request, $id)
     {
-        $data = Products::where('prd_id', $id);
-        $prdCount=$data->count();
+        $data=Products::search($id)->where('prd_id', $id);
+        $product=$data->get();
+        $prdCount=$product->count();
         $prdName=$data->first()->prd_name;
-        
-        $product=Products::search($id)->where('prd_id', $id)->get();
         return view('Backend.Product.search_product',compact('product','prdCount','prdName'));
     }
     public function SearchBySubmit(Request $request)

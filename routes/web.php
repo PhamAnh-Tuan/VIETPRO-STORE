@@ -119,6 +119,7 @@ Route::group(['namespace' => 'Site'], function () {
     Route::group(['prefix' => '', 'namespace' => 'Cart'], function () {
         // them san pham vao gio hang
         Route::post('add', 'CartController@AddToCart')->name('site.cart-add');
+        Route::get('/them-gio-hang', 'CartController@AddToCartSite')->name('cart.add');
         // cap nhat gio hang
         Route::get('cart/update/{rowId}/{qty}', 'CartController@CartUpdate')->name('site.cart-update');
         // Xoa gio hang
@@ -129,7 +130,7 @@ Route::group(['namespace' => 'Site'], function () {
         Route::get('thanh-toán-đơn-hàng', 'CartController@checkout')->name('site.checkout');
         Route::post('/thanh-toan', 'CartController@CheckOutPost')->name('site.checkout-post');
         // Hoan tat thanh toan
-        Route::get('/hoan tat thanh toan', 'CartController@checkoutsuccess')->name('checkoutsuccess');
+        Route::post('/hoan-tat-thanh-toan', 'CartController@checkoutsuccess')->name('checkoutsuccess');
     });
 
     // Tim kiem theo danh muc

@@ -13,7 +13,7 @@
                         <div class="product-img" style="background-image: url(images/{{$item->prd_image}});">
                             <div class="cart">
                                 <p>
-                                    <span class=""><a href="cart.html"><i class="icon-shopping-cart"></i></a></span>
+                                    <span class=""><a href="/VIETPRO-STORE/public/them-gio-hang?id_product={{$item->prd_id}}"><i class="icon-shopping-cart"></i></a></span>
                                     <span><a href="{{route('site.detail',['slug'=>$item->prd_slug])}}"><i class="icon-eye"></i></a></span>
                                 </p>
                             </div>
