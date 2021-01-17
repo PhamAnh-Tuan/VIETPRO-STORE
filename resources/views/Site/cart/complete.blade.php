@@ -27,8 +27,8 @@
                     <span class="icon"><i class="icon-shopping-cart"></i></span>
                     <h2>Cảm ơn bạn đã mua hàng, Đơn hàng của bạn đã đặt thành công</h2>
                     <p>
-                        <a href="index.html" class="btn btn-primary">Trang chủ</a>
-                        <a href="shop.html" class="btn btn-primary btn-outline">Tiếp tục mua sắm</a>
+                        <a href="{{route('site.index')}}" class="btn btn-primary">Trang chủ</a>
+                        <a href="{{route('site.product')}}" class="btn btn-primary btn-outline">Tiếp tục mua sắm</a>
                     </p>
                 </div>
             </div>
@@ -39,19 +39,19 @@
                         <tbody>
                             <tr>
                                 <td>Đơn hàng số</td>
-                                <td>: 60235</td>
+                                <td>: </td>
                             </tr>
                             <tr>
                                 <td>Ngày mua</td>
-                                <td>: Oct 03, 2017</td>
+                                <td>: {{$data->created_at}}</td>
                             </tr>
                             <tr>
                                 <td>Tổng tiền</td>
-                                <td>: ₫ 4.000.000</td>
+                                <td>: ₫ {{$data->ord_total}}</td>
                             </tr>
                             <tr>
                                 <td>Phương thức thanh toán</td>
-                                <td>: Nhận tiền mặt</td>
+                                <td>: </td>
                             </tr>
                         </tbody>
                     </table>
@@ -62,19 +62,19 @@
                         <tbody>
                             <tr>
                                 <td>Họ Tên</td>
-                                <td>: Nguyễn Văn A</td>
+                                <td>: {{$data->ord_fullname}}</td>
                             </tr>
                             <tr>
                                 <td>Số điện thoại</td>
-                                <td>: 0123 456 789</td>
+                                <td>: {{$data->ord_phone}}</td>
                             </tr>
                             <tr>
                                 <td>Địa chỉ</td>
-                                <td>: Số nhà B8A ngõ 18 đường Võ Văn Dũng - Hoàng Cầu - Đống Đa </td>
+                                <td>: {{$data->ord_address}} </td>
                             </tr>
                             <tr>
                                 <td>Thành Phố</td>
-                                <td>: Hà Nội</td>
+                                <td>: </td>
                             </tr>
                         </tbody>
                     </table>
@@ -85,19 +85,19 @@
                         <tbody>
                             <tr>
                                 <td>Họ Tên</td>
-                                <td>: Nguyễn Văn A</td>
+                                <td>: {{$data->ord_fullname}}</td>
                             </tr>
                             <tr>
                                 <td>Số điện thoại</td>
-                                <td>: 0123 456 789</td>
+                                <td>: {{$data->ord_phone}}</td>
                             </tr>
                             <tr>
                                 <td>Địa chỉ</td>
-                                <td>: Số nhà B8A ngõ 18 đường Võ Văn Dũng - Hoàng Cầu - Đống Đa </td>
+                                <td>: {{$data->ord_address}} </td>
                             </tr>
                             <tr>
                                 <td>Thành Phố</td>
-                                <td>: Hà Nội</td>
+                                <td>: </td>
                             </tr>
                         </tbody>
                     </table>
@@ -116,25 +116,19 @@
 
                                     <div class="col-md-4 offset-md-4" align='right'>TỔNG CỘNG</div>
                                 </div>
-                                <div class="list-row d-flex justify-content-between">
-                                    <div class="col-md-4">Sản phẩm 1 : color:red ,size:XL</div>
-                                    <div class="col-md-4" align='right'>x 02</div>
-                                    <div class="col-md-4" align='right'>₫ 720.000</div>
+                                @foreach ($data->details as $item)
+                                    <div class="list-row d-flex justify-content-between">
+                                        <div class="col-md-4">{{$item->name}}</div>
+                                        <div class="col-md-4" align='right'>x {{$item->quantity}}</div>
+                                        <div class="col-md-4" align='right'>₫ {{$item->quantity*$item->price}}</div>
 
-                                </div>
-
-                                <div class="list-row d-flex justify-content-between">
-                                    <div class="col-md-4">Sản phẩm 1 : color:red ,size:XL</div>
-                                    <div class="col-md-4" align='right'>x 02</div>
-                                    <div class="col-md-4" align='right'>₫ 720.000</div>
-
-                                </div>
-
+                                    </div>
+                                @endforeach
                                 <div class="list-row border-bottom-0 d-flex justify-content-between">
                                     <div class="col-md-4">
                                         <h6>Tổng</h6>
                                     </div>
-                                    <div class="col-md-4 offset-md-4" align='right'>₫ 1.420.000</div>
+                                    <div class="col-md-4 offset-md-4" align='right'>₫ {{$data->ord_total}}</div>
                                 </div>
                             </div>
                         </div>

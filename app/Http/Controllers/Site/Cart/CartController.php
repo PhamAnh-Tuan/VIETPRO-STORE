@@ -12,35 +12,50 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    
+
     // Them san pham vao gio hang
-    public function AddToCart(Request $request){
+    public function AddToCart(Request $request)
+    {
         $request->quantity;
-        $product=Products::find($request->id_product);
+        $product = Products::find($request->id_product);
         Cart::add(
             [
-                'id' => $product->prd_code, 
-                'name' => $product->prd_name, 
-                'qty' => $request->quantity, 
-                'price' => $product->prd_price, 
-                'weight' => 0, 
-                'options' => ['image' => $product->prd_image, 'code'=>$product->prd_code]
-            ]);
-       
-       // dd($product->prd_id);
+                'id' => $product->prd_code,
+                'name' => $product->prd_name,
+                'qty' => $request->quantity,
+                'price' => $product->prd_price,
+                'weight' => 0,
+                'options' => ['image' => $product->prd_image, 'code' => $product->prd_code]
+            ]
+        );
+        return redirect()->route('site.cart');
+    }
+    public function AddToCartSite(Request $request)
+    {
+        $product = Products::find($request->id_product);
+        Cart::add(
+            [
+                'id' => $product->prd_code,
+                'name' => $product->prd_name,
+                'qty' => '1',
+                'price' => $product->prd_price,
+                'weight' => 0,
+                'options' => ['image' => $product->prd_image, 'code' => $product->prd_code]
+            ]
+        );
         return redirect()->route('site.cart');
     }
     // View don hang
     function cart()
     {
-        $data['cart']=Cart::content();
-        $data['total']=Cart::total(0,'', ',');
-        return view('Site.cart.cart',$data);
+        $data['cart'] = Cart::content();
+        $data['total'] = Cart::total(0, '', ',');
+        return view('Site.cart.cart', $data);
     }
     // Cap nhat don hang
-    function CartUpdate($rowId,$qty)
+    function CartUpdate($rowId, $qty)
     {
-        Cart::update($rowId,$qty);
+        Cart::update($rowId, $qty);
         return 200;
     }
     // Xoa don hang
@@ -52,18 +67,18 @@ class CartController extends Controller
     // Thanh toan don hang
     function checkout()
     {
-        $data['cart']=Cart::content();
-        $data['total']=Cart::total(0,'', ',');
-        return view('Site.cart.checkout',$data);
+        $data['cart'] = Cart::content();
+        $data['total'] = Cart::total(0, '', ',');
+        return view('Site.cart.checkout', $data);
     }
     function CheckOutPost(Request $request)
     {
-        $order=new Order();
-        $order->ord_fullname=$request->name;
-        $order->ord_address=$request->address;
-        $order->ord_email=$request->email;
-        $order->ord_phone=$request->phone;
-        $order->ord_total=round(Cart::total(),0);
+        $order = new Order();
+        $order->ord_fullname = $request->name;
+        $order->ord_address = $request->address;
+        $order->ord_email = $request->email;
+        $order->ord_phone = $request->phone;
+        $order->ord_total = round(Cart::total(), 0);
         $order->ord_state = 0;
         $order->save();
         foreach (Cart::content() as $key => $value) {
@@ -76,15 +91,12 @@ class CartController extends Controller
             $order_detail->ord_id = $order->ord_id;
             $order_detail->save();
         }
-
-        /**
-         * Lỗi khi lưu đơn hàng
-         */
-        $data['name']=$request->name;
-        $data['address']=$request->address;
-        $data['email']=$request->email;
-        $data['phone']=$request->phone;
-        $data['total']=round(Cart::total(),0);
+        // Thai
+        $data['name'] = $request->name;
+        $data['address'] = $request->address;
+        $data['email'] = $request->email;
+        $data['phone'] = $request->phone;
+        $data['total'] = round(Cart::total(), 0);
         //facade notification::route('channel','link')
         //gửi thông báo đến channel don-hang
         $order->setSlackChannel('don-hang');
@@ -92,10 +104,21 @@ class CartController extends Controller
         // gửi thông báo đến channel nhan-vien
         $order->setSlackChannel('nhan-vien');
         $order->notify(new newOrder($data));
-        return redirect()->route('checkoutsuccess');
+        // end Thai
+
+
+        /**
+         * checkoutsuccess
+         */
+        $OrderID = $order->ord_id;
+        $data = Order::find($OrderID);
+        return view('Site.cart.complete', compact('data'));
     }
     // Hoan tat thanh toan
-    public function checkoutsuccess(){
-        return view('Site.cart.complete');
+    public function checkoutsuccess(Request $request)
+    {
+        $dataID=$request->data;
+        $data = Order::find($dataID);
+        return view('Site.cart.complete', compact('data'));
     }
 }

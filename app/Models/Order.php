@@ -30,6 +30,9 @@ class Order extends Model
         return $this->hasMany(OrderDetail::class,'ord_id');
     }
 
+    /**
+     * Laravel Scout
+     */
     public function searchableAs()
     {
         return 'orders_index';
@@ -64,13 +67,12 @@ class Order extends Model
         // $array = $this->with("details")->where("ord_id", $this->ord_id)->first()->toArray();
         // return $array;
     }
-    // public $algoliaSettings = [
-    //     'attributesForFaceting' => [
-    //         'details',
-    //     ],
-    // ];
+    // End Laravel Scout
+
+    /**
+     * THAI
+     */
     //// slack
-    
     public function setSlackUrl($url){
         $this->slack_url = $url;
         return $this;
