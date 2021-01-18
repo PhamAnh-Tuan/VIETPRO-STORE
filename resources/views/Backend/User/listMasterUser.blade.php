@@ -66,6 +66,14 @@
                                         </div>
                                 @endif
                                 <a href="{{ route('user.create') }}" class="btn btn-primary">Thêm Thành viên</a>
+                                 {{-- Algolia --}}
+                                 <div style="float: right" class="aa-input-container" id="aa-input-container">
+                                    <input type="search" id="aa-search-input" class="aa-input-search"
+                                        placeholder="Nhập từ khóa tìm kiếm" name="search" autocomplete="off" />
+                                    <svg class="aa-input-icon"></svg>
+                                </div>
+                                {{-- /Algolia --}}
+                                
                                 <table class="table table-bordered" style="margin-top:20px;">
 
                                     <thead>
@@ -143,6 +151,50 @@
 
             </div>
             <!--end main-->
+            <!-- Laravel scout + agolia -->
+            <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
+            <script>
+                (function() {
+                    var client = algoliasearch('WKMELACEWN', 'd1d63bc0cfbc54374de3d97ca5de413f');
+                    var index = client.initIndex('users_index');
+                    var enterPressed = false;
+                    //initialize autocomplete on search input (ID selector must match)
+                    autocomplete('#aa-search-input', {
+                        hint: false
+                    }, {
+                        source: autocomplete.sources.hits(index, {
+                            hitsPerPage: 10
+                        }),
+                        //value to be displayed in input control after user's suggestion selection
+                        displayKey: 'user_fullname',
+                        //hash of templates used when rendering dataset
+                        templates: {
+                            //'suggestion' templating function used to render a single suggestion
+                            suggestion: function(suggestion) {
+                                const markup = `
+                                <div class="algolia-result">
+                                    <span>
+                                        ${suggestion._highlightResult.user_fullname.value}
+                                    </span>
+                                </div>
+                            `;
+                                return markup;
+                            },
+                            empty: function(result) {
+                                return 'Xin lỗi, chúng tôi không tìm thấy kết quả với từ khóa "' + result
+                                    .query + '"';
+                            }
+                        }
+                    }).on('autocomplete:selected', function(event, suggestion, dataset) {
+                        window.location.href = window.location.origin +
+                            '/VIETPRO-STORE/public/trang-quản-trị/quản-trị-viên/search/' + suggestion.user_id;
+                        enterPressed = true;
+                    });
+                })();
+
+            </script>
+            <!-- /Laravel scout + agolia -->
         @section('script')
             <!-- javascript -->
             <script src="js/jquery-1.11.1.min.js"></script>
