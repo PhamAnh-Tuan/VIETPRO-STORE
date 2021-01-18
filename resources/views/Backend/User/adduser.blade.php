@@ -50,7 +50,6 @@
                                             <select name="user_level" class="form-control" value="{{old('user_level')}}">
                                                 <option value="0">User</option>
                                                 <option value="1">Admin</option>
-                                                <option value="2">Supper Admin</option>
                                             </select>
                                         {!!showError($errors, 'user_level')!!}
                                     </div>
