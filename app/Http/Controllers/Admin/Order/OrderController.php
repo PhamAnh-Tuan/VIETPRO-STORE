@@ -34,7 +34,7 @@ class OrderController extends Controller
     }
     function processed()
     {
-        $order_processed=Order::where('ord_state', '=', '0')->get();
+        $order_processed=Order::where('ord_state', '=', '1')->get();
         return view('Backend.Order.processed',compact('order_processed'));
     }
     public function SearchById(Request $request, $id)

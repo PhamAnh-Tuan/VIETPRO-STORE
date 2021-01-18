@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/custome.css">
 
-
+    <!-- agolia -->
+    <link rel="stylesheet" href="{{ asset('fontend/css/algolia.css') }}">  
 
 </head>
 

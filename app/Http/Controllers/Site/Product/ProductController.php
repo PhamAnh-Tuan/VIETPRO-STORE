@@ -34,4 +34,19 @@ class ProductController extends Controller
         $data['products'] = Products::whereBetween('prd_price', $price)->paginate(10);
         return view('Site.product.shop', $data);
     }
+    function productSearch($name,$id){
+       
+       $data=Products::search($id)->where('prd_id', $id);
+       $products=$data->get();
+       $categories = Categories::all();
+        return view('Site.product.productSearch',compact('products','name','categories'));
+    }
+    function productSearchSubmit(Request $request){
+        $data=Products::search($request->search);
+        $products = $data->paginate(5);
+        $name=$request->search;
+        $categories = Categories::all();
+        $string='';
+        return view('Site.product.productSearch',compact('products','name','categories'));
+    }
 }

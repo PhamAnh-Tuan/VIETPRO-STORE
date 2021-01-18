@@ -66,6 +66,7 @@ Route::group(['prefix' => 'trang-quản-trị', 'namespace' => 'Admin', 'middlew
         Route::get('chỉnh-sửa-danh-mục/{id}', 'CategoryController@edit')->middleware('can:edit')->name('category.edit');
         Route::post('chỉnh-sửa-danh-mục-post/{id}', 'CategoryController@editPost')->middleware('can:edit')->name('category.editPOST');
         Route::get('xóa-danh-mục/{id}', 'CategoryController@delete')->middleware('can:delete')->name('category.delete');
+        Route::get('search/{id}', 'CategoryController@Search')->middleware('can:delete')->name('category.Search');
     });
     // Users
     Route::group(['prefix' => 'quản-trị-viên', 'namespace' => 'User', 'middleware'=>['role:super-admin']], function () {
@@ -112,11 +113,17 @@ Route::group(['namespace' => 'Site'], function () {
     Route::get('về-cửa-hàng', 'SiteController@about')->name('site.about');
     Route::get('liên-hệ', 'SiteController@contact')->name('site.contact');
     // Product
-    Route::group(['prefix' => 'sản-phẩm', 'namespace' => 'Product'], function () {
-        Route::get('', 'ProductController@shop')->name('site.product');
+    Route::group(['prefix' => 'san-pham', 'namespace' => 'Product'], function () {
+        Route::get('/cua-hang', 'ProductController@shop')->name('site.product');
         Route::get('{slug}.html', 'ProductController@detail')->name('site.detail');
         Route::post('/finter', 'ProductController@finter')->name('site.finter');
+        Route::get('/{name}/{id}', 'ProductController@productSearch')->name('site.productSearch');
+        Route::get('', 'ProductController@productSearchSubmit')->name('site.productSearchSubmit');
+
+       
+
     });
+
     // Cart
     Route::group(['prefix' => '', 'namespace' => 'Cart'], function () {
         // them san pham vao gio hang

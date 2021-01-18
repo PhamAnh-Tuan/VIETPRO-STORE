@@ -1,6 +1,6 @@
 @extends('Site.Master.site')
 @section('title')
-    Danh sach san pham
+    Tìm kiếm {{$name}}
 @endsection
 @section('shop')
 
@@ -11,32 +11,32 @@
                 <div class="col-md-9 col-md-push-3">
                     <div class="row row-pb-lg">
                         @foreach ($products as $item)
-                            <div class="col-md-4 text-center">
-                                <div class="product-entry">
-                                    <div class="product-img" style="background-image: url(images/{{ $item->prd_image }});">
-                                        <div class="cart">
-                                            <p>
-                                                <span class="addtocart"><a
-                                                        href="/VIETPRO-STORE/public/them-gio-hang?id_product={{ $item->prd_id }}"><i
-                                                            class="icon-shopping-cart"></i></a></span>
-                                                <span><a href="{{ route('site.detail', ['slug' => $item->prd_slug]) }}"><i
-                                                            class="icon-eye"></i></a></span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="desc">
-                                        <h3><a href="detail.html">{{ $item->prd_name }}</a></h3>
-                                        <p class="price"><span>{{ number_format($item->prd_price, 0, '', '.') }} đ</span>
+                        <div class="col-md-4 text-center">
+                            <div class="product-entry">
+                                <div class="product-img"
+                                    style="background-image: url(images/{{$item->prd_image}});">
+                                    <div class="cart">
+                                        <p>
+                                            <span class="addtocart"><a href="/VIETPRO-STORE/public/them-gio-hang?id_product={{$item->prd_id}}"><i
+                                                        class="icon-shopping-cart"></i></a></span>
+                                            <span><a href="{{route('site.detail',['slug'=>$item->prd_slug])}}"><i class="icon-eye"></i></a></span>
                                         </p>
                                     </div>
                                 </div>
+                                <div class="desc">
+                                    <h3><a href="detail.html">{{$item->prd_name}}</a></h3>
+                                    <p class="price"><span>{{number_format($item->prd_price,0,'','.')}} đ</span></p>
+                                </div>
                             </div>
+                        </div>
                         @endforeach
-
+                        
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            {{ $products->links() }}
+                            @if (isset($string))
+                                {{ $products->links() }}
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -51,19 +51,18 @@
                     </div>
                     <!-- /Laravel scout + agolia -->
                     <div class="sidebar">
-
+                        
                         <div class="side">
 
                             <h2>Danh mục</h2>
                             <div class="fancy-collapse-panel">
                                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                    @foreach ($categories as $item)
+                                     @foreach ($categories as $item)
                                         @if ($item->cat_parent_id == 0)
                                             <div class="panel panel-default">
                                                 <div class="panel-heading" role="tab" id="headingOne">
                                                     <h4 class="panel-title">
-                                                        {{-- accordion bootstrap
-                                                        --}}
+                                                        {{-- accordion bootstrap --}}
                                                         <a data-toggle="collapse" data-parent="#accordion"
                                                             href="#menu{{ $item->cat_id }}" aria-expanded="true"
                                                             aria-controls="collapseOne"> {{ $item->cat_name }}
@@ -77,8 +76,7 @@
                                                             @foreach ($categories as $children)
                                                                 @if ($children->cat_parent_id == $item->cat_id)
                                                                     <li>
-                                                                        <a
-                                                                            href="{{ route('site.category', ['slug' => $children->cat_slug]) }}">{{ $children->cat_name }}</a>
+																		<a href="{{route('site.category',['slug'=>$children->cat_slug])}}">{{ $children->cat_name }}</a>
                                                                     </li>
                                                                 @endif
                                                             @endforeach
@@ -93,7 +91,7 @@
                         </div>
                         <div class="side">
                             <h2>Khoảng giá</h2>
-                            <form action="{{ route('site.finter') }}" method="post" class="colorlib-form-2">
+                            <form action="{{route('site.finter')}}" method="post" class="colorlib-form-2">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-12">
