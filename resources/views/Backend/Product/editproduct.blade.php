@@ -101,13 +101,22 @@
     </div>
 
     <!--end main-->
+    @section('script')
+    @parent
     {{-- <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/chart.min.js"></script>
     <script src="js/chart-data.js"></script> --}}
+    <script>
+        $(document).ready(function() {
+            $(".mul-select").select2({
+                placeholder: "Chon danh muc", //placeholder
+                tags: true,
+                tokenSeparators: ['/', ',', ';', " "]
+            });
+        })
 
-
-
+    </script>
     <script>
         function changeImg(input) {
             //Nếu như tồn thuộc tính file, đồng nghĩa người dùng đã chọn file mới
@@ -128,4 +137,8 @@
         });
 
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+@endsection
 @endsection
