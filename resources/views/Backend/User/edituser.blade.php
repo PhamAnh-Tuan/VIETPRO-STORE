@@ -58,8 +58,6 @@ Chỉnh sửa quản trị {{ $user->user_fullname }}
                                                 @endif value="0" >User</option>
                                             <option @if ($user->user_level == 1) selected
                                                 @endif value="1" >Admin</option>
-                                            <option @if ($user->user_level == 2) selected
-                                                @endif value="2" >Super Admin</option>
                                         </select>
                                     </div>
                                 </div>

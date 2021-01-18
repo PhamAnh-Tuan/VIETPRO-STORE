@@ -51,7 +51,14 @@ class UserController extends Controller
         $user->provider = '';
         $user->provider_id = '';
         $user->avatar = '';
-
+        // Kiểm tra user và gán Role(chức vụ)
+        if ($user->user_level == 0) {
+            $user->assignRole('user');
+        }
+        if ($user->user_level == 1) {
+            $user->assignRole('admin');
+        }
+        //
         $user->save();
         return redirect()->route('user.index')->with('thong-bao', 'success');
     }
@@ -81,13 +88,28 @@ class UserController extends Controller
         $user->remember_token = $request->user_address;
         $user->provider = '';
         $user->provider_id = '';
+        //Xóa toàn bộ quyền
+        $user->revokePermissionTo(['add', 'edit', 'delete']);
+        //Kiểm tra xem nếu không phải super-admin thì tiến hành xóa Role theo user đó
+        if ($user->hasAnyRole(['user', 'admin'])) {
+            $roles = $user->getRoleNames();
+            foreach ($roles as $key => $value) {
+                $user->removeRole($value);
+            }
+        }
+        // Thiết lập lại mặc định user theo những quyền cố định đã định nghĩa
+        if ($user->user_level == 0) {
+            $user->assignRole('user');
+        } if ($user->user_level == 1) {
+            $user->assignRole('admin');
+        }
         $user->save();
         return redirect()->route('user.index')->with('thong-bao-update', 'success');
     }
     function delete($id)
     {
         $user = User::find($id);
-        //Super-admin không được tự xóa mình hoặc 1 thành viên cùng quyền
+        //Super-admin không được tự xóa chính mình.
         if ($user->hasRole('super-admin') || $user->user_level == 2) {
             return redirect()->route('user.index')->with('err', 'Không được phép xóa');
         } else {
