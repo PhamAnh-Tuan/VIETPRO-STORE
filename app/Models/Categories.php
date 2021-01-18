@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Categories extends Model
 {
+    use Searchable;
     protected $table = 'categories';
     protected $primaryKey = 'cat_id';
     protected $fillable =
@@ -18,7 +20,7 @@ class Categories extends Model
 
     public function Products()
     {
-        return $this->hasMany('App\Product', 'cat_id');
+        return $this->hasMany(Products::class, 'cat_id');
     }
 
     public function Productss()
@@ -33,4 +35,19 @@ class Categories extends Model
         return $this->hasMany(Products::class, 'cat_id','cat_id');
     }
 
+    /**
+     * Algolia
+     */
+    public function searchableAs()
+    {
+        return 'category_index';
+    }
+    public function getScoutKey()
+    {
+        return $this->cat_id;
+    }
+    public function getScoutKeyName()
+    {
+        return 'cat_id';
+    }
 }

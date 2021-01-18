@@ -43,6 +43,7 @@
     @yield('user_edit')
     @yield('user_list')
     @yield('user_search')
+    @yield('Category_search')
 
 
     @section('script')

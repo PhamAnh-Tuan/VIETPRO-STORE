@@ -129,21 +129,19 @@
             <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
             <script>
                 (function() {
-                    var client = algoliasearch('WKMELACEWN', 'd1d63bc0cfbc54374de3d97ca5de413f');
+                    var client = algoliasearch('WKMELACEWN', 'c3e198de17c44f9703f94af6adf6460e');
                     var index = client.initIndex('products_index');
                     var enterPressed = false;
-                    //initialize autocomplete on search input (ID selector must match)
                     autocomplete('#aa-search-input', {
                         hint: false
                     }, {
+                        // cau hinh hien thi
                         source: autocomplete.sources.hits(index, {
-                            hitsPerPage: 10
+                            hitsPerPage: 1
                         }),
-                        //value to be displayed in input control after user's suggestion selection
                         displayKey: 'prd_name',
-                        //hash of templates used when rendering dataset
                         templates: {
-                            //'suggestion' templating function used to render a single suggestion
+                            // hien thi de xuat
                             suggestion: function(suggestion) {
                                 const markup = `
                             <div class="algolia-result">
@@ -169,10 +167,4 @@
                 })();
 
             </script>
-            {{-- <script src="{{ asset('Backend/js/algolia.js') }}"></script> --}}
-            <!-- /Laravel scout + agolia -->
-            {{-- <script src="js/jquery-1.11.1.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="js/chart.min.js"></script>
-            <script src="js/chart-data.js"></script> --}}
         @endsection

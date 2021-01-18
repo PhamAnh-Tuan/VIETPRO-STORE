@@ -10,8 +10,10 @@ use App\Models\Categories;
 use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\Calculation\Category;
 
+
 class CategoryController extends Controller
 {
+    
     public function index()
     {
         $category = Categories::all();
@@ -51,5 +53,13 @@ class CategoryController extends Controller
             $category->delete();
         }
         return redirect()->route('category.index')->with('thong-bao-cate-update', 'success');
+    }
+    function Search($id)
+    {
+        $data=Categories::where('cat_id', $id)->first();
+        $category=$data->Products()->get();
+        $catCount=$category->count();
+        $catName=$data->cat_name;
+       return view('Backend.Category.search-categories',compact('category','catCount','catName'));
     }
 }

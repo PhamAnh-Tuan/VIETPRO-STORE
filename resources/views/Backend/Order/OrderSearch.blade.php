@@ -40,7 +40,7 @@
                                             <td>{{$item->ord_phone}}</td>
                                             <td>{{$item->ord_address}}</td>
                                             <td>
-                                                @if ($item->ord_state==1)
+                                                @if ($item->ord_state==0)
                                                 <a href="{{route('order.detail',['id'=>$item->ord_id])}}" class="btn btn-warning"><i class="fa fa-pencil"
                                                     aria-hidden="true"></i>Xử lý</a>
                                                 @else
